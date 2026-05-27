@@ -46,9 +46,11 @@
   <link rel="stylesheet" href="styles.css" />
 
   <meta name="theme-color" content="#F7F3EC" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#1A1E23" media="(prefers-color-scheme: dark)" />
 </head>
 <body>
+
+  <a href="#top" class="skip-link">Skip to content</a>
 
   <!-- ====================================================
        Header
@@ -67,7 +69,7 @@
     <a href="#beta-signup" class="btn btn-outline header-cta">Join the Open Beta</a>
   </header>
 
-  <main id="top">
+  <main id="top" role="main">
 
     <!-- ====================================================
          Hero
@@ -134,8 +136,8 @@
                 Settings
               </span>
             </aside>
-            <main class="desktop-mock__main">
-              <h2 class="desktop-mock__title-main">Library</h2>
+            <div class="desktop-mock__main">
+              <span class="desktop-mock__title-main">Library</span>
               <div class="desktop-mock__chips">
                 <span class="desktop-mock__chip desktop-mock__chip--active">All</span>
                 <span class="desktop-mock__chip">Links</span>
@@ -198,7 +200,7 @@
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </span>
               </div>
-            </main>
+            </div>
           </div>
         </div>
       </div>
@@ -208,9 +210,10 @@
          How it works (4-col highlights)
          ==================================================== -->
     <section id="how-it-works" class="highlights container">
+      <h2 class="sr-only">How it works</h2>
       <div class="highlights-card">
         <div class="highlight">
-          <span class="highlight__icon">
+          <span class="highlight__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           </span>
           <div>
@@ -219,7 +222,7 @@
           </div>
         </div>
         <div class="highlight">
-          <span class="highlight__icon">
+          <span class="highlight__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
           </span>
           <div>
@@ -228,7 +231,7 @@
           </div>
         </div>
         <div class="highlight">
-          <span class="highlight__icon">
+          <span class="highlight__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </span>
           <div>
@@ -237,7 +240,7 @@
           </div>
         </div>
         <div class="highlight">
-          <span class="highlight__icon">
+          <span class="highlight__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </span>
           <div>
@@ -482,7 +485,7 @@
     <section class="privacy-band container">
       <div class="privacy-band__card">
         <div class="privacy-band__pitch">
-          <span class="privacy-band__icon">
+          <span class="privacy-band__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
           </span>
           <div>

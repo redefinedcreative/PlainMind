@@ -117,6 +117,10 @@
 
   --container-max: 1200px;
   --section-pad: clamp(48px, 7vh, 88px);
+
+  /* Motion easings (see Animation primitives section) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);   /* entrances / transitions — calm */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);     /* active-state changes */
 }
 
 /* ===========================================================
@@ -210,6 +214,114 @@ button { font: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .skip-link { transition: none; }
+}
+
+/* ===========================================================
+   Animation primitives — systemic, reusable motion library
+   -----------------------------------------------------------
+   Trigger model (composable):
+     • Put `.anim-host` on the container (a feature mockup). It is also
+       the element the IntersectionObserver tags with `.in-view`.
+     • Put an `.anim-*` class on the child element(s) to animate.
+   Looping/entrance animations are PAUSED by default and run when:
+     • desktop (>=769px): the parent `.anim-host` is hovered
+     • mobile  (<=768px): the parent `.anim-host` has `.in-view`
+   `.anim-tap-ripple` is one-shot, fired by adding `.firing` via JS.
+   `.anim-chip-slide` is transition-driven via --slide-x / --slide-w.
+   All motion is disabled under prefers-reduced-motion.
+   =========================================================== */
+
+@keyframes pm-pulse-glow {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 var(--accent-soft); }
+  50%      { transform: scale(1.06); box-shadow: 0 0 20px 4px var(--accent-soft); }
+}
+@keyframes pm-fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pm-fade-cycle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.12; }
+}
+@keyframes pm-tap-ripple {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.55; }
+  100% { transform: translate(-50%, -50%) scale(14); opacity: 0; }
+}
+
+/* Looping pulse + glow (e.g. PlainMind share icon, iCloud sync icon).
+   Resting state is scale(1); base element style shows through until triggered. */
+.anim-pulse-glow {
+  animation: pm-pulse-glow 3s var(--ease-standard) infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+
+/* One-shot entrance flourish. Base style = visible end-state (fill-mode none),
+   so content reads complete pre-trigger and replays the entrance on trigger. */
+.anim-fade-in-up {
+  animation: pm-fade-in-up 0.6s var(--ease-out-expo);
+  animation-play-state: paused;
+}
+
+/* Composable visibility pulse for cycling sets (e.g. library filter results).
+   Feature code adds per-child `animation-delay` for stagger. */
+.anim-fade-cycle {
+  animation: pm-fade-cycle 1.5s var(--ease-standard) infinite;
+  animation-play-state: paused;
+}
+
+/* Circular ripple from element center, one-shot. Fired by toggling `.firing`. */
+.anim-tap-ripple { position: relative; }
+.anim-tap-ripple::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+.anim-tap-ripple.firing::after {
+  animation: pm-tap-ripple 0.7s var(--ease-out-expo);
+}
+
+/* Sliding active-chip highlight. Feature sets --slide-x / --slide-w; the
+   transition does the gliding. (The moving element sits behind the chips.) */
+.anim-chip-slide {
+  transform: translateX(var(--slide-x, 0));
+  width: var(--slide-w, auto);
+  transition: transform 0.5s var(--ease-standard), width 0.5s var(--ease-standard);
+}
+
+/* Triggers ------------------------------------------------- */
+@media (min-width: 769px) {
+  .anim-host:hover .anim-pulse-glow,
+  .anim-host:hover .anim-fade-in-up,
+  .anim-host:hover .anim-fade-cycle {
+    animation-play-state: running;
+  }
+}
+@media (max-width: 768px) {
+  .anim-host.in-view .anim-pulse-glow,
+  .anim-host.in-view .anim-fade-in-up,
+  .anim-host.in-view .anim-fade-cycle {
+    animation-play-state: running;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-pulse-glow,
+  .anim-fade-in-up,
+  .anim-fade-cycle,
+  .anim-chip-slide,
+  .anim-tap-ripple::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* Light/dark image swap based on theme */

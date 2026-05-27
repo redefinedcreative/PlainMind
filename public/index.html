@@ -482,7 +482,7 @@
           <a href="#beta-signup" class="learn-more">Learn more <span aria-hidden="true">→</span></a>
         </div>
         <div class="feature-block__visual">
-          <div class="phone-mock phone-mock--map" aria-hidden="true">
+          <div class="phone-mock phone-mock--settings anim-host" aria-hidden="true">
             <div class="phone-mock__notch"></div>
             <div class="phone-mock__screen">
               <div class="status-bar">
@@ -492,20 +492,31 @@
                   <svg viewBox="0 0 24 12" width="22" height="11"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
                 </span>
               </div>
-              <div class="mock-map">
-                <div class="mock-map__bg">
-                  <span class="mock-map__pin" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="28" height="28"><path fill="#C73838" d="M12 2a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-                  </span>
-                </div>
-                <div class="mock-map__card">
-                  <h4>Yosemite National Park</h4>
-                  <p class="mock-map__meta">California, USA</p>
-                  <div class="mock-map__buttons">
-                    <span class="mock-map__btn">↗ Directions</span>
-                    <span class="mock-map__btn">⌕ Website</span>
-                  </div>
-                </div>
+              <div class="set-header">Settings</div>
+              <div class="set-section">iCloud Sync</div>
+              <div class="set-card">
+                <span class="set-card__icon anim-pulse-glow"><svg class="icon"><use href="assets/icons.svg#icon-icloud" /></svg></span>
+                <span class="set-card__text">
+                  <span class="set-card__title">Synced across devices</span>
+                  <span class="set-card__sub">Last updated just now</span>
+                </span>
+              </div>
+              <div class="set-row">
+                <span>Storage used</span>
+                <span class="set-row__val">47.2 MB</span>
+              </div>
+              <div class="set-section">Your Library</div>
+              <div class="set-row set-row--tap">
+                <span class="set-row__lead"><svg class="icon"><use href="assets/icons.svg#icon-stats" /></svg> Stats</span>
+                <span class="set-row__right">
+                  <span class="stats-badge"><span class="stats-badge__num"></span> saves</span>
+                  <svg class="icon set-chevron"><use href="assets/icons.svg#icon-chevron" /></svg>
+                </span>
+              </div>
+              <div class="mock-tabbar">
+                <span class="mock-tab"><svg class="icon"><use href="assets/icons.svg#icon-library" /></svg>Library</span>
+                <span class="mock-tab mock-tab--active"><svg class="icon"><use href="assets/icons.svg#icon-settings" /></svg>Settings</span>
+                <span class="mock-fab"><svg class="icon"><use href="assets/icons.svg#icon-search" /></svg></span>
               </div>
             </div>
           </div>

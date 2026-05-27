@@ -1379,6 +1379,100 @@ button { font: inherit; }
 }
 
 /* ===========================================================
+   F.4 — Settings (Calm Private Space)
+   =========================================================== */
+.phone-mock--settings .phone-mock__screen { gap: 4px; }
+.set-header {
+  font-family: "New York", Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 17px;
+  text-align: center;
+  color: var(--phone-screen-text);
+  padding: 2px 0;
+}
+.set-section {
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--phone-screen-meta);
+  padding: 6px 8px 2px;
+}
+.set-card {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 6px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--phone-screen-chip-bg);
+}
+.set-card__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.set-card__icon .icon { width: 18px; height: 18px; }
+.set-card__text { display: flex; flex-direction: column; gap: 1px; }
+.set-card__title { font-size: 10.5px; font-weight: 600; color: var(--phone-screen-text); }
+.set-card__sub { font-size: 9px; color: var(--phone-screen-meta); }
+.set-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 6px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: var(--phone-screen-chip-bg);
+  font-size: 10.5px;
+  color: var(--phone-screen-text);
+}
+.set-row__val { color: var(--phone-screen-meta); }
+.set-row__lead { display: inline-flex; align-items: center; gap: 7px; }
+.set-row__lead .icon { width: 15px; height: 15px; color: var(--accent); }
+.set-row__right { display: inline-flex; align-items: center; gap: 6px; }
+.set-chevron { width: 13px; height: 13px; color: var(--phone-screen-meta); }
+.stats-badge {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
+
+/* CSS-only count-up 0→247 (no JS). Rest shows 247; animates up on trigger. */
+@property --pm-count {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+.stats-badge__num {
+  --pm-count: 247;
+  counter-reset: pmcount var(--pm-count);
+  animation: pm-count-up 2s var(--ease-out-expo);
+  animation-play-state: paused;
+}
+.stats-badge__num::after { content: counter(pmcount); }
+@keyframes pm-count-up { from { --pm-count: 0; } to { --pm-count: 247; } }
+
+@media (min-width: 769px) {
+  .anim-host:hover .stats-badge__num { animation-play-state: running; }
+}
+@media (max-width: 768px) {
+  .anim-host.in-view .stats-badge__num { animation-play-state: running; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stats-badge__num { animation: none !important; --pm-count: 247; }
+}
+
+/* ===========================================================
    Phone mockup: Search
    =========================================================== */
 .mock-search-bar {

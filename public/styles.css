@@ -37,6 +37,15 @@
   --highlight: var(--soft-amber);
   --input-border: rgba(44, 49, 54, 0.16);
 
+  /* Filter-type colors (locked — match the app content-type palette) */
+  --filter-link:    #5F8FA0;  /* steel teal */
+  --filter-image:   #9985A8;  /* dusty lavender */
+  --filter-pdf:     #B86060;  /* warm terracotta */
+  --filter-text:    #BC9050;  /* muted ochre */
+  --filter-podcast: #6E7DA8;  /* muted indigo */
+  --filter-place:   #6EA86E;  /* sage */
+  --filter-music:   linear-gradient(135deg, #FA8FBC 0%, #FF5478 50%, #FF8A3D 100%);
+
   /* Shadows */
   --icon-shadow: 0 1px 4px rgba(44, 49, 54, 0.08);
   --phone-shadow: 0 30px 60px rgba(44, 49, 54, 0.18), 0 10px 20px rgba(44, 49, 54, 0.08);
@@ -78,6 +87,15 @@
   --accent-soft: rgba(143, 197, 198, 0.14);
   --highlight: var(--soft-amber);
   --input-border: rgba(255, 255, 255, 0.14);
+
+  /* Filter-type colors — lightened for contrast on the dark background */
+  --filter-link:    #7FA9B8;
+  --filter-image:   #B3A1C0;
+  --filter-pdf:     #D08585;
+  --filter-text:    #D2AC72;
+  --filter-podcast: #93A0C9;
+  --filter-place:   #8CC48C;
+  --filter-music:   linear-gradient(135deg, #FFA6C9 0%, #FF6E8E 50%, #FFA055 100%);
 
   --icon-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   --phone-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), 0 10px 20px rgba(0, 0, 0, 0.35);
@@ -156,6 +174,17 @@ body {
 body > main { flex: 1 0 auto; }
 
 img, svg { display: block; max-width: 100%; height: auto; }
+
+/* Inline icon from the sprite: <svg class="icon"><use href="assets/icons.svg#icon-x"/></svg>
+   Inherits `color` (stroke/fill use currentColor), so chips/sections tint by
+   setting color (e.g. color: var(--filter-link)). Size via font-size or overrides. */
+.icon {
+  width: 1.25em;
+  height: 1.25em;
+  display: inline-block;
+  vertical-align: -0.15em;
+  flex: none;
+}
 
 ::selection {
   background: rgba(229, 178, 78, 0.32);

@@ -1307,6 +1307,78 @@ button { font: inherit; }
 }
 
 /* ===========================================================
+   F.3 — Powerful Search empty state
+   =========================================================== */
+.phone-mock--search .phone-mock__screen { gap: 4px; }
+.qs-header {
+  font-family: "New York", Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--accent);
+  padding: 2px 6px 1px;
+}
+.qs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 6px; }
+.qs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 9px;
+  border-radius: 10px;
+  background: var(--phone-screen-chip-bg);
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--phone-screen-text);
+}
+.qs-card .icon { width: 15px; height: 15px; color: var(--accent); }
+.recent-header { font-size: 9px; font-weight: 600; color: var(--phone-screen-meta); padding: 5px 6px 0; }
+.recent-list { list-style: none; margin: 0; padding: 0 6px; display: flex; flex-direction: column; }
+.recent-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 2px;
+  font-size: 10px;
+  color: var(--phone-screen-text);
+  border-bottom: 0.5px solid var(--phone-screen-divider);
+}
+.recent-list .recent-row:last-child { border-bottom: none; }
+.recent-row__x { color: var(--phone-screen-meta); font-size: 9px; }
+
+.search-input {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: auto 6px 0;
+  padding: 7px 10px;
+  background: var(--phone-screen-chip-bg);
+  border-radius: 10px;
+  font-size: 11px;
+}
+.search-input .icon { width: 14px; height: 14px; color: var(--phone-screen-meta); }
+.search-input__ph { flex: 1; color: var(--phone-screen-meta); }
+.search-input__x { color: var(--phone-screen-meta); font-size: 10px; }
+
+.kb-hint { display: flex; flex-direction: column; gap: 4px; padding: 6px 6px 2px; }
+.kb-row { height: 13px; border-radius: 4px; background: repeating-linear-gradient(90deg, var(--phone-screen-chip-bg) 0 16px, transparent 16px 20px); }
+.kb-row--2 { margin: 0 8px; }
+.kb-row--3 { margin: 0 22px; }
+
+.mock-fab--active { box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* Sequence: ripple on "Recently saved" → it goes selected → recent rows fade-in-up
+   (staggered). One-shot; .anim-fade-in-up runs via the primitives' host trigger. */
+.recent-list .recent-row:nth-child(1) { animation-delay: 0.45s; }
+.recent-list .recent-row:nth-child(2) { animation-delay: 0.6s; }
+.recent-list .recent-row:nth-child(3) { animation-delay: 0.75s; }
+@media (min-width: 769px) {
+  .anim-host:hover .qs-card--recent { background: var(--accent-soft); color: var(--accent); }
+  .anim-host:hover .qs-card--recent .icon { color: var(--accent); }
+}
+@media (max-width: 768px) {
+  .anim-host.in-view .qs-card--recent { background: var(--accent-soft); color: var(--accent); }
+}
+
+/* ===========================================================
    Phone mockup: Search
    =========================================================== */
 .mock-search-bar {

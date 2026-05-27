@@ -413,7 +413,7 @@
 
       <article class="feature-block feature-block--image-left">
         <div class="feature-block__visual">
-          <div class="phone-mock phone-mock--search" aria-hidden="true">
+          <div class="phone-mock phone-mock--search anim-host" aria-hidden="true">
             <div class="phone-mock__notch"></div>
             <div class="phone-mock__screen">
               <div class="status-bar">
@@ -423,35 +423,46 @@
                   <svg viewBox="0 0 24 12" width="22" height="11"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
                 </span>
               </div>
-              <div class="mock-search-bar">
-                <span class="mock-search-bar__icon">⌕</span>
-                <span class="mock-search-bar__text">tokyo</span>
-                <span class="mock-search-bar__clear">✕</span>
+              <div class="qs-header">Quick searches</div>
+              <div class="qs-grid">
+                <span class="qs-card qs-card--recent anim-tap-ripple">
+                  <svg class="icon"><use href="assets/icons.svg#icon-recent" /></svg>
+                  <span>Recently saved</span>
+                </span>
+                <span class="qs-card">
+                  <svg class="icon"><use href="assets/icons.svg#icon-calendar" /></svg>
+                  <span>This week</span>
+                </span>
+                <span class="qs-card">
+                  <svg class="icon"><use href="assets/icons.svg#icon-calendar" /></svg>
+                  <span>This month</span>
+                </span>
+                <span class="qs-card">
+                  <svg class="icon"><use href="assets/icons.svg#icon-tray" /></svg>
+                  <span>Unopened</span>
+                </span>
               </div>
-              <div class="mock-chips">
-                <span class="mock-chip mock-chip--active">All</span>
-                <span class="mock-chip">Links</span>
-                <span class="mock-chip">Images</span>
-                <span class="mock-chip">Places</span>
-                <span class="mock-chip">Notes</span>
-              </div>
-              <p class="mock-section-label">Top results</p>
-              <ul class="mock-list">
-                <li class="mock-item">
-                  <span class="mock-item__thumb mock-item__thumb--sunset"></span>
-                  <span class="mock-item__body">
-                    <span class="mock-item__title">Tokyo Guide: 24 Hours in Shibuya</span>
-                    <span class="mock-item__meta">Image · JPEG</span>
-                  </span>
-                </li>
-                <li class="mock-item">
-                  <span class="mock-item__thumb mock-item__thumb--note"></span>
-                  <span class="mock-item__body">
-                    <span class="mock-item__title">Best Ramen in Tokyo</span>
-                    <span class="mock-item__meta">Note · Plain text</span>
-                  </span>
-                </li>
+              <div class="recent-header">Recent searches</div>
+              <ul class="recent-list">
+                <li class="recent-row anim-fade-in-up"><span>disney</span><span class="recent-row__x">✕</span></li>
+                <li class="recent-row anim-fade-in-up"><span>los angeles</span><span class="recent-row__x">✕</span></li>
+                <li class="recent-row anim-fade-in-up"><span>las vegas</span><span class="recent-row__x">✕</span></li>
               </ul>
+              <div class="search-input">
+                <svg class="icon"><use href="assets/icons.svg#icon-search" /></svg>
+                <span class="search-input__ph">Search your library</span>
+                <span class="search-input__x">✕</span>
+              </div>
+              <div class="kb-hint" aria-hidden="true">
+                <div class="kb-row kb-row--1"></div>
+                <div class="kb-row kb-row--2"></div>
+                <div class="kb-row kb-row--3"></div>
+              </div>
+              <div class="mock-tabbar">
+                <span class="mock-tab"><svg class="icon"><use href="assets/icons.svg#icon-library" /></svg>Library</span>
+                <span class="mock-tab"><svg class="icon"><use href="assets/icons.svg#icon-settings" /></svg>Settings</span>
+                <span class="mock-fab mock-fab--active"><svg class="icon"><use href="assets/icons.svg#icon-search" /></svg></span>
+              </div>
             </div>
           </div>
         </div>
@@ -668,6 +679,32 @@
       }, { threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
 
       mocks.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+  <!-- Tap-ripple firing for feature mockups (one-shot: desktop hover + mobile in-view) -->
+  <script>
+    (function () {
+      var ripples = document.querySelectorAll(".anim-tap-ripple");
+      if (!ripples.length) return;
+      ripples.forEach(function (el) {
+        var host = el.closest(".anim-host") || el;
+        function fire() {
+          el.classList.remove("firing");
+          void el.offsetWidth; // reflow so the animation can restart
+          el.classList.add("firing");
+        }
+        el.addEventListener("animationend", function () { el.classList.remove("firing"); });
+        host.addEventListener("mouseenter", fire);
+        if ("IntersectionObserver" in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) { fire(); io.unobserve(e.target); }
+            });
+          }, { threshold: 0.5 });
+          io.observe(host);
+        }
+      });
     })();
   </script>
 

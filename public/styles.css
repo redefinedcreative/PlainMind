@@ -1160,6 +1160,153 @@ button { font: inherit; }
 }
 
 /* ===========================================================
+   F.2 — Library / Auto-Organize mockup
+   (NOTE: the 12s chip-cycle + item-fade timing needs an
+   in-browser tuning pass — built without visual verification.)
+   =========================================================== */
+.phone-mock--library .phone-mock__screen { gap: 4px; }
+.lib-header {
+  text-align: center;
+  font-family: "New York", Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--phone-screen-text);
+  padding: 2px 0 1px;
+}
+.lib-chips {
+  display: flex;
+  gap: 5px;
+  padding: 0 6px 2px;
+  overflow: hidden;
+}
+.lib-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--phone-screen-chip-bg);
+  color: var(--phone-screen-text);
+  font-size: 9px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex: none;
+}
+.lib-chip .icon { width: 11px; height: 11px; color: var(--fc); }
+.lib-chip--all {  /* resting active state */
+  background: color-mix(in srgb, var(--fc) 16%, transparent);
+  color: var(--fc);
+}
+.lib-section {
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--phone-screen-meta);
+  padding: 1px 0;
+}
+.lib-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+  overflow: hidden;
+}
+.lib-item { display: flex; align-items: center; gap: 8px; }
+.lib-item__main { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.lib-item__title {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--phone-screen-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lib-item__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  align-self: flex-start;
+  padding: 1.5px 6px;
+  border-radius: var(--radius-pill);
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--fc);
+  background: color-mix(in srgb, var(--fc) 12%, transparent);
+}
+.lib-item__pill .icon { width: 9px; height: 9px; }
+.lib-thumb { width: 38px; height: 38px; border-radius: 8px; flex: none; }
+.lib-thumb--rose   { background: linear-gradient(135deg, #E8A0B4, #C75D7A); }
+.lib-thumb--coffee { background: linear-gradient(135deg, #C9A07A, #7A5230); }
+.lib-thumb--ink    { background: linear-gradient(135deg, #3A3F47, #15181D); }
+.lib-thumb--lav    { background: linear-gradient(135deg, #B3A1C0, #8A77A6); }
+.lib-thumb--paper  { background: linear-gradient(135deg, #F0E6D2, #C9BBA0); }
+.lib-thumb--castle { background: linear-gradient(135deg, #8FB8E0, #5E7FB0); }
+
+.mock-tabbar { display: flex; align-items: center; gap: 6px; padding: 6px 8px 8px; margin-top: auto; }
+.mock-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--phone-screen-meta);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+.mock-tab .icon { width: 13px; height: 13px; }
+.mock-tab--active { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.mock-fab {
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mock-fab .icon { width: 15px; height: 15px; }
+
+/* Cycle: active chip steps All→Links→Images→PDFs→Text→Place (2s each, 12s loop);
+   items fade to ~0.16 when their type isn't the active filter. */
+@keyframes pm-lib-chip {
+  0%, 15%     { background: color-mix(in srgb, var(--fc) 16%, transparent); color: var(--fc); }
+  16.7%, 100% { background: var(--phone-screen-chip-bg); color: var(--phone-screen-text); }
+}
+@keyframes pm-lib-link  { 0%, 31% { opacity: 1; } 35%, 100% { opacity: 0.16; } }
+@keyframes pm-lib-image { 0%, 15% { opacity: 1; } 19%, 31% { opacity: 0.16; } 35%, 48% { opacity: 1; } 52%, 100% { opacity: 0.16; } }
+@keyframes pm-lib-text  { 0%, 15% { opacity: 1; } 19%, 64% { opacity: 0.16; } 69%, 81% { opacity: 1; } 85%, 100% { opacity: 0.16; } }
+@keyframes pm-lib-place { 0%, 15% { opacity: 1; } 19%, 81% { opacity: 0.16; } 85%, 100% { opacity: 1; } }
+
+.lib-chips .lib-chip { animation: pm-lib-chip 12s var(--ease-standard) infinite; animation-play-state: paused; }
+.lib-chips .lib-chip:nth-child(1) { animation-delay: 0s; }
+.lib-chips .lib-chip:nth-child(2) { animation-delay: 2s; }
+.lib-chips .lib-chip:nth-child(3) { animation-delay: 4s; }
+.lib-chips .lib-chip:nth-child(4) { animation-delay: 6s; }
+.lib-chips .lib-chip:nth-child(5) { animation-delay: 8s; }
+.lib-chips .lib-chip:nth-child(6) { animation-delay: 10s; }
+.lib-item--link  { animation: pm-lib-link 12s var(--ease-standard) infinite; animation-play-state: paused; }
+.lib-item--image { animation: pm-lib-image 12s var(--ease-standard) infinite; animation-play-state: paused; }
+.lib-item--text  { animation: pm-lib-text 12s var(--ease-standard) infinite; animation-play-state: paused; }
+.lib-item--place { animation: pm-lib-place 12s var(--ease-standard) infinite; animation-play-state: paused; }
+
+@media (min-width: 769px) {
+  .anim-host:hover .lib-chip,
+  .anim-host:hover .lib-item { animation-play-state: running; }
+}
+@media (max-width: 768px) {
+  .anim-host.in-view .lib-chip,
+  .anim-host.in-view .lib-item { animation-play-state: running; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lib-chip, .lib-item { animation: none !important; }
+}
+
+/* ===========================================================
    Phone mockup: Search
    =========================================================== */
 .mock-search-bar {

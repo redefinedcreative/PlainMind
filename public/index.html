@@ -337,7 +337,7 @@
           <a href="#beta-signup" class="learn-more">Learn more <span aria-hidden="true">→</span></a>
         </div>
         <div class="feature-block__visual">
-          <div class="phone-mock phone-mock--library" aria-hidden="true">
+          <div class="phone-mock phone-mock--library anim-host" aria-hidden="true">
             <div class="phone-mock__notch"></div>
             <div class="phone-mock__screen">
               <div class="status-bar">
@@ -347,43 +347,65 @@
                   <svg viewBox="0 0 24 12" width="22" height="11"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
                 </span>
               </div>
-              <div class="mock-toolbar">
-                <span class="mock-toolbar__lead">‹</span>
-                <span class="mock-toolbar__title">Library</span>
-                <span class="mock-toolbar__action">⌕ +</span>
+              <div class="lib-header">Library</div>
+              <div class="lib-chips lib-anim">
+                <span class="lib-chip lib-chip--all" style="--fc: var(--accent);"><svg class="icon"><use href="assets/icons.svg#icon-all" /></svg>All</span>
+                <span class="lib-chip" style="--fc: var(--filter-link);"><svg class="icon"><use href="assets/icons.svg#icon-link" /></svg>Links</span>
+                <span class="lib-chip" style="--fc: var(--filter-image);"><svg class="icon"><use href="assets/icons.svg#icon-image" /></svg>Images</span>
+                <span class="lib-chip" style="--fc: var(--filter-pdf);"><svg class="icon"><use href="assets/icons.svg#icon-pdf" /></svg>PDFs</span>
+                <span class="lib-chip" style="--fc: var(--filter-text);"><svg class="icon"><use href="assets/icons.svg#icon-text" /></svg>Text</span>
+                <span class="lib-chip" style="--fc: var(--filter-place);"><svg class="icon"><use href="assets/icons.svg#icon-place" /></svg>Place</span>
               </div>
-              <div class="mock-chips">
-                <span class="mock-chip mock-chip--active">All</span>
-                <span class="mock-chip">Links</span>
-                <span class="mock-chip">Images</span>
-                <span class="mock-chip">PDFs</span>
-                <span class="mock-chip">Au</span>
-              </div>
-              <ul class="mock-list">
-                <li class="mock-item">
-                  <span class="mock-item__thumb mock-item__thumb--red"></span>
-                  <span class="mock-item__body">
-                    <span class="mock-item__title">A Collection of Beautiful Homes</span>
-                    <span class="mock-item__meta">Link · archello.com</span>
+              <div class="lib-section">May 2026</div>
+              <ul class="lib-list">
+                <li class="lib-item lib-item--place lib-anim" style="--fc: var(--filter-place);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">The Ripped Bodice</span>
+                    <span class="lib-item__pill"><svg class="icon"><use href="assets/icons.svg#icon-place" /></svg>Place</span>
                   </span>
+                  <span class="lib-thumb lib-thumb--rose"></span>
                 </li>
-                <li class="mock-item">
-                  <span class="mock-item__thumb mock-item__thumb--spotify">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="white"><circle cx="12" cy="12" r="10" fill="#1ED760"/><path d="M16.5 16.5c-2-1.2-4.5-1.5-7.5-.8-.4.1-.7-.1-.8-.5s.1-.7.5-.8c3.3-.8 6-.5 8.3.9.3.2.4.6.2.9-.2.3-.5.4-.7.3zm1.2-2.6c-2.3-1.4-5.8-1.8-8.5-1-.4.1-.8-.1-1-.5-.1-.4.1-.8.5-1 3.1-.9 7-.5 9.7 1.1.3.2.5.7.3 1.1-.2.3-.6.5-1 .3zm.1-2.7c-2.7-1.6-7.3-1.8-9.9-1-.5.1-1-.2-1.1-.7-.1-.5.2-1 .7-1.1 3-1 8-.7 11.1 1.2.4.3.6.9.3 1.3-.3.4-.8.6-1.1.3z" fill="#1ED760"/></svg>
+                <li class="lib-item lib-item--place lib-anim" style="--fc: var(--filter-place);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">7 Brew Coffee</span>
+                    <span class="lib-item__pill"><svg class="icon"><use href="assets/icons.svg#icon-place" /></svg>Place</span>
                   </span>
-                  <span class="mock-item__body">
-                    <span class="mock-item__title">Calm Focus</span>
-                    <span class="mock-item__meta">Playlist · Spotify</span>
-                  </span>
+                  <span class="lib-thumb lib-thumb--coffee"></span>
                 </li>
-                <li class="mock-item">
-                  <span class="mock-item__thumb mock-item__thumb--design"></span>
-                  <span class="mock-item__body">
-                    <span class="mock-item__title">Design Inspiration</span>
-                    <span class="mock-item__meta">Image · JPEG</span>
+                <li class="lib-item lib-item--link lib-anim" style="--fc: var(--filter-link);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">TikTok · Life With Alac</span>
+                    <span class="lib-item__pill"><svg class="icon"><use href="assets/icons.svg#icon-link" /></svg>Link</span>
                   </span>
+                  <span class="lib-thumb lib-thumb--ink"></span>
+                </li>
+                <li class="lib-item lib-item--image lib-anim" style="--fc: var(--filter-image);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">iOS Sharesheet</span>
+                    <span class="lib-item__pill"><svg class="icon"><use href="assets/icons.svg#icon-image" /></svg>Image</span>
+                  </span>
+                  <span class="lib-thumb lib-thumb--lav"></span>
+                </li>
+                <li class="lib-item lib-item--text lib-anim" style="--fc: var(--filter-text);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">MacBook Pro M5</span>
+                    <span class="lib-item__pill"><svg class="icon"><use href="assets/icons.svg#icon-text" /></svg>Text</span>
+                  </span>
+                  <span class="lib-thumb lib-thumb--paper"></span>
+                </li>
+                <li class="lib-item lib-item--place lib-anim" style="--fc: var(--filter-place);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Disneyland Paris</span>
+                    <span class="lib-item__pill"><svg class="icon"><use href="assets/icons.svg#icon-place" /></svg>Place</span>
+                  </span>
+                  <span class="lib-thumb lib-thumb--castle"></span>
                 </li>
               </ul>
+              <div class="mock-tabbar">
+                <span class="mock-tab mock-tab--active"><svg class="icon"><use href="assets/icons.svg#icon-library" /></svg>Library</span>
+                <span class="mock-tab"><svg class="icon"><use href="assets/icons.svg#icon-settings" /></svg>Settings</span>
+                <span class="mock-fab"><svg class="icon"><use href="assets/icons.svg#icon-search" /></svg></span>
+              </div>
             </div>
           </div>
         </div>

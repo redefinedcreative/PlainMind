@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service — PlainMind</title>
+  <meta name="description" content="PlainMind's terms of service. The rules of the road for using the app." />
+
+  <meta property="og:title" content="Terms of Service — PlainMind" />
+  <meta property="og:description" content="The rules of the road for using PlainMind. Short, plain, fair." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://plainmind.app/terms" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" href="assets/plainmind-light.png" />
+  <link rel="apple-touch-icon" href="assets/plainmind-light.png" />
+
+  <!-- Anti-flash theme detection: must run before paint -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("pm-theme");
+        var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = (saved === "light" || saved === "dark") ? saved : (preferDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.setAttribute("data-theme-source", saved ? "user" : "system");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+
+  <!-- Enable smooth theme transitions after first paint -->
+  <script>
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.documentElement.classList.add("theme-ready");
+      });
+    });
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <meta name="theme-color" content="#F7F3EC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)" />
+</head>
+<body class="policy-page">
+
+  <!-- ====================================================
+       Header
+       ==================================================== -->
+  <header class="site-header">
+    <a href="/" class="header-brand">
+      <img src="assets/plainmind-light.png" class="header-icon light-only" alt="" width="32" height="32" />
+      <img src="assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="32" height="32" />
+      <span class="header-wordmark">PlainMind</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="policy container">
+      <div class="policy-header">
+        <h1 class="display-sm">Terms of Service</h1>
+        <p class="policy-intro">
+          The short version: PlainMind is a tool you use. You own your saves &mdash; we don&rsquo;t claim rights to your content. We do our best to keep the app working, but software occasionally misbehaves; that&rsquo;s why <code>.plainmindbackup</code> exports exist. The full terms below are the legally binding version, kept current by Termageddon as laws change.
+        </p>
+        <p class="policy-intro policy-intro--quiet">
+          Questions reach a real person at <a href="mailto:support@plainmind.app">support@plainmind.app</a>.
+        </p>
+      </div>
+
+      <!-- Termageddon embed — script injects terms content here -->
+      <div class="policy-embed">
+        <div id="UkRRNGRVMHhaRWRuYTNOcEwzYzlQUT09" class="policy_embed_div" aria-live="polite" aria-busy="true">
+          Please wait while the policy is loaded. If it does not load, please <a rel="nofollow" aria-label="click here to view the policy" href="https://policies.termageddon.com/api/policy/UkRRNGRVMHhaRWRuYTNOcEwzYzlQUT09" target="_blank">click here to view the policy</a>.
+        </div>
+        <script src="https://policies.termageddon.com/api/embed/UkRRNGRVMHhaRWRuYTNOcEwzYzlQUT09.js"></script>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================================================
+       Footer
+       ==================================================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <a href="/" class="header-brand site-footer__brand">
+        <img src="assets/plainmind-light.png" class="header-icon light-only" alt="" width="28" height="28" />
+        <img src="assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="28" height="28" />
+        <span class="header-wordmark">PlainMind</span>
+      </a>
+      <p class="site-footer__copy">© 2026 PlainMind. All rights reserved.</p>
+      <div class="site-footer__right">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch theme">
+          <span class="theme-toggle__icon" aria-hidden="true">
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="theme-toggle__sys" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </span>
+          <span class="theme-toggle__label" id="theme-toggle-label">System</span>
+        </button>
+        <nav class="site-footer__links" aria-label="Legal">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="mailto:support@plainmind.app">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme toggle -->
+  <script>
+    (function () {
+      var html = document.documentElement;
+      var btn = document.getElementById("theme-toggle");
+      var label = document.getElementById("theme-toggle-label");
+      if (!btn || !label) return;
+
+      function currentMode() {
+        return localStorage.getItem("pm-theme") || "system";
+      }
+
+      function applyMode(mode) {
+        if (mode === "system") {
+          localStorage.removeItem("pm-theme");
+          var preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          html.setAttribute("data-theme", preferDark ? "dark" : "light");
+          html.setAttribute("data-theme-source", "system");
+        } else {
+          localStorage.setItem("pm-theme", mode);
+          html.setAttribute("data-theme", mode);
+          html.setAttribute("data-theme-source", "user");
+        }
+        updateLabel(mode);
+      }
+
+      function updateLabel(mode) {
+        var labels = { system: "System", light: "Light", dark: "Dark" };
+        label.textContent = labels[mode];
+        btn.setAttribute("data-mode", mode);
+        btn.setAttribute("aria-label", "Theme: " + labels[mode] + ". Click to switch.");
+      }
+
+      updateLabel(currentMode());
+
+      btn.addEventListener("click", function () {
+        var order = ["system", "light", "dark"];
+        var next = order[(order.indexOf(currentMode()) + 1) % order.length];
+        applyMode(next);
+      });
+
+      // Track system changes if we're in system mode
+      if (window.matchMedia) {
+        var mql = window.matchMedia("(prefers-color-scheme: dark)");
+        var listener = function () { if (currentMode() === "system") applyMode("system"); };
+        if (mql.addEventListener) mql.addEventListener("change", listener);
+        else if (mql.addListener) mql.addListener(listener);
+      }
+    })();
+  </script>
+
+</body>
+</html>

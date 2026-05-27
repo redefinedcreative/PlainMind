@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PlainMind — Save anything. Find it later.</title>
+  <meta name="description" content="PlainMind is your calm, private space to save links, images, PDFs, podcasts, music, places, and text. Everything you save is auto-organized and easy to find." />
+
+  <meta property="og:title" content="PlainMind — Save anything. Find it later." />
+  <meta property="og:description" content="Your calm, private space to save what matters. Local-first by default. Open beta opening soon." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://plainmind.app" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" href="assets/plainmind-light.png" />
+  <link rel="apple-touch-icon" href="assets/plainmind-light.png" />
+  <link rel="preload" href="assets/plainmind-light.png" as="image" />
+
+  <!-- Anti-flash theme detection: must run before paint -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("pm-theme");
+        var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = (saved === "light" || saved === "dark") ? saved : (preferDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.setAttribute("data-theme-source", saved ? "user" : "system");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+
+  <!-- Enable smooth theme transitions after first paint
+       Double requestAnimationFrame ensures we're past the initial render,
+       so the first-paint coloring is instant (no flash from default to
+       theme), but every toggle afterward fades over 250ms. -->
+  <script>
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.documentElement.classList.add("theme-ready");
+      });
+    });
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <meta name="theme-color" content="#F7F3EC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)" />
+</head>
+<body>
+
+  <!-- ====================================================
+       Header
+       ==================================================== -->
+  <header class="site-header">
+    <a href="#top" class="header-brand">
+      <img src="assets/plainmind-light.png" class="header-icon light-only" alt="" width="32" height="32" />
+      <img src="assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="32" height="32" />
+      <span class="header-wordmark">PlainMind</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#beta">Beta</a>
+    </nav>
+    <a href="#beta-signup" class="btn btn-outline header-cta">Join the Open Beta</a>
+  </header>
+
+  <main id="top">
+
+    <!-- ====================================================
+         Hero
+         ==================================================== -->
+    <section class="hero container">
+      <div class="hero-content">
+        <span class="pill">Upcoming Open Beta</span>
+        <h1 class="display">
+          Save anything.<br />
+          <em class="accent">Find it later.</em>
+        </h1>
+        <p class="lede">PlainMind is your calm, private space to save links, images, PDFs, podcasts, music, places, and text. Everything you save is auto-organized and easy to find.</p>
+
+        <div id="surecontact-form-hero" class="signup-embed signup-embed--hero"></div>
+
+        <ul class="trust-signals">
+          <li>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 11V7a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            Local-first &amp; private
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            You're in control
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2zm6 10l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="currentColor"/></svg>
+            Simple by design
+          </li>
+        </ul>
+      </div>
+
+      <div class="hero-visual">
+        <div class="desktop-mock" aria-hidden="true">
+          <div class="desktop-mock__bar">
+            <span class="desktop-mock__dot" style="background:#FF5F57"></span>
+            <span class="desktop-mock__dot" style="background:#FEBC2E"></span>
+            <span class="desktop-mock__dot" style="background:#28C940"></span>
+            <span class="desktop-mock__title">
+              <span class="desktop-mock__title-icon"></span>
+              PlainMind
+            </span>
+          </div>
+          <div class="desktop-mock__body">
+            <aside class="desktop-mock__sidebar">
+              <span class="desktop-mock__sb-item desktop-mock__sb-item--active">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h7v16H4zm9 0h7v16h-7z"/></svg>
+                Library
+              </span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>All items</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Links</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Images</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>PDFs</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Notes</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Audio</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Places</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Trash</span>
+              <p class="desktop-mock__sb-label">Smart Views</p>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Recently added</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Favorites</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Highlights</span>
+              <span class="desktop-mock__sb-item"><span class="desktop-mock__sb-dot"></span>Untagged</span>
+              <span class="desktop-mock__sb-item desktop-mock__sb-item--bottom">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings
+              </span>
+            </aside>
+            <main class="desktop-mock__main">
+              <h2 class="desktop-mock__title-main">Library</h2>
+              <div class="desktop-mock__chips">
+                <span class="desktop-mock__chip desktop-mock__chip--active">All</span>
+                <span class="desktop-mock__chip">Links</span>
+                <span class="desktop-mock__chip">Images</span>
+                <span class="desktop-mock__chip">PDFs</span>
+                <span class="desktop-mock__chip">Audio</span>
+                <span class="desktop-mock__chip">Places</span>
+                <span class="desktop-mock__chip">Notes</span>
+              </div>
+              <p class="desktop-mock__section">May 2026</p>
+              <ul class="desktop-mock__list">
+                <li class="desktop-mock__row">
+                  <span class="desktop-mock__thumb desktop-mock__thumb--coastal"></span>
+                  <span class="desktop-mock__row-body">
+                    <span class="desktop-mock__row-title">The Atlantic — The New Age of Loneliness</span>
+                    <span class="desktop-mock__row-meta">Link · theatlantic.com <span class="desktop-mock__tag">Reading</span></span>
+                  </span>
+                </li>
+                <li class="desktop-mock__row">
+                  <span class="desktop-mock__thumb desktop-mock__thumb--sunset"></span>
+                  <span class="desktop-mock__row-body">
+                    <span class="desktop-mock__row-title">Tokyo Guide: 24 Hours in Shibuya</span>
+                    <span class="desktop-mock__row-meta">Image · JPEG <span class="desktop-mock__tag">Travel</span></span>
+                  </span>
+                </li>
+                <li class="desktop-mock__row">
+                  <span class="desktop-mock__thumb desktop-mock__thumb--paper"></span>
+                  <span class="desktop-mock__row-body">
+                    <span class="desktop-mock__row-title">OpenAI's Approach to Safety</span>
+                    <span class="desktop-mock__row-meta">PDF · 2.4 MB <span class="desktop-mock__tag">Research</span></span>
+                  </span>
+                </li>
+                <li class="desktop-mock__row">
+                  <span class="desktop-mock__thumb desktop-mock__thumb--audio"></span>
+                  <span class="desktop-mock__row-body">
+                    <span class="desktop-mock__row-title">The Tim Ferriss Show</span>
+                    <span class="desktop-mock__row-meta">Audio · 1h 46m <span class="desktop-mock__tag">Podcast</span></span>
+                  </span>
+                </li>
+                <li class="desktop-mock__row">
+                  <span class="desktop-mock__thumb desktop-mock__thumb--mountain"></span>
+                  <span class="desktop-mock__row-body">
+                    <span class="desktop-mock__row-title">Yosemite National Park</span>
+                    <span class="desktop-mock__row-meta">Place · California, USA <span class="desktop-mock__tag">Travel</span></span>
+                  </span>
+                </li>
+                <li class="desktop-mock__row">
+                  <span class="desktop-mock__thumb desktop-mock__thumb--note"></span>
+                  <span class="desktop-mock__row-body">
+                    <span class="desktop-mock__row-title">Design ideas for a quieter home office</span>
+                    <span class="desktop-mock__row-meta">Note · Plain text</span>
+                  </span>
+                </li>
+              </ul>
+              <div class="desktop-mock__fab">
+                <span class="desktop-mock__fab-btn">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </span>
+                <span class="desktop-mock__fab-btn">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </span>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         How it works (4-col highlights)
+         ==================================================== -->
+    <section id="how-it-works" class="highlights container">
+      <div class="highlights-card">
+        <div class="highlight">
+          <span class="highlight__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </span>
+          <div>
+            <h3>Save from anywhere</h3>
+            <p>From any app, in one tap. PlainMind captures it all.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <span class="highlight__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          </span>
+          <div>
+            <h3>Auto-organized by type</h3>
+            <p>PlainMind sorts everything so your library stays calm.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <span class="highlight__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <div>
+            <h3>Find anything, fast</h3>
+            <p>Instant search across links, text, images, audio, and more.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <span class="highlight__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          <div>
+            <h3>Private and local-first</h3>
+            <p>Your data stays on your device. You're always in control.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         Feature blocks (alternating)
+         ==================================================== -->
+    <section id="features" class="features container">
+
+      <article class="feature-block feature-block--image-left">
+        <div class="feature-block__visual">
+          <div class="phone-mock phone-mock--share" aria-hidden="true">
+            <div class="phone-mock__notch"></div>
+            <div class="phone-mock__screen">
+              <div class="status-bar">
+                <span>9:43</span>
+                <span class="status-bar__icons">
+                  <svg viewBox="0 0 18 12" width="16" height="11"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                  <svg viewBox="0 0 24 12" width="22" height="11"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <div class="mock-share">
+                <div class="mock-share__apps">
+                  <div class="mock-share__app">
+                    <span class="mock-share__app-icon" style="background:#1A8CFF">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="white"/></svg>
+                    </span>
+                    <span>AirDrop</span>
+                  </div>
+                  <div class="mock-share__app">
+                    <span class="mock-share__app-icon" style="background:#34C759">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    </span>
+                    <span>Messages</span>
+                  </div>
+                  <div class="mock-share__app">
+                    <span class="mock-share__app-icon" style="background:#FFCC00">
+                      <span style="font-size:14px;color:#7C5400;font-weight:700;">📝</span>
+                    </span>
+                    <span>Notes</span>
+                  </div>
+                  <div class="mock-share__app mock-share__app--featured">
+                    <span class="mock-share__app-icon mock-share__app-icon--brand">
+                      <img src="assets/plainmind-light.png" alt="" width="44" height="44" />
+                    </span>
+                    <span>PlainMind</span>
+                  </div>
+                </div>
+                <div class="mock-share__actions">
+                  <div class="mock-share__action">
+                    <span class="mock-share__action-label">Copy</span>
+                    <span class="mock-share__action-icon">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </span>
+                  </div>
+                  <div class="mock-share__action">
+                    <span class="mock-share__action-label">Add to PlainMind</span>
+                    <span class="mock-share__action-icon">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+                    </span>
+                  </div>
+                  <div class="mock-share__action">
+                    <span class="mock-share__action-label">Add to Reading List</span>
+                    <span class="mock-share__action-icon">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-block__text">
+          <p class="eyebrow">Save from any app</p>
+          <h2 class="display-sm">Save anything, <em class="accent">from anywhere.</em></h2>
+          <p class="body-md">Share from Safari, Notes, Messages, and more. PlainMind captures it instantly.</p>
+          <a href="#beta-signup" class="learn-more">Learn more <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="feature-block feature-block--image-right">
+        <div class="feature-block__text">
+          <p class="eyebrow">Auto-organized</p>
+          <h2 class="display-sm">A library that <em class="accent">stays organized.</em></h2>
+          <p class="body-md">PlainMind automatically sorts everything by type so your library stays clear and calm.</p>
+          <a href="#beta-signup" class="learn-more">Learn more <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="feature-block__visual">
+          <div class="phone-mock phone-mock--library" aria-hidden="true">
+            <div class="phone-mock__notch"></div>
+            <div class="phone-mock__screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <span class="status-bar__icons">
+                  <svg viewBox="0 0 18 12" width="16" height="11"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                  <svg viewBox="0 0 24 12" width="22" height="11"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <div class="mock-toolbar">
+                <span class="mock-toolbar__lead">‹</span>
+                <span class="mock-toolbar__title">Library</span>
+                <span class="mock-toolbar__action">⌕ +</span>
+              </div>
+              <div class="mock-chips">
+                <span class="mock-chip mock-chip--active">All</span>
+                <span class="mock-chip">Links</span>
+                <span class="mock-chip">Images</span>
+                <span class="mock-chip">PDFs</span>
+                <span class="mock-chip">Au</span>
+              </div>
+              <ul class="mock-list">
+                <li class="mock-item">
+                  <span class="mock-item__thumb mock-item__thumb--red"></span>
+                  <span class="mock-item__body">
+                    <span class="mock-item__title">A Collection of Beautiful Homes</span>
+                    <span class="mock-item__meta">Link · archello.com</span>
+                  </span>
+                </li>
+                <li class="mock-item">
+                  <span class="mock-item__thumb mock-item__thumb--spotify">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="white"><circle cx="12" cy="12" r="10" fill="#1ED760"/><path d="M16.5 16.5c-2-1.2-4.5-1.5-7.5-.8-.4.1-.7-.1-.8-.5s.1-.7.5-.8c3.3-.8 6-.5 8.3.9.3.2.4.6.2.9-.2.3-.5.4-.7.3zm1.2-2.6c-2.3-1.4-5.8-1.8-8.5-1-.4.1-.8-.1-1-.5-.1-.4.1-.8.5-1 3.1-.9 7-.5 9.7 1.1.3.2.5.7.3 1.1-.2.3-.6.5-1 .3zm.1-2.7c-2.7-1.6-7.3-1.8-9.9-1-.5.1-1-.2-1.1-.7-.1-.5.2-1 .7-1.1 3-1 8-.7 11.1 1.2.4.3.6.9.3 1.3-.3.4-.8.6-1.1.3z" fill="#1ED760"/></svg>
+                  </span>
+                  <span class="mock-item__body">
+                    <span class="mock-item__title">Calm Focus</span>
+                    <span class="mock-item__meta">Playlist · Spotify</span>
+                  </span>
+                </li>
+                <li class="mock-item">
+                  <span class="mock-item__thumb mock-item__thumb--design"></span>
+                  <span class="mock-item__body">
+                    <span class="mock-item__title">Design Inspiration</span>
+                    <span class="mock-item__meta">Image · JPEG</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="feature-block feature-block--image-left">
+        <div class="feature-block__visual">
+          <div class="phone-mock phone-mock--search" aria-hidden="true">
+            <div class="phone-mock__notch"></div>
+            <div class="phone-mock__screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <span class="status-bar__icons">
+                  <svg viewBox="0 0 18 12" width="16" height="11"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                  <svg viewBox="0 0 24 12" width="22" height="11"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <div class="mock-search-bar">
+                <span class="mock-search-bar__icon">⌕</span>
+                <span class="mock-search-bar__text">tokyo</span>
+                <span class="mock-search-bar__clear">✕</span>
+              </div>
+              <div class="mock-chips">
+                <span class="mock-chip mock-chip--active">All</span>
+                <span class="mock-chip">Links</span>
+                <span class="mock-chip">Images</span>
+                <span class="mock-chip">Places</span>
+                <span class="mock-chip">Notes</span>
+              </div>
+              <p class="mock-section-label">Top results</p>
+              <ul class="mock-list">
+                <li class="mock-item">
+                  <span class="mock-item__thumb mock-item__thumb--sunset"></span>
+                  <span class="mock-item__body">
+                    <span class="mock-item__title">Tokyo Guide: 24 Hours in Shibuya</span>
+                    <span class="mock-item__meta">Image · JPEG</span>
+                  </span>
+                </li>
+                <li class="mock-item">
+                  <span class="mock-item__thumb mock-item__thumb--note"></span>
+                  <span class="mock-item__body">
+                    <span class="mock-item__title">Best Ramen in Tokyo</span>
+                    <span class="mock-item__meta">Note · Plain text</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="feature-block__text">
+          <p class="eyebrow">Powerful search</p>
+          <h2 class="display-sm">Find anything, <em class="accent">in seconds.</em></h2>
+          <p class="body-md">Powerful search that finds what you saved, even in text and PDFs.</p>
+          <a href="#beta-signup" class="learn-more">Learn more <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="feature-block feature-block--image-right">
+        <div class="feature-block__text">
+          <p class="eyebrow">A calm private space</p>
+          <h2 class="display-sm">Your space. <em class="accent">Your rules.</em></h2>
+          <p class="body-md">Local-first by default. Your data stays private and never leaves your device.</p>
+          <a href="#beta-signup" class="learn-more">Learn more <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="feature-block__visual">
+          <div class="phone-mock phone-mock--map" aria-hidden="true">
+            <div class="phone-mock__notch"></div>
+            <div class="phone-mock__screen">
+              <div class="status-bar">
+                <span>9:43</span>
+                <span class="status-bar__icons">
+                  <svg viewBox="0 0 18 12" width="16" height="11"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                  <svg viewBox="0 0 24 12" width="22" height="11"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <div class="mock-map">
+                <div class="mock-map__bg">
+                  <span class="mock-map__pin" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28"><path fill="#C73838" d="M12 2a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                  </span>
+                </div>
+                <div class="mock-map__card">
+                  <h4>Yosemite National Park</h4>
+                  <p class="mock-map__meta">California, USA</p>
+                  <div class="mock-map__buttons">
+                    <span class="mock-map__btn">↗ Directions</span>
+                    <span class="mock-map__btn">⌕ Website</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ====================================================
+         Privacy stats band
+         ==================================================== -->
+    <section class="privacy-band container">
+      <div class="privacy-band__card">
+        <div class="privacy-band__pitch">
+          <span class="privacy-band__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+          </span>
+          <div>
+            <p class="privacy-band__title">PlainMind is local-first, private, and built to last.</p>
+            <p class="privacy-band__sub">No cloud. No tracking. No noise.</p>
+          </div>
+        </div>
+        <div class="privacy-band__stats">
+          <div class="privacy-stat">
+            <span class="privacy-stat__value">100<span class="privacy-stat__pct">%</span></span>
+            <span class="privacy-stat__label">Local-first</span>
+          </div>
+          <div class="privacy-stat">
+            <span class="privacy-stat__value">0</span>
+            <span class="privacy-stat__label">Trackers</span>
+          </div>
+          <div class="privacy-stat">
+            <span class="privacy-stat__value privacy-stat__value--word">Always</span>
+            <span class="privacy-stat__label">Under your control</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         Final CTA
+         ==================================================== -->
+    <section id="beta-signup" class="final-cta container">
+      <h2 class="display final-cta__heading">
+        Be the first to try PlainMind.<br />
+        Join the <em class="accent">Open Beta.</em>
+      </h2>
+      <div id="surecontact-form-bottom" class="signup-embed signup-embed--final"></div>
+      <ul class="trust-signals trust-signals--centered">
+        <li>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Early access
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          Shape the product
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          No spam, ever
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ====================================================
+       Footer
+       ==================================================== -->
+  <footer id="beta" class="site-footer">
+    <div class="container site-footer__inner">
+      <a href="#top" class="header-brand site-footer__brand">
+        <img src="assets/plainmind-light.png" class="header-icon light-only" alt="" width="28" height="28" />
+        <img src="assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="28" height="28" />
+        <span class="header-wordmark">PlainMind</span>
+      </a>
+      <p class="site-footer__copy">© 2026 PlainMind. All rights reserved.</p>
+      <div class="site-footer__right">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch theme">
+          <span class="theme-toggle__icon" aria-hidden="true">
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="theme-toggle__sys" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </span>
+          <span class="theme-toggle__label" id="theme-toggle-label">System</span>
+        </button>
+        <nav class="site-footer__links" aria-label="Legal">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="mailto:support@plainmind.app">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme toggle -->
+  <script>
+    (function () {
+      var html = document.documentElement;
+      var btn = document.getElementById("theme-toggle");
+      var label = document.getElementById("theme-toggle-label");
+      if (!btn || !label) return;
+
+      function currentMode() {
+        return localStorage.getItem("pm-theme") || "system";
+      }
+
+      function applyMode(mode) {
+        if (mode === "system") {
+          localStorage.removeItem("pm-theme");
+          var preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          html.setAttribute("data-theme", preferDark ? "dark" : "light");
+          html.setAttribute("data-theme-source", "system");
+        } else {
+          localStorage.setItem("pm-theme", mode);
+          html.setAttribute("data-theme", mode);
+          html.setAttribute("data-theme-source", "user");
+        }
+        updateLabel(mode);
+      }
+
+      function updateLabel(mode) {
+        var labels = { system: "System", light: "Light", dark: "Dark" };
+        label.textContent = labels[mode];
+        btn.setAttribute("data-mode", mode);
+        btn.setAttribute("aria-label", "Theme: " + labels[mode] + ". Click to switch.");
+      }
+
+      updateLabel(currentMode());
+
+      btn.addEventListener("click", function () {
+        var order = ["system", "light", "dark"];
+        var next = order[(order.indexOf(currentMode()) + 1) % order.length];
+        applyMode(next);
+      });
+
+      // Track system changes if we're in system mode
+      if (window.matchMedia) {
+        var mql = window.matchMedia("(prefers-color-scheme: dark)");
+        var listener = function () { if (currentMode() === "system") applyMode("system"); };
+        if (mql.addEventListener) mql.addEventListener("change", listener);
+        else if (mql.addListener) mql.addListener(listener);
+      }
+    })();
+  </script>
+
+  <!-- Phone-mock scroll entrance animation
+       IntersectionObserver adds .in-view class when each phone mockup
+       enters the viewport (20% threshold, fires slightly before fully
+       visible). One-shot per mockup. CSS in styles.css handles the
+       opacity + translateY transition. Reduced-motion users skip the
+       animation via the CSS @media query. -->
+  <script>
+    (function () {
+      var mocks = document.querySelectorAll(".phone-mock");
+      if (!mocks.length) return;
+
+      // Fallback for browsers without IntersectionObserver — just show them
+      if (!("IntersectionObserver" in window)) {
+        mocks.forEach(function (el) { el.classList.add("in-view"); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
+
+      mocks.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+  <!-- SureContact embed — renders into both hero and final-CTA containers -->
+  <script src="https://app.surecontact.com/embed/forms.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!window.SureContactForms || typeof window.SureContactForms.render !== "function") return;
+      var formId = "c300f086-3fa0-4e75-ad23-bec0ac7c1b19";
+      ["#surecontact-form-hero", "#surecontact-form-bottom"].forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (!el) return;
+        try {
+          window.SureContactForms.render({ formId: formId, container: sel });
+        } catch (err) {
+          console.error("SureContact render failed for " + sel, err);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

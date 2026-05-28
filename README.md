@@ -128,3 +128,19 @@ These pages are referenced in the Launch Schedule but not yet built:
 - `/roadmap` — Now/Next/Maybe sections (Schedule Row 79, post-launch)
 
 The favicon is currently the 192×192 PNG, which works but isn't ideal. A proper multi-size `.ico` file or modern SVG favicon could be added at any point.
+
+## Notes for next iteration
+
+User feedback after the first animation pass (2026-05-27):
+
+**Animations land as "stale pulses" rather than calm-but-noticeable.** The current scale-up/scale-down loops are mechanically subtle but emotionally dead — they oscillate forever with no narrative. Next pass: replace pulsing with **directional motion that has intention and resolves**. Concrete direction per section:
+
+- **Save from Any App** — PlainMind icon should *arrive* into the share sheet (slide in from off-canvas right with a slight settle) once per hover/in-view, not pulse. Optionally, a single subtle ambient glow that fades in over ~2s and stays steady — no oscillation.
+- **Auto-Organize** — filter chip cycle is the animation; remove any pulsing on individual items. The chip slide between filters needs more visible motion (longer travel distance, slightly slower easing) and item reflow should be more noticeable (stagger items in/out over ~400ms with translateY + opacity, not just opacity).
+- **Powerful Search** — replace pulsing tap indicator with **one** ripple that emanates and fades once, then the quick-search row lifts/highlights and stays in that state. One-shot, no loop.
+- **Calm Private Space** — replace pulsing cloud icon with a single sync arc (one dot traces a 270° path around the cloud over ~1.5s, then settles into a checkmark or sync indicator). Stats badge count-up is already directional and probably feels right.
+
+General principle: **calm ≠ rhythmic loop. Calm = slow build + intentional resolve.** Cubic-bezier(0.16, 1, 0.3, 1) for entrance, but extend durations to 800ms–1.5s where motion is the message. Avoid any `animation-iteration-count: infinite` on visible motion.
+
+Other things noted but not changed in the first pass:
+- (None at the time of this writing)

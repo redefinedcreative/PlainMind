@@ -1,4 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Roadmap — PlainMind</title>
+  <meta name="description" content="What's now, next, and maybe for PlainMind. The roadmap updates monthly after launch." />
+  <link rel="canonical" href="https://plainmind.app/roadmap/" />
+  <meta property="og:title" content="Roadmap — PlainMind" />
+  <meta property="og:description" content="Now, Next, and Maybe for PlainMind." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://plainmind.app/roadmap/" />
+  <meta property="og:image" content="https://plainmind.app/assets/og/og-home.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://plainmind.app/assets/og/og-home.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("pm-theme");
+        var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = (saved === "light" || saved === "dark") ? saved : (preferDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.setAttribute("data-theme-source", saved ? "user" : "system");
+      } catch (e) { document.documentElement.setAttribute("data-theme", "light"); }
+    })();
+  </script>
+  <script>requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.add("theme-ready");});});</script>
+  <link rel="stylesheet" href="../styles.css" />
+  <meta name="theme-color" content="#F7F3EC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1A1E23" media="(prefers-color-scheme: dark)" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
   
 
   
@@ -44,3 +81,112 @@
   <symbol id="icon-bluesky" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11C10.5 7.5 6.5 4.5 4.5 5c-1.8.5-1.2 5 0 7 .8 1.3 3 1.8 4.5 1.6-2 .4-3 1.6-2.4 3.3.6 1.7 3.4 1.6 5.4-2 2 3.6 4.8 3.7 5.4 2 .6-1.7-.4-2.9-2.4-3.3 1.5.2 3.7-.3 4.5-1.6 1.2-2 1.8-6.5 0-7-2-.5-6 2.5-7.5 6z"></path></symbol>
   <symbol id="icon-threads" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 12c0-3-2-5-4.2-5-2 0-3.3 1.3-3.3 3 0 1.8 1.5 2.6 3 2.6 2.2 0 3.7-1.4 3.7-3.6"></path><path d="M12 21c-4.5 0-8-3.5-8-9s3.5-9 8-9 8 3.5 8 9c0 3.6-1.8 5.8-4 6.6"></path></symbol>
 </svg>
+
+
+  <header class="site-header" id="site-header">
+    <div class="site-header__inner">
+      <a href="../index.html" class="header-brand" aria-label="PlainMind home">
+        <picture><source srcset="../assets/plainmind-light.webp" type="image/webp" class="light-only" /><img src="../assets/plainmind-light.png" class="header-icon light-only" alt="" width="32" height="32" /></picture>
+        <picture><source srcset="../assets/plainmind-dark.webp" type="image/webp" class="dark-only" /><img src="../assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="32" height="32" /></picture>
+        <span class="header-wordmark">PlainMind</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="../index.html#features">Features</a>
+        <a href="../index.html#how-it-works">How it works</a>
+        <a href="../beta/index.html">Beta</a>
+      </nav>
+      <a href="../beta/index.html" class="btn btn-outline header-cta">Join the Open Beta</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero container">
+      <p class="eyebrow page-hero__eyebrow">Roadmap</p>
+      <h1 class="display">What's now, <em class="accent">next, and maybe.</em></h1>
+      <p class="page-hero__lede">An honest, plain view of where PlainMind is headed. No promises with dates we can't keep — just direction.</p>
+    </section>
+
+    <section class="page-section container">
+      <div class="roadmap-cols">
+        <article class="roadmap-col roadmap-col--now">
+          <div class="roadmap-col__head">
+            <span class="roadmap-col__tag">Now</span>
+          </div>
+          <h2 class="sr-only">Now</h2>
+          <div class="roadmap-item">
+            <h3>Beta, paywall, and launch prep</h3>
+            <p>Closing out the v1.0 build: TestFlight beta, subscriptions, onboarding, and App Store submission. Launching September 29, 2026.</p>
+          </div>
+        </article>
+
+        <article class="roadmap-col roadmap-col--next">
+          <div class="roadmap-col__head">
+            <span class="roadmap-col__tag">Next</span>
+          </div>
+          <h2 class="sr-only">Next</h2>
+          <div class="roadmap-item">
+            <h3>Ask your brain</h3>
+            <p>Natural-language questions across everything you've saved, on the Max tier. Planned for November 2026.</p>
+          </div>
+        </article>
+
+        <article class="roadmap-col roadmap-col--maybe">
+          <div class="roadmap-col__head">
+            <span class="roadmap-col__tag">Maybe</span>
+          </div>
+          <h2 class="sr-only">Maybe</h2>
+          <div class="roadmap-item">
+            <h3>iPad polish</h3>
+            <p>A layout that makes use of the larger screen.</p>
+          </div>
+          <div class="roadmap-item">
+            <h3>Mac Catalyst</h3>
+            <p>PlainMind on the desktop, same library.</p>
+          </div>
+          <div class="roadmap-item">
+            <h3>Watch app</h3>
+            <p>Save and glance from your wrist. To be explored.</p>
+          </div>
+        </article>
+      </div>
+      <p class="roadmap-note">This roadmap updates monthly after launch.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__top">
+        <a href="../index.html" class="header-brand site-footer__brand" aria-label="PlainMind home">
+          <picture><source srcset="../assets/plainmind-light.webp" type="image/webp" class="light-only" /><img src="../assets/plainmind-light.png" class="header-icon light-only" alt="" width="28" height="28" /></picture>
+          <picture><source srcset="../assets/plainmind-dark.webp" type="image/webp" class="dark-only" /><img src="../assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="28" height="28" /></picture>
+          <span class="header-wordmark">PlainMind</span>
+        </a>
+        <p class="site-footer__line">A calmer way to capture what matters.</p>
+        <nav class="site-footer__social" aria-label="Social">
+          <a href="https://x.com/plainmindapp" aria-label="PlainMind on X"><svg class="icon"><use href="#icon-x" /></svg></a>
+          <a href="https://bsky.app/profile/plainmindapp" aria-label="PlainMind on Bluesky"><svg class="icon"><use href="#icon-bluesky" /></svg></a>
+          <a href="https://www.threads.net/@plainmindapp" aria-label="PlainMind on Threads"><svg class="icon"><use href="#icon-threads" /></svg></a>
+        </nav>
+      </div>
+      <div class="site-footer__bottom">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch theme">
+          <span class="theme-toggle__icon" aria-hidden="true">
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="theme-toggle__sys" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </span>
+          <span class="theme-toggle__label" id="theme-toggle-label">System</span>
+        </button>
+        <p class="site-footer__copy">© 2026 PlainMind · Redefined Creative LLC</p>
+        <nav class="site-footer__links" aria-label="Legal">
+          <a href="../privacy/index.html">Privacy</a>
+          <a href="../help/index.html">Help</a>
+          <a href="mailto:support@plainmind.app">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js" defer></script>
+</body>
+</html>

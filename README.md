@@ -142,11 +142,14 @@ If Termageddon's styles bleed through (e.g., the policy text appears in Arial on
 
 ## What's still TODO (post-foundation)
 
-These pages are referenced in the Launch Schedule but not yet built:
-- `/beta` — open beta enrollment landing (Schedule Week 13)
-- `/press` — press kit (Schedule Row 56, Week 15)
-- `/help` — ClickUp Docs redirect/iframe (Schedule Row 51, Week 14)
-- `/roadmap` — Now/Next/Maybe sections (Schedule Row 79, post-launch)
+`/beta`, `/press`, `/help`, and `/roadmap` now exist as pages (no longer just Launch-Schedule references). Outstanding items:
+
+- **Policy pages — finish the embed-vs-static migration (DECISION NEEDED).** The site is mid-migration and inconsistent:
+  - `privacy.html` + `terms.html` (root) still contain the **live Termageddon `<script>` embeds** (`policies.termageddon.com`).
+  - `privacy/index.html` (the pretty-path `/privacy`) is a **placeholder** that says the launch plan is to host the Termageddon **export as static markup** ("chosen over an iframe for performance and CSP simplicity"). There is **no `terms/index.html`**, so `/privacy` and `/terms` resolve inconsistently.
+  - **Decide before launch:** (A) go back to the live Termageddon embeds — auto-updates, but needs `policies.termageddon.com` added to the CSP and re-introduces the dark-mode style-bleed risk noted above; or (B) finish the static-markup approach — paste the Termageddon export into `privacy/index.html` + create `terms/index.html`, then delete the stale root `privacy.html`/`terms.html`. (User flagged wanting the embed back 2026-05-31; weigh against the static approach the newer page intends.)
+  - **Also:** `privacy.html` is now a stale duplicate of `privacy/index.html` — remove whichever isn't the canonical page once (A/B) is decided. (It was deliberately left out of the Fathom instrumentation so it doesn't double-count.)
+- **Analytics — Fathom is wired (2026-05-31).** `cdn.usefathom.com` script (`data-site="NCTQOJDN"`) on all 8 live pages + allowlisted in the `_headers` CSP (`script-src` + `connect-src`). Verify pageviews register in the Fathom dashboard after the next deploy.
 
 The favicon is currently the 192×192 PNG, which works but isn't ideal. A proper multi-size `.ico` file or modern SVG favicon could be added at any point.
 

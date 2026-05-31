@@ -1450,6 +1450,32 @@ button { font: inherit; }
 .welcome-video__play svg { width: 24px; height: 24px; margin-left: 3px; }
 .welcome-video__label { font-size: 14px; font-weight: 500; margin: 0; }
 
+/* Personalized name reveal — soft blur + rise as the name lands. */
+.welcome-name { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .welcome-name { opacity: 0; transform: translateY(0.18em); filter: blur(5px); animation: pm-name-in 0.7s var(--ease-out) 0.05s forwards; }
+}
+@keyframes pm-name-in { to { opacity: 1; transform: none; filter: none; } }
+
+/* One-shot brand celebration burst (welcome page only). Skipped under reduced motion. */
+.pm-confetti { position: fixed; inset: 0; z-index: 150; pointer-events: none; overflow: hidden; }
+.pm-confetti__piece {
+  position: fixed; width: 9px; height: 9px; border-radius: 2px;
+  opacity: 0; will-change: transform, opacity;
+  animation: pm-confetti-pop 1.15s var(--ease-out) forwards;
+}
+@keyframes pm-confetti-pop {
+  0% { transform: translate(0, 0) scale(0.5) rotate(0); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1) rotate(var(--rot)); opacity: 0; }
+}
+
+/* While the name overlay is up, freeze the hero behind it — the seal draw and the
+   scroll-reveals wait until the visitor submits a name or dismisses the prompt. */
+html.intro-open .welcome-seal__ring,
+html.intro-open .welcome-seal__check { animation-play-state: paused; }
+html.intro-open.reveal-ready .reveal { opacity: 0; transform: translateY(22px); transition: none; }
+
 /* introduce-yourself overlay */
 html.intro-open { overflow: hidden; }
 .intro-overlay {

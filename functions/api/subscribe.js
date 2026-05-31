@@ -97,11 +97,15 @@ export async function onRequestPost({ request, env }) {
       headers,
       body: JSON.stringify(payload),
     });
+    const rawBody = await res.text();
+    // TEMP DEBUG — reveals SureContact's real field names + response shape. Remove after verifying.
+    console.log("[subscribe] upsert status:", res.status, "| sent:", JSON.stringify(payload), "| response:", rawBody);
     if (!res.ok) {
       return json({ ok: false, error: "Couldn't save your details — please try again." }, 502);
     }
-    contact = await res.json().catch(() => ({}));
+    try { contact = JSON.parse(rawBody); } catch (e) { contact = {}; }
   } catch (e) {
+    console.log("[subscribe] upsert threw:", String(e)); // TEMP DEBUG
     return json({ ok: false, error: "Couldn't reach the signup service." }, 502);
   }
 
@@ -110,18 +114,23 @@ export async function onRequestPost({ request, env }) {
     contact.uuid || contact.id ||
     (contact.contact && (contact.contact.uuid || contact.contact.id)) ||
     (contact.data && (contact.data.uuid || contact.data.id));
+  // TEMP DEBUG — did we find the contact id, and will we attempt enroll? Remove after verifying.
+  console.log("[subscribe] extracted contactUuid:", contactUuid, "| enroll:", enroll, "| sequenceUuid set:", !!env.SURECONTACT_SEQUENCE_UUID);
 
   // 2) On first signup, enroll into the beta sequence. Best-effort: a saved contact is the
   //    win — don't fail the whole signup if enrollment hiccups (it can be automated server-side too).
   if (enroll && env.SURECONTACT_SEQUENCE_UUID && contactUuid) {
     try {
-      await fetch(`${API_BASE}/sequences/${env.SURECONTACT_SEQUENCE_UUID}/enroll`, {
+      const enrollRes = await fetch(`${API_BASE}/sequences/${env.SURECONTACT_SEQUENCE_UUID}/enroll`, {
         method: "POST",
         headers,
         body: JSON.stringify({ contact_uuid: contactUuid }), // VERIFY: enroll body (contact_uuid vs email)
       });
+      const enrollBody = await enrollRes.text();
+      // TEMP DEBUG — 2xx means the enroll body shape is right. Remove after verifying.
+      console.log("[subscribe] enroll status:", enrollRes.status, "| response:", enrollBody);
     } catch (e) {
-      /* swallow — contact is saved */
+      console.log("[subscribe] enroll threw:", String(e)); // TEMP DEBUG
     }
   }
 

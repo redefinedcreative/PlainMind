@@ -111,13 +111,13 @@ The signup no longer uses SureContact's JS embed. The on-brand form posts to a *
 
 **Turnstile (bot protection):**
 - Each signup form (`index.html` hero + final-CTA, `beta/index.html`) embeds a `<div class="cf-turnstile" ...>` widget and loads `https://challenges.cloudflare.com/turnstile/v0/api.js`. The widget is set to `data-appearance="interaction-only"` (invisible unless a challenge is needed) and `data-theme="auto"` (follows light/dark).
-- **Before go-live:** replace the `YOUR_TURNSTILE_SITE_KEY` placeholder (the public *site* key) in all three forms. The matching *secret* key goes in the `TURNSTILE_SECRET_KEY` env var above.
+- The public *site* key lives in all three forms (`data-sitekey`); the matching *secret* key is in the `TURNSTILE_SECRET_KEY` env var above. The Turnstile domain must also be allowlisted in the CSP (`public/_headers`) under `script-src`/`frame-src`/`connect-src` — and the deployed hostnames (`plainmind.app`, `plainmind.pages.dev`) added to the widget's Hostname Management in the Turnstile dashboard.
 - `signup.js` posts the widget's `cf-turnstile-response` token as `turnstile_token`; the Function calls `siteverify` and only proceeds on success. The `/welcome` name update reuses the endpoint but is not gated on Turnstile (it's not a new enrollment).
 
-**⚠️ Verify before go-live** (SureContact's public API docs list the endpoints + `X-API-Key` auth but truncate the exact field/response shapes — the spots are marked `VERIFY:` in `functions/api/subscribe.js`):
-- the upsert request field name for first name (assumed `first_name`),
-- where the contact id/uuid is in the upsert response,
-- the enroll request body (`contact_uuid` vs `email`).
+**SureContact API shapes — confirmed against live responses (2026-05-31):**
+- upsert wants identity fields nested under `primary_fields`: `{ primary_fields: { email, first_name } }`
+- the created/updated contact's id is at `response.data.uuid`
+- enroll is `POST /sequences/{uuid}/enroll` with `{ contact_uuid }` — `SURECONTACT_SEQUENCE_UUID` **must be a Sequence**, not another automation type (a non-sequence automation returns 404 "not a sequence"; those use `POST /contacts/{uuid}/automations/{uuid}/start` instead)
 
 **Local testing:** `/api/subscribe` only exists when Functions run, so a plain `python3 -m http.server` won't hit it — use `npx wrangler pages dev public` (with the env vars set locally) to exercise the full flow.
 

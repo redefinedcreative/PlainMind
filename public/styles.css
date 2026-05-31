@@ -1381,22 +1381,74 @@ button { font: inherit; }
    Beta success page (/welcome) + "introduce yourself" flow
    =========================================================== */
 .welcome { flex: 1 0 auto; }
-.welcome-hero { padding-top: clamp(56px, 10vh, 110px); padding-bottom: var(--section-pad); display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-lg); max-width: 760px; }
-.welcome-hero__title { max-width: 16ch; }
-.welcome-hero__sub { max-width: 520px; }
 
-.welcome-grid { display: grid; gap: clamp(16px, 3vw, 24px); padding-bottom: var(--section-pad); }
-@media (min-width: 760px) { .welcome-grid { grid-template-columns: 1fr 1fr; } }
-.welcome-card { background: var(--bg-card); border: 1px solid var(--divider); border-radius: var(--radius-xl); padding: clamp(24px, 3vw, 36px); box-shadow: var(--card-shadow); }
-.welcome-card__title { font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; margin: 0 0 var(--space-md); color: var(--text); }
-.welcome-card__body { font-size: 16px; line-height: 1.62; color: var(--text-secondary); margin: 0; text-wrap: pretty; }
-.welcome-card__list { margin: 0; padding-left: var(--space-lg); color: var(--text-secondary); }
-.welcome-card__list li { font-size: 16px; line-height: 1.6; margin-bottom: var(--space-sm); }
+/* Hero — the arrival moment, centered. */
+.welcome-hero {
+  padding-top: clamp(64px, 12vh, 128px); padding-bottom: clamp(40px, 6vw, 72px);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: var(--space-lg); max-width: 720px; margin-inline: auto;
+}
+.welcome-hero__title { max-width: 18ch; }
+.welcome-hero__sub { max-width: 540px; }
 
-.welcome-video { padding-bottom: var(--section-pad); }
-.welcome-video__frame { aspect-ratio: 16 / 9; border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-card); border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; }
+/* Confirmation seal — draws once and resolves. No loop. */
+.welcome-seal { width: 72px; height: 72px; display: grid; place-items: center; }
+.welcome-seal svg { width: 100%; height: 100%; overflow: visible; }
+.welcome-seal__ring, .welcome-seal__check { fill: none; stroke: var(--accent-readable); stroke-linecap: round; stroke-linejoin: round; }
+.welcome-seal__ring { stroke-width: 2; }
+.welcome-seal__check { stroke-width: 2.4; }
+@media (prefers-reduced-motion: no-preference) {
+  .welcome-seal__ring { stroke-dasharray: 160; stroke-dashoffset: 160; animation: pm-seal-ring 0.9s var(--ease-out) 0.15s forwards; }
+  .welcome-seal__check { stroke-dasharray: 40; stroke-dashoffset: 40; animation: pm-seal-check 0.5s var(--ease-out) 0.75s forwards; }
+}
+@keyframes pm-seal-ring { to { stroke-dashoffset: 0; } }
+@keyframes pm-seal-check { to { stroke-dashoffset: 0; } }
+
+/* Small uppercase section label used across the welcome sections. */
+.welcome-section-title {
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-tertiary); margin: 0 0 clamp(20px, 3vw, 32px);
+}
+
+.welcome-steps, .welcome-perks, .welcome-video { padding-bottom: var(--section-pad); max-width: 760px; margin-inline: auto; }
+
+/* What happens next — a quiet numbered path with hairline connectors. */
+.steps { list-style: none; margin: 0; padding: 0; }
+.step { display: flex; gap: var(--space-lg); }
+.step__rail { display: flex; flex-direction: column; align-items: center; flex: 0 0 36px; }
+.step__num {
+  flex: 0 0 auto; width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent-readable);
+  font-family: var(--font-display); font-weight: 600; font-size: 15px;
+}
+.step:not(:last-child) .step__rail::after { content: ""; flex: 1 1 auto; width: 1px; min-height: 18px; margin: 8px 0; background: var(--divider); }
+.step__body { padding: 5px 0 clamp(20px, 3vw, 30px); }
+.step:last-child .step__body { padding-bottom: 0; }
+.step__title { font-family: var(--font-display); font-size: clamp(17px, 2vw, 19px); font-weight: 600; margin: 0 0 6px; color: var(--text); }
+.step__text { font-size: 15px; line-height: 1.6; color: var(--text-secondary); margin: 0; max-width: 52ch; text-wrap: pretty; }
+
+/* Perks — one elevated panel, three calm items. */
+.perks-panel { background: var(--bg-card); border: 1px solid var(--divider); border-radius: var(--radius-xl); padding: clamp(28px, 4vw, 44px); box-shadow: var(--card-shadow); }
+.perks { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(24px, 3vw, 32px); }
+@media (min-width: 720px) { .perks { grid-template-columns: repeat(3, 1fr); } }
+.perk { display: flex; flex-direction: column; gap: 10px; }
+.perk__icon { width: 40px; height: 40px; border-radius: var(--radius-md); display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-readable); margin-bottom: 2px; }
+.perk__icon svg { width: 22px; height: 22px; }
+.perk__title { font-family: var(--font-display); font-size: 16px; font-weight: 600; margin: 0; color: var(--text); }
+.perk__text { font-size: 14px; line-height: 1.55; color: var(--text-secondary); margin: 0; text-wrap: pretty; }
+
+/* Video — branded poster state until a real embed is dropped in. */
+.welcome-video__frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-card); border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; }
 .welcome-video__frame iframe, .welcome-video__frame video { width: 100%; height: 100%; border: 0; display: block; }
-.welcome-video__placeholder { color: var(--text-tertiary); font-size: 15px; }
+.welcome-video__frame::before { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 120% at 50% 0%, var(--accent-soft), transparent 62%); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) { .welcome-video__frame::before { animation: pm-wash 2s var(--ease-out) 0.3s forwards; } }
+@keyframes pm-wash { to { opacity: 1; } }
+.welcome-video__poster { position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--space-md); color: var(--text-tertiary); }
+.welcome-video__play { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--bg-card); border: 1px solid var(--divider-strong); color: var(--accent-readable); box-shadow: var(--card-shadow); }
+.welcome-video__play svg { width: 24px; height: 24px; margin-left: 3px; }
+.welcome-video__label { font-size: 14px; font-weight: 500; margin: 0; }
 
 /* introduce-yourself overlay */
 html.intro-open { overflow: hidden; }

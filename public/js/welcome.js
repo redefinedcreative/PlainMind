@@ -21,7 +21,7 @@
 
   function personalize(name) {
     if (name && greeting) {
-      greeting.textContent = "Thanks for your interest in PlainMind, " + name + ".";
+      greeting.textContent = "You're in, " + name + ".";
     }
   }
 

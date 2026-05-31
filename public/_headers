@@ -10,7 +10,10 @@
 # Long-cache fingerprintable static assets.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+# JS/CSS are not fingerprinted yet, so revalidate on every load (ETag-based, fast)
+# to avoid serving stale code after a deploy. Bump to a long max-age + filename
+# hashing once the site is launched and changing less often.
 /js/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: no-cache
 /styles.css
-  Cache-Control: public, max-age=86400
+  Cache-Control: no-cache

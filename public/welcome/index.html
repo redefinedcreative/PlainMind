@@ -29,6 +29,12 @@
       requestAnimationFrame(function () { document.documentElement.classList.add("theme-ready"); });
     });
   </script>
+  <script>
+    /* Pre-paint: if we arrived from a signup, freeze the hero confirmation behind the
+       name overlay so the seal draw + reveals wait until the prompt is dismissed.
+       Set here (not in deferred welcome.js) so it applies before the seal animates. */
+    try { if (sessionStorage.getItem("pm-signup-email")) document.documentElement.classList.add("intro-pending"); } catch (e) {}
+  </script>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />

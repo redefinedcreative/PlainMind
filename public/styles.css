@@ -1472,9 +1472,9 @@ button { font: inherit; }
 
 /* While the name overlay is up, freeze the hero behind it — the seal draw and the
    scroll-reveals wait until the visitor submits a name or dismisses the prompt. */
-html.intro-open .welcome-seal__ring,
-html.intro-open .welcome-seal__check { animation-play-state: paused; }
-html.intro-open.reveal-ready .reveal { opacity: 0; transform: translateY(22px); transition: none; }
+html.intro-pending .welcome-seal__ring,
+html.intro-pending .welcome-seal__check { animation-play-state: paused; }
+html.intro-pending.reveal-ready .reveal { opacity: 0; transform: translateY(22px); transition: none; }
 
 /* introduce-yourself overlay */
 html.intro-open { overflow: hidden; }

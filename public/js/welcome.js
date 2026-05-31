@@ -22,6 +22,8 @@
     if (!overlay) return;
     overlay.setAttribute("hidden", "");
     document.documentElement.classList.remove("intro-open");
+    // Release the hero freeze — the seal now draws and the reveals animate in.
+    document.documentElement.classList.remove("intro-pending");
   }
 
   // Rebuild the greeting so the name can animate in on its own (CSS handles the reveal).
@@ -79,7 +81,9 @@
     document.documentElement.classList.add("intro-open");
     if (input) setTimeout(function () { input.focus(); }, 400);
   } else {
-    // Direct visit (no overlay): celebrate once the seal has finished drawing.
+    // Direct visit (no overlay): make sure nothing stays frozen, then celebrate
+    // once the seal has finished drawing.
+    document.documentElement.classList.remove("intro-pending");
     setTimeout(celebrate, 1300);
   }
 

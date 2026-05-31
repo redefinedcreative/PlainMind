@@ -1267,42 +1267,6 @@ button { font: inherit; }
 .prose li { font-size: 16px; line-height: 1.7; margin-bottom: var(--space-xs); }
 .prose a { color: var(--accent-readable); text-underline-offset: 3px; }
 .prose strong { color: var(--text); }
-.placeholder-note {
-  display: flex; gap: var(--space-md); align-items: flex-start;
-  background: color-mix(in srgb, var(--highlight) 12%, var(--bg-card));
-  border: 1px solid color-mix(in srgb, var(--highlight) 40%, transparent);
-  border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg);
-  font-size: 14px; color: var(--text-secondary); margin-bottom: var(--space-xl); max-width: 720px;
-}
-.placeholder-note .icon { width: 18px; height: 18px; color: var(--highlight); flex: none; margin-top: 2px; }
-.placeholder-note strong { color: var(--text); }
-
-/* help search + groups */
-.help-layout { display: grid; gap: var(--space-2xl); }
-@media (min-width: 860px) { .help-layout { grid-template-columns: 240px 1fr; align-items: start; } }
-.help-search { position: relative; max-width: 520px; margin-bottom: var(--space-xl); }
-.help-search input {
-  width: 100%; padding: 13px 16px 13px 44px; border-radius: var(--radius-md);
-  border: 1px solid var(--input-border); background: var(--bg-input); color: var(--text);
-  font-size: 16px; font-family: inherit; outline: none; min-height: 48px;
-}
-.help-search input:focus { border-color: var(--accent-readable); box-shadow: 0 0 0 3px var(--accent-soft); }
-.help-search .icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-tertiary); }
-.help-toc { position: sticky; top: 96px; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
-.help-toc a { display: block; padding: 8px 12px; border-radius: var(--radius-sm); color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; }
-.help-toc a:hover { background: var(--accent-soft); color: var(--accent-readable); }
-@media (max-width: 859px) { .help-toc { display: none; } }
-.faq { border-bottom: 1px solid var(--divider); }
-.faq[hidden] { display: none; }
-.faq__q { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin: 0; }
-.faq summary { list-style: none; cursor: pointer; padding: var(--space-lg) 0; display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary .icon { width: 18px; height: 18px; color: var(--accent-readable); transition: transform 0.2s var(--ease-out); flex: none; }
-.faq[open] summary .icon { transform: rotate(90deg); }
-.faq__a { padding: 0 0 var(--space-lg); }
-.faq__a p { margin: 0 0 var(--space-sm); color: var(--text-secondary); line-height: 1.7; }
-.help-empty { color: var(--text-tertiary); font-size: 15px; padding: var(--space-xl) 0; }
-.help-empty[hidden] { display: none; }
 
 /* beta page */
 .beta-includes { display: grid; gap: var(--space-lg); margin: var(--space-xl) 0 0; }
@@ -1360,22 +1324,6 @@ button { font: inherit; }
   border: 1px solid var(--divider); background: var(--phone-screen-bg); position: relative;
 }
 .press-shot img { width: 100%; height: 100%; object-fit: cover; }
-
-/* roadmap page */
-.roadmap-cols { display: grid; gap: var(--space-lg); }
-@media (min-width: 820px) { .roadmap-cols { grid-template-columns: repeat(3, 1fr); } }
-.roadmap-col { background: var(--bg-card); border: 1px solid var(--divider); border-radius: var(--radius-xl); padding: var(--space-xl); box-shadow: var(--card-shadow); }
-.roadmap-col__head { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); }
-.roadmap-col__tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: var(--radius-pill); }
-.roadmap-col--now .roadmap-col__tag { background: var(--accent-soft); color: var(--accent-readable); }
-.roadmap-col--next .roadmap-col__tag { background: color-mix(in srgb, var(--highlight) 18%, transparent); color: color-mix(in srgb, var(--highlight) 80%, var(--text)); }
-.roadmap-col--maybe .roadmap-col__tag { background: var(--phone-screen-chip-bg); color: var(--text-secondary); }
-.roadmap-col h2 { font-family: var(--font-display); font-size: 19px; font-weight: 600; margin: 0; }
-.roadmap-item { padding: var(--space-md) 0; border-top: 1px solid var(--divider); }
-.roadmap-item:first-of-type { border-top: none; }
-.roadmap-item h3 { font-size: 15.5px; font-weight: 600; margin: 0 0 4px; }
-.roadmap-item p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.55; }
-.roadmap-note { text-align: center; color: var(--text-tertiary); font-size: 14px; margin: var(--space-2xl) 0 0; }
 
 /* ===========================================================
    Beta success page (/welcome) + "introduce yourself" flow

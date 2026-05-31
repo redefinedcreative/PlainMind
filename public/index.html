@@ -118,6 +118,13 @@
   <symbol id="icon-glasses" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="3"></circle><circle cx="18" cy="15" r="3"></circle><path d="M9 15a3 3 0 0 1 6 0"></path><path d="M3 12l2-4M21 12l-2-4"></path></symbol>
   <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></symbol>
   <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></symbol>
+  <symbol id="icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></symbol>
+  <symbol id="icon-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"></circle><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"></circle><circle cx="19" cy="12" r="2" fill="currentColor" stroke="none"></circle></symbol>
+  <symbol id="icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></symbol>
+  <symbol id="icon-emoji" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></symbol>
+  <symbol id="icon-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></symbol>
 
   
   <symbol id="icon-airdrop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 14.5a6 6 0 0 1 9 0"></path><path d="M5 11.5a10 10 0 0 1 14 0"></path><circle cx="12" cy="18.5" r="1.4" fill="currentColor" stroke="none"></circle></symbol>
@@ -174,15 +181,15 @@
         </h1>
         <p class="lede">A calm, private place for the links, music, places, and ideas you want to remember. Save from any app in one tap — then find it again when you need it.</p>
 
-        <form class="signup-form" id="signup-hero" data-surecontact="c300f086-3fa0-4e75-ad23-bec0ac7c1b19" novalidate>
+        <form class="signup-form" id="signup-hero" novalidate>
           <div class="signup-form__row">
             <label class="sr-only" for="email-hero">Email address</label>
             <input type="email" id="email-hero" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
             <button type="submit" class="btn btn-primary signup-form__submit">Join the beta</button>
           </div>
+          <div class="cf-turnstile signup-form__turnstile" data-sitekey="0x4AAAAAADaDxUCQ0-TfMZ4C" data-appearance="interaction-only" data-theme="auto"></div>
           <p class="signup-form__note" data-signup-note>No spam, ever. We email you once, when the beta opens.</p>
         </form>
-        <div id="surecontact-form-hero" class="surecontact-slot" hidden></div>
 
         <ul class="trust-signals">
           <li>
@@ -201,53 +208,143 @@
       </div>
 
       <div class="hero-visual">
-        <div class="hero-phone" data-hero-phone aria-hidden="true">
-          <div class="hero-phone__frame">
-            <div class="hero-phone__notch"></div>
-            <div class="hero-phone__screen">
-              <div class="status-bar">
-                <span>9:41</span>
-                <span class="status-bar__icons">
-                  <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
-                  <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
-                </span>
-              </div>
-              <p class="hero-phone__title">Library</p>
+        <div class="hero-demo" data-demo-stage aria-hidden="true">
+          <div class="hero-phone__glow"></div>
+          <div class="demo-phone">
+            <div class="demo-phone__frame">
+              <div class="demo-phone__notch"></div>
+              <div class="demo-phone__screen">
+                <!-- Background "source app" peeking behind the sheet -->
+                <div class="demo-source">
+                  <div class="status-bar">
+                    <span>9:41</span>
+                    <span class="status-bar__icons">
+                      <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                      <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                    </span>
+                  </div>
+                  <div class="demo-source__bar">
+                    <span class="demo-source__chip">aa</span>
+                    <span class="demo-source__url">theatlantic.com</span>
+                    <svg class="icon demo-source__share"><use href="#icon-upload" /></svg>
+                  </div>
+                  <div class="demo-source__article">
+                    <span class="demo-source__h"></span>
+                    <span class="demo-source__p"></span>
+                    <span class="demo-source__p"></span>
+                    <span class="demo-source__p demo-source__p--short"></span>
+                    <span class="demo-source__p"></span>
+                    <span class="demo-source__p demo-source__p--short"></span>
+                  </div>
+                </div>
 
-              <!-- Cross-fading saved-item detail states -->
-              <div class="hero-card-stack">
-                <article class="hero-card is-active" data-state="link">
-                  <span class="hero-card__pill" style="--fc: var(--filter-link);">
-                    <svg class="icon"><use href="#icon-link" /></svg>Link
-                  </span>
-                  <span class="hero-card__media hero-card__media--link"></span>
-                  <span class="hero-card__title">The Atlantic — The New Age of Loneliness</span>
-                  <span class="hero-card__meta">theatlantic.com · saved today</span>
-                </article>
-                <article class="hero-card" data-state="place">
-                  <span class="hero-card__pill" style="--fc: var(--filter-place);">
-                    <svg class="icon"><use href="#icon-place" /></svg>Place
-                  </span>
-                  <span class="hero-card__media hero-card__media--place"></span>
-                  <span class="hero-card__title">Eiffel Tower</span>
-                  <span class="hero-card__meta">Paris, France · saved yesterday</span>
-                </article>
-                <article class="hero-card" data-state="image">
-                  <span class="hero-card__pill" style="--fc: var(--filter-image);">
-                    <svg class="icon"><use href="#icon-image" /></svg>Image
-                  </span>
-                  <span class="hero-card__media hero-card__media--image"></span>
-                  <span class="hero-card__title">Quiet home office, north light</span>
-                  <span class="hero-card__meta">Screenshot · saved Mon</span>
-                </article>
-              </div>
+                <!-- The library revealed behind the sheet -->
+                <div class="demo-library" data-demo-library>
+                  <p class="demo-library__title">Library</p>
+                  <ul class="demo-library__list">
+                    <li class="demo-library__row demo-library__row--new" data-demo-newrow style="--fc: var(--filter-link);">
+                      <span class="demo-library__rowtext">
+                        <span class="demo-library__pill"><svg class="icon"><use href="#icon-link" /></svg>Link</span>
+                        <span class="demo-library__rowtitle">The New Age of Loneliness</span>
+                        <span class="demo-library__rowmeta">theatlantic.com</span>
+                      </span>
+                      <span class="demo-library__thumb"></span>
+                    </li>
+                    <li class="demo-library__row" style="--fc: var(--filter-place);">
+                      <span class="demo-library__rowtext">
+                        <span class="demo-library__pill"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
+                        <span class="demo-library__rowtitle">7 Brew Coffee</span>
+                        <span class="demo-library__rowmeta">Springdale, AR</span>
+                      </span>
+                      <span class="demo-library__thumb"></span>
+                    </li>
+                    <li class="demo-library__row" style="--fc: var(--filter-image);">
+                      <span class="demo-library__rowtext">
+                        <span class="demo-library__pill"><svg class="icon"><use href="#icon-image" /></svg>Image</span>
+                        <span class="demo-library__rowtitle">Quiet home office</span>
+                        <span class="demo-library__rowmeta">north-light.png</span>
+                      </span>
+                      <span class="demo-library__thumb"></span>
+                    </li>
+                  </ul>
+                </div>
 
-              <div class="hero-phone__dots" data-hero-dots>
-                <span class="is-active"></span><span></span><span></span>
+                <!-- The iOS 26 share sheet -->
+                <div class="share-sheet" data-share-sheet>
+                  <div class="share-sheet__handle"></div>
+                  <div class="share-sheet__preview">
+                    <span class="share-sheet__preview-icon">
+                      <picture class="light-only">
+                        <source srcset="assets/plainmind-light.webp" type="image/webp" />
+                        <img src="assets/plainmind-light.png" alt="" width="40" height="40" />
+                      </picture>
+                      <picture class="dark-only">
+                        <source srcset="assets/plainmind-dark.webp" type="image/webp" />
+                        <img src="assets/plainmind-dark.png" alt="" width="40" height="40" />
+                      </picture>
+                    </span>
+                    <span class="share-sheet__preview-text">
+                      <span class="share-sheet__preview-title">The New Age of Loneliness</span>
+                      <span class="share-sheet__preview-url">theatlantic.com</span>
+                    </span>
+                  </div>
+                  <div class="share-sheet__optionsrow">
+                    <span class="share-sheet__options-pill">Options <svg class="icon"><use href="#icon-chevron" /></svg></span>
+                  </div>
+                  <div class="share-sheet__apps">
+                    <div class="share-app">
+                      <span class="share-app__icon" style="--tile:#3478F6;"><svg class="icon"><use href="#icon-airdrop" /></svg></span>
+                      <span class="share-app__label">AirDrop</span>
+                    </div>
+                    <div class="share-app">
+                      <span class="share-app__icon" style="--tile:#34C759;"><svg class="icon"><use href="#icon-messages" /></svg></span>
+                      <span class="share-app__label">Messages</span>
+                    </div>
+                    <div class="share-app">
+                      <span class="share-app__icon" style="--tile:#5E83EC;"><svg class="icon"><use href="#icon-mail" /></svg></span>
+                      <span class="share-app__label">Mail</span>
+                    </div>
+                    <div class="share-app share-app--target" data-share-target>
+                      <span class="share-app__icon share-app__icon--brand">
+                        <picture class="light-only">
+                          <source srcset="assets/plainmind-light.webp" type="image/webp" />
+                          <img src="assets/plainmind-light.png" alt="" width="52" height="52" />
+                        </picture>
+                        <picture class="dark-only">
+                          <source srcset="assets/plainmind-dark.webp" type="image/webp" />
+                          <img src="assets/plainmind-dark.png" alt="" width="52" height="52" />
+                        </picture>
+                      </span>
+                      <span class="share-app__label">PlainMind</span>
+                    </div>
+                  </div>
+                  <div class="share-sheet__actions">
+                    <div class="share-action">
+                      <span class="share-action__btn"><svg class="icon"><use href="#icon-copy" /></svg></span>
+                      <span class="share-action__label">Copy</span>
+                    </div>
+                    <div class="share-action">
+                      <span class="share-action__btn"><svg class="icon"><use href="#icon-glasses" /></svg></span>
+                      <span class="share-action__label">Reading List</span>
+                    </div>
+                    <div class="share-action">
+                      <span class="share-action__btn"><svg class="icon"><use href="#icon-bookmark" /></svg></span>
+                      <span class="share-action__label">Bookmark</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Saved confirmation pill -->
+                <div class="saved-pill" data-saved-pill>
+                  <svg class="icon"><use href="#icon-check" /></svg>
+                  <span>Saved.</span>
+                </div>
+
+                <!-- finger / cursor proxy (screen-level: taps the share icon, then the PlainMind tile) -->
+                <span class="demo-finger" data-demo-finger></span>
               </div>
             </div>
           </div>
-          <div class="hero-phone__glow"></div>
         </div>
       </div>
     </section>
@@ -257,7 +354,7 @@
          ==================================================== -->
     <section id="how-it-works" class="how container" aria-labelledby="how-title">
       <h2 class="sr-only" id="how-title">How it works</h2>
-      <ol class="how-grid">
+      <ol class="how-grid reveal">
         <li class="how-step">
           <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-upload" /></svg></span>
           <h3 class="how-step__title">Save from anywhere</h3>
@@ -279,142 +376,6 @@
           <p class="how-step__body">Everything stays on your device by default. Your library is yours alone.</p>
         </li>
       </ol>
-    </section>
-
-    <!-- ====================================================
-         Share-Sheet Interactive Demo — Cooks moment 2
-         ==================================================== -->
-    <section id="demo" class="demo container" aria-labelledby="demo-title">
-      <p class="eyebrow eyebrow--center">In one tap, from anywhere</p>
-      <h2 class="display-sm demo__title" id="demo-title">Share to PlainMind. <em class="accent">It's saved.</em></h2>
-
-      <div class="demo-stage" data-demo-stage>
-        <div class="demo-phone" aria-hidden="true">
-          <div class="demo-phone__frame">
-            <div class="demo-phone__notch"></div>
-            <div class="demo-phone__screen">
-              <!-- Background "source app" peeking behind the sheet -->
-              <div class="demo-source">
-                <div class="status-bar">
-                  <span>9:41</span>
-                  <span class="status-bar__icons">
-                    <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
-                    <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
-                  </span>
-                </div>
-                <div class="demo-source__bar">
-                  <span class="demo-source__chip">aa</span>
-                  <span class="demo-source__url">theatlantic.com</span>
-                  <svg class="icon demo-source__share"><use href="#icon-upload" /></svg>
-                </div>
-                <div class="demo-source__article">
-                  <span class="demo-source__h"></span>
-                  <span class="demo-source__p"></span>
-                  <span class="demo-source__p"></span>
-                  <span class="demo-source__p demo-source__p--short"></span>
-                  <span class="demo-source__p"></span>
-                  <span class="demo-source__p demo-source__p--short"></span>
-                </div>
-              </div>
-
-              <!-- The library revealed behind the sheet (used by the 'library' variant) -->
-              <div class="demo-library" data-demo-library>
-                <p class="demo-library__title">Library</p>
-                <ul class="demo-library__list">
-                  <li class="demo-library__row demo-library__row--new" data-demo-newrow>
-                    <span class="demo-library__thumb demo-library__thumb--link"></span>
-                    <span class="demo-library__rowtext">
-                      <span class="demo-library__rowtitle">The New Age of Loneliness</span>
-                      <span class="demo-library__rowmeta">Link · just now</span>
-                    </span>
-                  </li>
-                  <li class="demo-library__row">
-                    <span class="demo-library__thumb demo-library__thumb--place"></span>
-                    <span class="demo-library__rowtext">
-                      <span class="demo-library__rowtitle">7 Brew Coffee</span>
-                      <span class="demo-library__rowmeta">Place · yesterday</span>
-                    </span>
-                  </li>
-                  <li class="demo-library__row">
-                    <span class="demo-library__thumb demo-library__thumb--image"></span>
-                    <span class="demo-library__rowtext">
-                      <span class="demo-library__rowtitle">Quiet home office</span>
-                      <span class="demo-library__rowmeta">Image · Mon</span>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              <!-- The iOS share sheet -->
-              <div class="share-sheet" data-share-sheet>
-                <div class="share-sheet__handle"></div>
-                <div class="share-sheet__preview">
-                  <span class="share-sheet__preview-icon">
-                    <picture>
-                      <source srcset="assets/plainmind-light.webp" type="image/webp" />
-                      <img src="assets/plainmind-light.png" alt="" width="40" height="40" />
-                    </picture>
-                  </span>
-                  <span class="share-sheet__preview-text">
-                    <span class="share-sheet__preview-title">The New Age of Loneliness</span>
-                    <span class="share-sheet__preview-url">theatlantic.com</span>
-                  </span>
-                  <span class="share-sheet__options">Options ›</span>
-                </div>
-                <div class="share-sheet__apps">
-                  <div class="share-app">
-                    <span class="share-app__icon" style="--tile:#3478F6;"><svg class="icon"><use href="#icon-airdrop" /></svg></span>
-                    <span class="share-app__label">AirDrop</span>
-                  </div>
-                  <div class="share-app">
-                    <span class="share-app__icon" style="--tile:#34C759;"><svg class="icon"><use href="#icon-messages" /></svg></span>
-                    <span class="share-app__label">Messages</span>
-                  </div>
-                  <div class="share-app">
-                    <span class="share-app__icon" style="--tile:#5E83EC;"><svg class="icon"><use href="#icon-mail" /></svg></span>
-                    <span class="share-app__label">Mail</span>
-                  </div>
-                  <div class="share-app share-app--target" data-share-target>
-                    <span class="share-app__icon share-app__icon--brand">
-                      <picture>
-                        <source srcset="assets/plainmind-light.webp" type="image/webp" />
-                        <img src="assets/plainmind-light.png" alt="" width="52" height="52" />
-                      </picture>
-                    </span>
-                    <span class="share-app__label">PlainMind</span>
-                  </div>
-                </div>
-                <div class="share-sheet__actions">
-                  <div class="share-action">
-                    <span class="share-action__label">Copy</span>
-                    <span class="share-action__icon"><svg class="icon"><use href="#icon-copy" /></svg></span>
-                  </div>
-                  <div class="share-action">
-                    <span class="share-action__label">Add to Reading List</span>
-                    <span class="share-action__icon"><svg class="icon"><use href="#icon-glasses" /></svg></span>
-                  </div>
-                </div>
-                <!-- finger / cursor proxy -->
-                <span class="demo-finger" data-demo-finger></span>
-              </div>
-
-              <!-- Saved confirmation pill -->
-              <div class="saved-pill" data-saved-pill>
-                <svg class="icon"><use href="#icon-check" /></svg>
-                <span>Saved.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="demo-aside">
-          <p class="demo-aside__body">Tap share in Safari, Music, Maps, Photos — anywhere — then tap PlainMind. The article, song, place, or image lands in your library, organized by what it is.</p>
-          <button type="button" class="demo-replay" data-demo-replay>
-            <svg class="icon" aria-hidden="true"><use href="#icon-recent" /></svg>
-            Play again
-          </button>
-        </div>
-      </div>
     </section>
 
     <!-- ====================================================
@@ -446,70 +407,133 @@
               </div>
               <div class="lib-section">May 2026</div>
               <ul class="lib-list">
-                <li class="lib-item lib-item--place lib-anim" style="--fc: var(--filter-place);">
+                <li class="lib-item lib-anim" style="--fc: var(--filter-place);">
                   <span class="lib-item__main">
+                    <span class="lib-item__pill"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
                     <span class="lib-item__title">The Ripped Bodice</span>
-                    <span class="lib-item__pill"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
+                    <span class="lib-item__meta">1657 Abbot Kinney Blvd, Venice</span>
                   </span>
-                  <span class="lib-thumb lib-thumb--rose"></span>
+                  <span class="lib-thumb"></span>
                 </li>
-                <li class="lib-item lib-item--place lib-anim" style="--fc: var(--filter-place);">
+                <li class="lib-item lib-anim" style="--fc: var(--filter-place);">
                   <span class="lib-item__main">
+                    <span class="lib-item__pill"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
                     <span class="lib-item__title">7 Brew Coffee</span>
-                    <span class="lib-item__pill"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
+                    <span class="lib-item__meta">Springdale, AR</span>
                   </span>
-                  <span class="lib-thumb lib-thumb--coffee"></span>
+                  <span class="lib-thumb"></span>
                 </li>
-                <li class="lib-item lib-item--link lib-anim" style="--fc: var(--filter-link);">
+                <li class="lib-item lib-anim" style="--fc: var(--filter-link);">
                   <span class="lib-item__main">
-                    <span class="lib-item__title">TikTok · Life With Alac</span>
                     <span class="lib-item__pill"><svg class="icon"><use href="#icon-link" /></svg>Link</span>
+                    <span class="lib-item__title">TikTok · Life With Alac</span>
+                    <span class="lib-item__meta">tiktok.com</span>
                   </span>
-                  <span class="lib-thumb lib-thumb--ink"></span>
+                  <span class="lib-thumb"></span>
                 </li>
-                <li class="lib-item lib-item--image lib-anim" style="--fc: var(--filter-image);">
+                <li class="lib-item lib-anim" style="--fc: var(--filter-image);">
                   <span class="lib-item__main">
-                    <span class="lib-item__title">iOS Sharesheet</span>
                     <span class="lib-item__pill"><svg class="icon"><use href="#icon-image" /></svg>Image</span>
+                    <span class="lib-item__title">iOS Sharesheet</span>
+                    <span class="lib-item__meta">ios-sharesheet-final.png</span>
                   </span>
-                  <span class="lib-thumb lib-thumb--lav"></span>
+                  <span class="lib-thumb"></span>
                 </li>
-                <li class="lib-item lib-item--text lib-anim" style="--fc: var(--filter-text);">
+                <li class="lib-item lib-anim" style="--fc: var(--filter-text);">
                   <span class="lib-item__main">
-                    <span class="lib-item__title">MacBook Pro M5</span>
                     <span class="lib-item__pill"><svg class="icon"><use href="#icon-text" /></svg>Text</span>
+                    <span class="lib-item__title">MacBook Pro M5</span>
+                    <span class="lib-item__meta">Note · just now</span>
                   </span>
-                  <span class="lib-thumb lib-thumb--paper"></span>
+                  <span class="lib-thumb"></span>
                 </li>
-                <li class="lib-item lib-item--place lib-anim" style="--fc: var(--filter-place);">
+                <li class="lib-item lib-anim" style="--fc: var(--filter-place);">
                   <span class="lib-item__main">
-                    <span class="lib-item__title">Disneyland Paris</span>
                     <span class="lib-item__pill"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
+                    <span class="lib-item__title">Disneyland Paris</span>
+                    <span class="lib-item__meta">Chessy, 77777, France</span>
                   </span>
-                  <span class="lib-thumb lib-thumb--castle"></span>
+                  <span class="lib-thumb"></span>
                 </li>
               </ul>
               <div class="mock-tabbar">
-                <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
-                <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
+                <span class="mock-tabs">
+                  <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
+                  <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
+                </span>
                 <span class="mock-fab"><svg class="icon"><use href="#icon-search" /></svg></span>
               </div>
             </div>
           </div>
         </div>
-        <div class="feature-block__text">
-          <p class="eyebrow">Save from any app</p>
-          <h3 class="display-sm">Save anything, <em class="accent">from anywhere.</em></h3>
-          <p class="body-md">Share from Safari, Notes, Messages, Music, Maps, and more. PlainMind captures the article, song, place, image, or PDF instantly.</p>
+        <div class="feature-block__text reveal">
+          <p class="eyebrow">Auto-organized</p>
+          <h3 class="display-sm feature-title"><span>A library that</span> <em class="accent">stays calm.</em></h3>
+          <p class="body-md">Everything you save is sorted by what it is — links, places, images, PDFs, text. No tagging, no folders, no decisions in the moment. Come back to a library that's already in order.</p>
           <a href="beta/index.html" class="learn-more">Learn more <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right" /></svg></a>
         </div>
       </article>
 
       <article class="feature-block feature-block--image-right">
-        <div class="feature-block__text">
-          <p class="eyebrow">Auto-organized</p>
-          <h3 class="display-sm">A library that <em class="accent">stays calm.</em></h3>
-          <p class="body-md">Everything you save is sorted by what it is — no tagging, no folders, no decisions in the moment. Come back to a library that's already in order.</p>
+        <div class="feature-block__visual">
+          <div class="phone-mock phone-mock--detail anim-host">
+            <div class="phone-mock__notch"></div>
+            <div class="phone-mock__screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <span class="status-bar__icons">
+                  <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                  <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <div class="sheet-handle"></div>
+              <div class="sheet-chrome">
+                <span class="sheet-chrome__btn"><svg class="icon"><use href="#icon-more" /></svg></span>
+                <span class="sheet-chrome__btn"><svg class="icon"><use href="#icon-x" /></svg></span>
+              </div>
+              <div class="detail-media detail-media--map">
+                <span class="detail-media__pin"><svg class="icon"><use href="#icon-place" /></svg></span>
+                <span class="detail-media__expand"><svg class="icon"><use href="#icon-external" /></svg></span>
+                <span class="detail-media__maps">Maps</span>
+              </div>
+              <h4 class="detail-title">Eiffel Tower</h4>
+              <div class="detail-tags">
+                <span class="detail-tag detail-tag--type"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
+                <span class="detail-tag__divider"></span>
+                <span class="detail-tag"><svg class="icon"><use href="#icon-tag" /></svg>Apple Maps</span>
+              </div>
+              <p class="detail-meta">Eiffel Tower, 5 Avenue Anatole France, 75007 Paris, France</p>
+              <div class="detail-section-label">More views</div>
+              <div class="detail-views">
+                <span class="detail-view"><span class="detail-view__chip">Hybrid</span></span>
+                <span class="detail-view"><span class="detail-view__chip">Satellite</span></span>
+              </div>
+              <div class="detail-note">
+                <span class="detail-note__label">Note</span>
+                <p class="detail-note__body detail-note__body--ph">Add a note…</p>
+              </div>
+              <p class="detail-saved"><svg class="icon"><use href="#icon-place" /></svg>Saved May 29, 2026 at 9:26 AM</p>
+              <div class="detail-actions">
+                <span class="detail-action detail-action--vert"><svg class="icon"><use href="#icon-upload" /></svg><span class="detail-action__lbl">Share</span></span>
+                <span class="detail-action detail-action--vert detail-action--danger"><svg class="icon"><use href="#icon-trash" /></svg><span class="detail-action__lbl">Delete</span></span>
+                <span class="detail-action detail-action--primary"><svg class="icon"><use href="#icon-place" /></svg>Open in Maps</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-block__text reveal">
+          <p class="eyebrow">Calm but powerful details</p>
+          <h3 class="display-sm feature-title"><span>Everything about it,</span> <em class="accent">in one place.</em></h3>
+          <p class="body-md">Open any item for a calm, focused view — preview, source, your own notes, and quick actions to revisit, share, or let it go.</p>
+          <a href="beta/index.html" class="learn-more">Learn more <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right" /></svg></a>
+        </div>
+      </article>
+
+      <article class="feature-block feature-block--image-left">
+        <div class="feature-block__text reveal">
+          <p class="eyebrow">Powerful search</p>
+          <h3 class="display-sm feature-title"><span>Find anything,</span> <em class="accent">in seconds.</em></h3>
+          <p class="body-md">On-device search reaches inside titles, descriptions, image text, and full PDFs — so you can find what you saved even when you only remember a phrase.</p>
           <a href="beta/index.html" class="learn-more">Learn more <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right" /></svg></a>
         </div>
         <div class="feature-block__visual">
@@ -544,66 +568,47 @@
               </div>
               <div class="recent-header">Recent searches</div>
               <ul class="recent-list">
-                <li class="recent-row anim-fade-in-up"><span>disney</span><span class="recent-row__x">✕</span></li>
-                <li class="recent-row anim-fade-in-up"><span>los angeles</span><span class="recent-row__x">✕</span></li>
-                <li class="recent-row anim-fade-in-up"><span>las vegas</span><span class="recent-row__x">✕</span></li>
+                <li class="recent-row"><span>disney</span><span class="recent-row__x">✕</span></li>
+                <li class="recent-row"><span>los angeles</span><span class="recent-row__x">✕</span></li>
+                <li class="recent-row"><span>las vegas</span><span class="recent-row__x">✕</span></li>
               </ul>
-              <div class="search-input">
-                <svg class="icon"><use href="#icon-search" /></svg>
-                <span class="search-input__ph">Search your library</span>
-              </div>
-              <div class="mock-tabbar">
-                <span class="mock-tab"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
-                <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
-                <span class="mock-fab mock-fab--active"><svg class="icon"><use href="#icon-search" /></svg></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="feature-block feature-block--image-left">
-        <div class="feature-block__visual">
-          <div class="phone-mock phone-mock--detail anim-host">
-            <div class="phone-mock__notch"></div>
-            <div class="phone-mock__screen">
-              <div class="status-bar">
-                <span>9:41</span>
-                <span class="status-bar__icons">
-                  <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
-                  <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+              <div class="mock-searchbar">
+                <span class="mock-searchfield">
+                  <svg class="icon"><use href="#icon-search" /></svg>
+                  <span>Search your library</span>
                 </span>
+                <span class="mock-searchclose"><svg class="icon"><use href="#icon-x" /></svg></span>
               </div>
-              <div class="detail-media detail-media--map">
-                <span class="detail-media__pin"><svg class="icon"><use href="#icon-place" /></svg></span>
-              </div>
-              <span class="detail-pill" style="--fc: var(--filter-place);"><svg class="icon"><use href="#icon-place" /></svg>Place</span>
-              <h4 class="detail-title">Eiffel Tower</h4>
-              <p class="detail-meta">Paris, France · saved yesterday</p>
-              <div class="detail-actions">
-                <span class="detail-action detail-action--primary"><svg class="icon"><use href="#icon-place" /></svg>Open in Maps</span>
-                <span class="detail-action"><svg class="icon"><use href="#icon-upload" /></svg></span>
-              </div>
-              <div class="mock-tabbar">
-                <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
-                <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
-                <span class="mock-fab"><svg class="icon"><use href="#icon-search" /></svg></span>
+              <div class="mock-kbd" aria-hidden="true">
+                <div class="kbd-row">
+                  <span class="kbd-key">Q</span><span class="kbd-key">W</span><span class="kbd-key">E</span><span class="kbd-key">R</span><span class="kbd-key">T</span><span class="kbd-key">Y</span><span class="kbd-key">U</span><span class="kbd-key">I</span><span class="kbd-key">O</span><span class="kbd-key">P</span>
+                </div>
+                <div class="kbd-row kbd-row--2">
+                  <span class="kbd-key">A</span><span class="kbd-key">S</span><span class="kbd-key">D</span><span class="kbd-key">F</span><span class="kbd-key">G</span><span class="kbd-key">H</span><span class="kbd-key">J</span><span class="kbd-key">K</span><span class="kbd-key">L</span>
+                </div>
+                <div class="kbd-row">
+                  <span class="kbd-key kbd-key--mod">⇧</span><span class="kbd-key">Z</span><span class="kbd-key">X</span><span class="kbd-key">C</span><span class="kbd-key">V</span><span class="kbd-key">B</span><span class="kbd-key">N</span><span class="kbd-key">M</span><span class="kbd-key kbd-key--mod">⌫</span>
+                </div>
+                <div class="kbd-row kbd-row--bottom">
+                  <span class="kbd-key kbd-key--sm">123</span>
+                  <span class="kbd-key kbd-key--emoji"><svg class="icon"><use href="#icon-emoji" /></svg></span>
+                  <span class="kbd-key kbd-key--space">space</span>
+                  <span class="kbd-key kbd-key--go"><svg class="icon"><use href="#icon-search" /></svg></span>
+                </div>
+                <div class="kbd-row kbd-row--util">
+                  <span class="kbd-util"><svg class="icon"><use href="#icon-globe" /></svg></span>
+                  <span class="kbd-util"><svg class="icon"><use href="#icon-mic" /></svg></span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="feature-block__text">
-          <p class="eyebrow">Powerful search</p>
-          <h3 class="display-sm">Find anything, <em class="accent">in seconds.</em></h3>
-          <p class="body-md">On-device search reaches inside titles, descriptions, image text, and full PDFs — so you can find what you saved even when you only remember a phrase.</p>
-          <a href="beta/index.html" class="learn-more">Learn more <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right" /></svg></a>
         </div>
       </article>
 
       <article class="feature-block feature-block--image-right">
-        <div class="feature-block__text">
+        <div class="feature-block__text reveal">
           <p class="eyebrow">A calm, private space</p>
-          <h3 class="display-sm">Your space. <em class="accent">Your rules.</em></h3>
+          <h3 class="display-sm feature-title"><span>Your space.</span> <em class="accent">Your rules.</em></h3>
           <p class="body-md">Local-first by default, with optional iCloud sync you control. No feed, no algorithm, no tracking — the opposite of a social app.</p>
           <a href="beta/index.html" class="learn-more">Learn more <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right" /></svg></a>
         </div>
@@ -621,7 +626,10 @@
               <div class="set-header">Settings</div>
               <div class="set-section">iCloud Sync</div>
               <div class="set-card">
-                <span class="set-card__icon"><svg class="icon"><use href="#icon-icloud" /></svg></span>
+                <span class="set-card__icon sync-icon">
+                  <svg class="sync-ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15"></circle></svg>
+                  <svg class="icon"><use href="#icon-icloud" /></svg>
+                </span>
                 <span class="set-card__text">
                   <span class="set-card__title">Synced across devices</span>
                   <span class="set-card__sub">Last updated just now</span>
@@ -635,13 +643,15 @@
               <div class="set-row set-row--tap">
                 <span class="set-row__lead"><svg class="icon"><use href="#icon-stats" /></svg> Stats</span>
                 <span class="set-row__right">
-                  <span class="stats-badge">247 saves</span>
+                  <span class="stats-badge"><span data-countup="247">247</span> saves</span>
                   <svg class="icon set-chevron"><use href="#icon-chevron" /></svg>
                 </span>
               </div>
               <div class="mock-tabbar">
-                <span class="mock-tab"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
-                <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
+                <span class="mock-tabs">
+                  <span class="mock-tab"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
+                  <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
+                </span>
                 <span class="mock-fab"><svg class="icon"><use href="#icon-search" /></svg></span>
               </div>
             </div>
@@ -655,7 +665,7 @@
          Privacy band
          ==================================================== -->
     <section class="privacy-band container" aria-labelledby="privacy-title">
-      <div class="privacy-band__card">
+      <div class="privacy-band__card reveal">
         <div class="privacy-band__pitch">
           <span class="privacy-band__icon" aria-hidden="true"><svg class="icon"><use href="#icon-shield" /></svg></span>
           <div>
@@ -665,11 +675,11 @@
         </div>
         <div class="privacy-band__stats">
           <div class="privacy-stat">
-            <span class="privacy-stat__value">100<span class="privacy-stat__pct">%</span></span>
+            <span class="privacy-stat__value"><span data-countup="100">100</span><span class="privacy-stat__pct">%</span></span>
             <span class="privacy-stat__label">Local-first</span>
           </div>
           <div class="privacy-stat">
-            <span class="privacy-stat__value">0</span>
+            <span class="privacy-stat__value"><span data-countup="0">0</span></span>
             <span class="privacy-stat__label">Trackers</span>
           </div>
           <div class="privacy-stat">
@@ -688,20 +698,20 @@
         <span class="final-cta__watermark">Saved.</span>
       </div>
       <div class="final-cta__inner container">
-        <h2 class="display final-cta__heading" id="final-title">
+        <h2 class="display final-cta__heading reveal" id="final-title">
           Be the first to try PlainMind.<br />
           Join the <em class="accent">Open Beta.</em>
         </h2>
 
-        <form class="signup-form signup-form--final" id="signup-final" data-surecontact="c300f086-3fa0-4e75-ad23-bec0ac7c1b19" novalidate>
+        <form class="signup-form signup-form--final" id="signup-final" novalidate>
           <div class="signup-form__row">
             <label class="sr-only" for="email-final">Email address</label>
             <input type="email" id="email-final" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
             <button type="submit" class="btn btn-primary signup-form__submit">Join the beta</button>
           </div>
+          <div class="cf-turnstile signup-form__turnstile" data-sitekey="0x4AAAAAADaDxUCQ0-TfMZ4C" data-appearance="interaction-only" data-theme="auto"></div>
           <p class="signup-form__note" data-signup-note>Save anything. Find it later.</p>
         </form>
-        <div id="surecontact-form-bottom" class="surecontact-slot" hidden></div>
 
         <ul class="trust-signals trust-signals--centered">
           <li><svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>Early access</li>
@@ -763,6 +773,6 @@
   <script src="js/share-demo.js" defer></script>
   <script src="js/parallax.js" defer></script>
   <script src="js/signup.js" defer></script>
-  <script src="https://app.surecontact.com/embed/forms.js" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

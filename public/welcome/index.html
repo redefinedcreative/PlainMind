@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="noindex" />
+
+  <title>You're on the list — PlainMind</title>
+  <meta name="description" content="You're on the PlainMind beta list. Here's what happens next." />
+  <link rel="canonical" href="https://plainmind.app/welcome/" />
+
+  <!-- Anti-flash theme detection: must run before paint -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("pm-theme");
+        var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = (saved === "light" || saved === "dark") ? saved : (preferDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.setAttribute("data-theme-source", saved ? "user" : "system");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+  <script>
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { document.documentElement.classList.add("theme-ready"); });
+    });
+  </script>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <meta name="theme-color" content="#F7F3EC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1A1E23" media="(prefers-color-scheme: dark)" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="header-brand" aria-label="PlainMind home">
+        <picture class="light-only">
+          <source srcset="/assets/plainmind-light.webp" type="image/webp" />
+          <img src="/assets/plainmind-light.png" class="header-icon" alt="" width="32" height="32" />
+        </picture>
+        <picture class="dark-only">
+          <source srcset="/assets/plainmind-dark.webp" type="image/webp" />
+          <img src="/assets/plainmind-dark.png" class="header-icon" alt="" width="32" height="32" />
+        </picture>
+        <span class="header-wordmark">PlainMind</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main" class="welcome">
+    <section class="welcome-hero container">
+      <span class="pill">You're on the list</span>
+      <h1 class="display welcome-hero__title" id="welcome-greeting">Thanks for joining the PlainMind beta.</h1>
+      <p class="lede welcome-hero__sub" id="welcome-sub">We'll email you the moment your TestFlight invite is ready. Here's what to expect.</p>
+    </section>
+
+    <section class="container welcome-grid" aria-label="What happens next">
+      <article class="welcome-card">
+        <h2 class="welcome-card__title">What happens next</h2>
+        <p class="welcome-card__body"><!-- PLACEHOLDER COPY -->When the beta opens, you'll get an email with a TestFlight invite link. Tap it on your iPhone, install TestFlight if you don't have it, and PlainMind lands on your home screen.</p>
+      </article>
+      <article class="welcome-card">
+        <h2 class="welcome-card__title">Beta perks</h2>
+        <ul class="welcome-card__list">
+          <li><!-- PLACEHOLDER -->Early access before the public launch</li>
+          <li><!-- PLACEHOLDER -->A founding-member discount when we go paid</li>
+          <li><!-- PLACEHOLDER -->A direct line to shape what we build</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="container welcome-video" aria-label="A note from the team">
+      <div class="welcome-video__frame" data-video-slot>
+        <!-- PLACEHOLDER: drop the thank-you video embed here (e.g. an <iframe> or <video>) -->
+        <span class="welcome-video__placeholder">Thank-you video coming here</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__bottom">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch theme">
+          <span class="theme-toggle__icon" aria-hidden="true">
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="theme-toggle__sys" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </span>
+          <span class="theme-toggle__label" id="theme-toggle-label">System</span>
+        </button>
+        <p class="site-footer__copy">© 2026 PlainMind · Redefined Creative LLC</p>
+        <nav class="site-footer__links" aria-label="Legal">
+          <a href="/privacy/index.html">Privacy</a>
+          <a href="/help/index.html">Help</a>
+          <a href="mailto:support@plainmind.app">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- "Introduce yourself" — shown by welcome.js only when we know the signup email -->
+  <div class="intro-overlay" data-intro hidden>
+    <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <h2 class="intro-card__title" id="intro-title">Great to meet you.</h2>
+      <p class="intro-card__body">Wait — I don't know your name yet. What should I call you?</p>
+      <form class="intro-form" data-intro-form novalidate>
+        <label class="sr-only" for="intro-name">First name</label>
+        <input type="text" id="intro-name" name="first_name" autocomplete="given-name" placeholder="First name" />
+        <button type="submit" class="btn btn-primary">Introduce yourself</button>
+      </form>
+      <button type="button" class="intro-skip" data-intro-skip>Maybe later</button>
+    </div>
+  </div>
+
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/welcome.js" defer></script>
+</body>
+</html>

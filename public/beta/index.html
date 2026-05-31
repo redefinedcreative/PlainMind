@@ -130,12 +130,13 @@
       <div class="beta-signup-card" id="beta-form">
         <h2 id="beta-form-title">Join the Open Beta.</h2>
         <p class="page-hero__lede" style="text-align:center;">Leave your email and we'll send your TestFlight invite the moment the beta opens.</p>
-        <form class="signup-form" id="signup-beta" data-surecontact="c300f086-3fa0-4e75-ad23-bec0ac7c1b19" novalidate>
+        <form class="signup-form signup-form--final" id="signup-beta" novalidate>
           <div class="signup-form__row">
             <label class="sr-only" for="email-beta">Email address</label>
             <input type="email" id="email-beta" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
             <button type="submit" class="btn btn-primary signup-form__submit">Request invite</button>
           </div>
+          <div class="cf-turnstile signup-form__turnstile" data-sitekey="0x4AAAAAADaDxUCQ0-TfMZ4C" data-appearance="interaction-only" data-theme="auto"></div>
           <p class="signup-form__note" data-signup-note>No spam, ever. One email, when the beta opens.</p>
         </form>
       </div>
@@ -196,5 +197,6 @@
 
   <script src="../js/theme.js" defer></script>
   <script src="../js/signup.js" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

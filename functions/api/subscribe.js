@@ -87,8 +87,9 @@ export async function onRequestPost({ request, env }) {
   };
 
   // 1) Create or update the contact (upsert by email).
-  const payload = { email };
-  if (firstName) payload.first_name = firstName; // VERIFY: field name (first_name)
+  // SureContact expects identity fields nested under `primary_fields` (confirmed via 422 response).
+  const payload = { primary_fields: { email } };
+  if (firstName) payload.primary_fields.first_name = firstName; // VERIFY: first_name key within primary_fields
 
   let contact = {};
   try {

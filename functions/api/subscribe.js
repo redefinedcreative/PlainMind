@@ -6,16 +6,20 @@
 // Both are upserts keyed on email, so calling it again just updates the existing contact.
 //
 // Config comes from Cloudflare Pages environment variables (Project → Settings → Environment variables):
-//   SURECONTACT_API_KEY         (encrypt as a Secret) — your SureContact API key (write scope)
-//   SURECONTACT_AUTOMATION_UUID (plaintext ok)         — the *automation* (workflow) UUID to start for signups
-//   TURNSTILE_SECRET_KEY        (encrypt as a Secret) — Cloudflare Turnstile secret for the signup widget
+//   SURECONTACT_API_KEY    (encrypt as a Secret) — your SureContact API key (write scope)
+//   SURECONTACT_LIST_UUID  (plaintext ok)         — the "PlainMind Beta" list UUID to add signups to
+//   TURNSTILE_SECRET_KEY   (encrypt as a Secret) — Cloudflare Turnstile secret for the signup widget
 //
 // SureContact API shapes below were confirmed against live responses + the public API docs:
 //   • upsert wants identity fields nested under `primary_fields` ({ primary_fields: { email, first_name } })
 //   • the created/updated contact's id is at response.data.uuid
-//   • starting an automation is POST /contacts/{contact_uuid}/automations/{automation_uuid}/start
-//     (both ids in the PATH, no body). The automation must be in `active` status in SureContact.
-//     The automation owns everything downstream: tag (PlainMind Beta), list membership, and the emails.
+//   • adding to a list is POST /contacts/{contact_uuid}/lists-attach. Adding the contact to the
+//     "PlainMind Beta" list both (a) GUARANTEES list membership and (b) fires the SureContact
+//     workflow whose trigger is "contact added to that list" (the workflow then sends the welcome,
+//     enrolls in the sequence, etc.).
+//   ⚠ The lists-attach request body field name was NOT in SureContact's public docs. Best guess is
+//     { lists: [uuid] }. If a test contact is created but NOT added to the list, that field name is
+//     the one thing to change (try "list_uuids" or "uuids").
 
 const API_BASE = "https://api.surecontact.com/api/v1/public";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -111,17 +115,18 @@ export async function onRequestPost({ request, env }) {
 
   const contactUuid = contact.data && contact.data.uuid;
 
-  // 2) On first signup, start the beta workflow (automation) for this contact. The
-  //    automation owns everything downstream: tag as PlainMind Beta, add to the
-  //    PlainMind list, send the welcome + (later) the TestFlight invite. Best-effort:
-  //    a saved contact is the win — don't fail the whole signup if the trigger hiccups.
-  //    NOTE: the automation must be in `active` status in SureContact, or this no-ops.
-  if (enroll && env.SURECONTACT_AUTOMATION_UUID && contactUuid) {
+  // 2) On first signup, add the contact to the "PlainMind Beta" list. This is the linchpin:
+  //    it (a) GUARANTEES the person is on your list no matter what happens downstream, and
+  //    (b) fires the SureContact workflow that triggers on "added to this list" (welcome email,
+  //    sequence enrollment, etc.). Best-effort: a saved contact is the win — don't fail the whole
+  //    signup if this hiccups. See the ⚠ note above re: the body field name (confirm on first test).
+  if (enroll && env.SURECONTACT_LIST_UUID && contactUuid) {
     try {
-      await fetch(
-        `${API_BASE}/contacts/${contactUuid}/automations/${env.SURECONTACT_AUTOMATION_UUID}/start`,
-        { method: "POST", headers }
-      );
+      await fetch(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ lists: [env.SURECONTACT_LIST_UUID] }),
+      });
     } catch (e) {
       /* swallow — contact is saved */
     }

@@ -142,22 +142,28 @@ export async function onRequestPost({ request, env }) {
     // ⚠ TEMP PROBE (betatest emails only) — sanity-GET the contact + list to confirm paths/UUIDs
     //   resolve, then try each plausible lists-attach body shape so ONE test reveals what works.
     if (/betatest/i.test(email)) {
-      _debug.probe = {};
-      _debug.probe.getContact = await scTry(`${API_BASE}/contacts/${contactUuid}`);
-      _debug.probe.getList = await scTry(`${API_BASE}/lists/${L}`);
-      const variants = {
-        lists_arr: { lists: [L] },
-        list_uuids: { list_uuids: [L] },
-        uuids: { uuids: [L] },
-        ids: { ids: [L] },
-        list_uuid: { list_uuid: L },
-        objects: { lists: [{ uuid: L }] },
+      const note = {
+        getContact: (await scTry(`${API_BASE}/contacts/${contactUuid}`)).status,
+        getList: (await scTry(`${API_BASE}/lists/${L}`)).status,
+        tries: {},
       };
-      for (const k in variants) {
-        _debug.probe["attach_" + k] = await scTry(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
-          method: "POST", headers, body: JSON.stringify(variants[k]),
-        });
+      const tries = [
+        ["c:lists",         `${API_BASE}/contacts/${contactUuid}/lists-attach`, { lists: [L] }],
+        ["c:list_uuids",    `${API_BASE}/contacts/${contactUuid}/lists-attach`, { list_uuids: [L] }],
+        ["c:uuids",         `${API_BASE}/contacts/${contactUuid}/lists-attach`, { uuids: [L] }],
+        ["c:list_uuid",     `${API_BASE}/contacts/${contactUuid}/lists-attach`, { list_uuid: L }],
+        ["l:contacts",      `${API_BASE}/lists/${L}/contacts-attach`, { contacts: [contactUuid] }],
+        ["l:contact_uuids", `${API_BASE}/lists/${L}/contacts-attach`, { contact_uuids: [contactUuid] }],
+      ];
+      for (const [label, url, body] of tries) {
+        const r = await scTry(url, { method: "POST", headers, body: JSON.stringify(body) });
+        note.tries[label] = r.status;
+        if (r.status >= 200 && r.status < 300 && !note.winner) note.winner = label;
+        if (r.status !== 404 && (r.status < 200 || r.status >= 300) && !note.firstErr) {
+          note.firstErr = label + " → " + ((r.body || r.error || "") + "").slice(0, 130);
+        }
       }
+      _debug.probe = note;
     } else {
       const res = await scTry(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
         method: "POST", headers, body: JSON.stringify({ lists: [L] }),

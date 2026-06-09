@@ -120,17 +120,29 @@ export async function onRequestPost({ request, env }) {
   //    (b) fires the SureContact workflow that triggers on "added to this list" (welcome email,
   //    sequence enrollment, etc.). Best-effort: a saved contact is the win — don't fail the whole
   //    signup if this hiccups. See the ⚠ note above re: the body field name (confirm on first test).
+  // ⚠ TEMP DIAGNOSTIC — remove once the list-attach is confirmed working. Surfaces WHY the
+  //   attach isn't landing (env var missing? wrong body field? bad UUID? auth?) in the response
+  //   _debug block + Cloudflare function logs, instead of failing silently.
+  const _debug = {
+    enroll: enroll,
+    hasListUuid: !!env.SURECONTACT_LIST_UUID,
+    hasContactUuid: !!contactUuid,
+  };
   if (enroll && env.SURECONTACT_LIST_UUID && contactUuid) {
     try {
-      await fetch(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
+      const r = await fetch(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
         method: "POST",
         headers,
         body: JSON.stringify({ lists: [env.SURECONTACT_LIST_UUID] }),
       });
+      _debug.attachStatus = r.status;
+      _debug.attachBody = (await r.text()).slice(0, 600);
+      console.log("[subscribe] lists-attach", r.status, _debug.attachBody);
     } catch (e) {
-      /* swallow — contact is saved */
+      _debug.attachError = String(e);
+      console.log("[subscribe] lists-attach threw", String(e));
     }
   }
 
-  return json({ ok: true, first_name: firstName || null });
+  return json({ ok: true, first_name: firstName || null, _debug });
 }

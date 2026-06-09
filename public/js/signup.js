@@ -79,12 +79,6 @@
           return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; });
         })
         .then(function (res) {
-          // ⚠ TEMP DEBUG — remove together with the subscribe.js _debug block. For test emails
-          //   ONLY (so real signups never see this), pop the raw server response so we can read
-          //   the list-attach result without fighting the post-redirect "response body" loss.
-          if (/betatest/i.test(email)) {
-            window.alert("subscribe response:\n\n" + JSON.stringify(res.d, null, 2));
-          }
           if (!res.ok || !res.d.ok) {
             throw new Error((res.d && res.d.error) || "Something went wrong. Please try again.");
           }

@@ -6,20 +6,18 @@
 // Both are upserts keyed on email, so calling it again just updates the existing contact.
 //
 // Config comes from Cloudflare Pages environment variables (Project → Settings → Environment variables):
-//   SURECONTACT_API_KEY    (encrypt as a Secret) — your SureContact API key (write scope)
+//   SURECONTACT_API_KEY    (encrypt as a Secret) — your SureContact API key (needs READ + WRITE)
 //   SURECONTACT_LIST_UUID  (plaintext ok)         — the "PlainMind Beta" list UUID to add signups to
 //   TURNSTILE_SECRET_KEY   (encrypt as a Secret) — Cloudflare Turnstile secret for the signup widget
 //
-// SureContact API shapes below were confirmed against live responses + the public API docs:
+// SureContact API shapes (confirmed against the live API + docs):
 //   • upsert wants identity fields nested under `primary_fields` ({ primary_fields: { email, first_name } })
 //   • the created/updated contact's id is at response.data.uuid
-//   • adding to a list is POST /contacts/{contact_uuid}/lists-attach. Adding the contact to the
+//   • add to a list: POST /contacts/{contact_uuid}/lists/attach  body { list_uuids: [uuid] }
+//     (path uses /lists/attach with a SLASH — "lists-attach" 404s). Adding the contact to the
 //     "PlainMind Beta" list both (a) GUARANTEES list membership and (b) fires the SureContact
-//     workflow whose trigger is "contact added to that list" (the workflow then sends the welcome,
-//     enrolls in the sequence, etc.).
-//   ⚠ The lists-attach request body field name was NOT in SureContact's public docs. Best guess is
-//     { lists: [uuid] }. If a test contact is created but NOT added to the list, that field name is
-//     the one thing to change (try "list_uuids" or "uuids").
+//     workflow whose trigger is "contact added to that list" (welcome email, sequence enroll, etc.).
+//     The API key needs READ permission as well as write (the attach validates the list/contact).
 
 const API_BASE = "https://api.surecontact.com/api/v1/public";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -115,63 +113,23 @@ export async function onRequestPost({ request, env }) {
 
   const contactUuid = contact.data && contact.data.uuid;
 
-  // 2) On first signup, add the contact to the "PlainMind Beta" list. This is the linchpin:
-  //    it (a) GUARANTEES the person is on your list no matter what happens downstream, and
-  //    (b) fires the SureContact workflow that triggers on "added to this list" (welcome email,
-  //    sequence enrollment, etc.). Best-effort: a saved contact is the win — don't fail the whole
-  //    signup if this hiccups. See the ⚠ note above re: the body field name (confirm on first test).
-  // ⚠ TEMP DIAGNOSTIC — remove once the list-attach is confirmed working. Surfaces WHY the
-  //   attach isn't landing (env var missing? wrong body field? bad UUID? auth?) in the response
-  //   _debug block + Cloudflare function logs, instead of failing silently.
-  const _debug = {
-    enroll: enroll,
-    hasListUuid: !!env.SURECONTACT_LIST_UUID,
-    hasContactUuid: !!contactUuid,
-  };
-  async function scTry(url, opts) {
-    try {
-      const r = await fetch(url, opts || { headers });
-      return { status: r.status, body: (await r.text()).slice(0, 160) };
-    } catch (e) {
-      return { error: String(e) };
-    }
-  }
-
+  // 2) On first signup, add the contact to the "PlainMind Beta" list. This both (a) GUARANTEES
+  //    list membership no matter what happens downstream, and (b) fires the SureContact workflow
+  //    whose trigger is "contact added to that list" (welcome email, sequence enroll, etc.).
+  //    Endpoint is /lists/attach (SLASH, not "lists-attach") with body { list_uuids: [...] } —
+  //    confirmed against the live API docs. Best-effort: a saved contact is the win, so don't fail
+  //    the signup if this hiccups.
   if (enroll && env.SURECONTACT_LIST_UUID && contactUuid) {
-    const L = env.SURECONTACT_LIST_UUID;
-    // ⚠ TEMP PROBE (betatest emails only) — sanity-GET the contact + list to confirm paths/UUIDs
-    //   resolve, then try each plausible lists-attach body shape so ONE test reveals what works.
-    if (/betatest/i.test(email)) {
-      const note = {
-        getContact: (await scTry(`${API_BASE}/contacts/${contactUuid}`)).status,
-        getList: (await scTry(`${API_BASE}/lists/${L}`)).status,
-        tries: {},
-      };
-      const tries = [
-        ["c:lists",         `${API_BASE}/contacts/${contactUuid}/lists-attach`, { lists: [L] }],
-        ["c:list_uuids",    `${API_BASE}/contacts/${contactUuid}/lists-attach`, { list_uuids: [L] }],
-        ["c:uuids",         `${API_BASE}/contacts/${contactUuid}/lists-attach`, { uuids: [L] }],
-        ["c:list_uuid",     `${API_BASE}/contacts/${contactUuid}/lists-attach`, { list_uuid: L }],
-        ["l:contacts",      `${API_BASE}/lists/${L}/contacts-attach`, { contacts: [contactUuid] }],
-        ["l:contact_uuids", `${API_BASE}/lists/${L}/contacts-attach`, { contact_uuids: [contactUuid] }],
-      ];
-      for (const [label, url, body] of tries) {
-        const r = await scTry(url, { method: "POST", headers, body: JSON.stringify(body) });
-        note.tries[label] = r.status;
-        if (r.status >= 200 && r.status < 300 && !note.winner) note.winner = label;
-        if (r.status !== 404 && (r.status < 200 || r.status >= 300) && !note.firstErr) {
-          note.firstErr = label + " → " + ((r.body || r.error || "") + "").slice(0, 130);
-        }
-      }
-      _debug.probe = note;
-    } else {
-      const res = await scTry(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
-        method: "POST", headers, body: JSON.stringify({ lists: [L] }),
+    try {
+      await fetch(`${API_BASE}/contacts/${contactUuid}/lists/attach`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ list_uuids: [env.SURECONTACT_LIST_UUID] }),
       });
-      _debug.attachStatus = res.status;
-      _debug.attachBody = res.body;
+    } catch (e) {
+      /* swallow — contact is saved */
     }
   }
 
-  return json({ ok: true, first_name: firstName || null, _debug });
+  return json({ ok: true, first_name: firstName || null });
 }

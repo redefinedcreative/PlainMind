@@ -128,19 +128,42 @@ export async function onRequestPost({ request, env }) {
     hasListUuid: !!env.SURECONTACT_LIST_UUID,
     hasContactUuid: !!contactUuid,
   };
-  if (enroll && env.SURECONTACT_LIST_UUID && contactUuid) {
+  async function scTry(url, opts) {
     try {
-      const r = await fetch(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ lists: [env.SURECONTACT_LIST_UUID] }),
-      });
-      _debug.attachStatus = r.status;
-      _debug.attachBody = (await r.text()).slice(0, 600);
-      console.log("[subscribe] lists-attach", r.status, _debug.attachBody);
+      const r = await fetch(url, opts || { headers });
+      return { status: r.status, body: (await r.text()).slice(0, 160) };
     } catch (e) {
-      _debug.attachError = String(e);
-      console.log("[subscribe] lists-attach threw", String(e));
+      return { error: String(e) };
+    }
+  }
+
+  if (enroll && env.SURECONTACT_LIST_UUID && contactUuid) {
+    const L = env.SURECONTACT_LIST_UUID;
+    // ⚠ TEMP PROBE (betatest emails only) — sanity-GET the contact + list to confirm paths/UUIDs
+    //   resolve, then try each plausible lists-attach body shape so ONE test reveals what works.
+    if (/betatest/i.test(email)) {
+      _debug.probe = {};
+      _debug.probe.getContact = await scTry(`${API_BASE}/contacts/${contactUuid}`);
+      _debug.probe.getList = await scTry(`${API_BASE}/lists/${L}`);
+      const variants = {
+        lists_arr: { lists: [L] },
+        list_uuids: { list_uuids: [L] },
+        uuids: { uuids: [L] },
+        ids: { ids: [L] },
+        list_uuid: { list_uuid: L },
+        objects: { lists: [{ uuid: L }] },
+      };
+      for (const k in variants) {
+        _debug.probe["attach_" + k] = await scTry(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
+          method: "POST", headers, body: JSON.stringify(variants[k]),
+        });
+      }
+    } else {
+      const res = await scTry(`${API_BASE}/contacts/${contactUuid}/lists-attach`, {
+        method: "POST", headers, body: JSON.stringify({ lists: [L] }),
+      });
+      _debug.attachStatus = res.status;
+      _debug.attachBody = res.body;
     }
   }
 

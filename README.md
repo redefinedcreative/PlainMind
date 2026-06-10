@@ -96,16 +96,18 @@ Cloudflare Pages auto-deploys on every push to `main`. Each PR also gets a previ
 
 The signup no longer uses SureContact's JS embed. The on-brand form posts to a **Cloudflare Pages Function** that talks to the SureContact REST API server-side (so the API key is never exposed in the browser).
 
+**Updated 2026-06-09 — LIVE & verified.** Signups now flow into a SureContact **Workflow** (Automations → Workflows → "PlainMind Signup") via **list membership**, not a direct sequence enroll. The Function adds each signup to the **"PlainMind Beta" list**; the workflow triggers on "contact added to that list" and runs the emails (welcome + enroll in the beta sequence). Rationale: this makes list membership the first, *guaranteed* step (independent of whether the workflow runs), which is the priority — "no matter what, the signup is on our list." End-to-end verified on `plainmind.pages.dev`.
+
 **Flow:**
 1. Hero / final-CTA form (`js/signup.js`) → `POST /api/subscribe` with `{ email, enroll: true }`.
-2. `functions/api/subscribe.js` upserts the contact (`POST /api/v1/public/contacts/upsert`) and enrolls them in the beta sequence (`POST /api/v1/public/sequences/{uuid}/enroll`), authing with `X-API-Key`.
+2. `functions/api/subscribe.js` upserts the contact (`POST /api/v1/public/contacts/upsert`) and adds them to the **PlainMind Beta list** (`POST /api/v1/public/contacts/{uuid}/lists/attach` with `{ list_uuids: [SURECONTACT_LIST_UUID] }`), authing with `X-API-Key`. The list-add is what fires the workflow.
 3. On success, `signup.js` stashes the email in `sessionStorage` and redirects to `/welcome/`.
 4. `/welcome/` (`js/welcome.js`) shows the calm "introduce yourself" prompt, posts `{ email, first_name }` to the same `/api/subscribe` (upsert updates the existing contact), and personalizes the greeting. If no email is in `sessionStorage` (direct visit), the name step is skipped.
 
 **Setup (one-time, in the Cloudflare Pages project):**
 - Settings → Environment variables:
-  - `SURECONTACT_API_KEY` — **encrypt as a Secret.** Your SureContact API key (write scope is sufficient).
-  - `SURECONTACT_SEQUENCE_UUID` — the automation/sequence UUID to enroll signups into.
+  - `SURECONTACT_API_KEY` — **encrypt as a Secret.** Your SureContact API key — needs **read + write** (the list-attach validates the list/contact, so a read-less key fails with `403 API_KEY_INSUFFICIENT_PERMISSIONS`).
+  - `SURECONTACT_LIST_UUID` — the **"PlainMind Beta" list** UUID. Signups are added to this list, which triggers the "PlainMind Signup" workflow. (Replaced the old `SURECONTACT_SEQUENCE_UUID` — the sequence now runs *inside* the workflow.)
   - `TURNSTILE_SECRET_KEY` — **encrypt as a Secret.** The Cloudflare Turnstile secret key for this widget. The Function verifies every beta signup server-side against `siteverify`; without it, signups are rejected with "Signup is not configured yet."
 - The `functions/` directory lives at the **repo root** (sibling to `public/`), which is where Pages looks for Functions when the build output dir is `public`.
 
@@ -114,10 +116,12 @@ The signup no longer uses SureContact's JS embed. The on-brand form posts to a *
 - The public *site* key lives in all three forms (`data-sitekey`); the matching *secret* key is in the `TURNSTILE_SECRET_KEY` env var above. The Turnstile domain must also be allowlisted in the CSP (`public/_headers`) under `script-src`/`frame-src`/`connect-src` — and the deployed hostnames (`plainmind.app`, `plainmind.pages.dev`) added to the widget's Hostname Management in the Turnstile dashboard.
 - `signup.js` posts the widget's `cf-turnstile-response` token as `turnstile_token`; the Function calls `siteverify` and only proceeds on success. The `/welcome` name update reuses the endpoint but is not gated on Turnstile (it's not a new enrollment).
 
-**SureContact API shapes — confirmed against live responses (2026-05-31):**
+**SureContact API shapes — confirmed against the live API (2026-06-09):**
 - upsert wants identity fields nested under `primary_fields`: `{ primary_fields: { email, first_name } }`
 - the created/updated contact's id is at `response.data.uuid`
-- enroll is `POST /sequences/{uuid}/enroll` with `{ contact_uuid }` — `SURECONTACT_SEQUENCE_UUID` **must be a Sequence**, not another automation type (a non-sequence automation returns 404 "not a sequence"; those use `POST /contacts/{uuid}/automations/{uuid}/start` instead)
+- **add to list:** `POST /contacts/{contact_uuid}/lists/attach` with `{ list_uuids: [uuid] }`. ⚠ The path is **`/lists/attach` with a SLASH** — the hyphenated `lists-attach` (from older doc summaries) **404s** with "Resource not found". Companions: `/lists/detach`, `/tags/attach`, `/tags/detach`; list-side equivalents are `POST /lists/{uuid}/contacts/add` + `/contacts/remove`.
+- the API key needs **read** permission as well as write — the attach validates the contact + list; a read-less key returns `403 API_KEY_INSUFFICIENT_PERMISSIONS` (GETs 403, and the attach 404s).
+- (reference) direct workflow start exists — `POST /contacts/{uuid}/automations/{automation_uuid}/start` — but it does **not** fire a workflow whose first node is an *Incoming Webhook* trigger; that's why we switched to a **list-add trigger**. Direct sequence enroll (`POST /sequences/{uuid}/enroll` with `{ contact_uuid }`, Sequence only) now runs inside the workflow rather than from the Function.
 
 **Local testing:** `/api/subscribe` only exists when Functions run, so a plain `python3 -m http.server` won't hit it — use `npx wrangler pages dev public` (with the env vars set locally) to exercise the full flow.
 
@@ -128,7 +132,7 @@ The signup no longer uses SureContact's JS embed. The on-brand form posts to a *
 Visual checks (do these in a real browser after local preview or after first Cloudflare deploy):
 
 - [ ] Landing hero shows the locked tagline: **"Save anything. Find it later."**
-- [ ] Both signup forms render and accept submissions; the email lands in SureContact
+- [x] Both signup forms render and accept submissions; the email lands in SureContact (verified 2026-06-09 — contact created → added to PlainMind Beta list → "PlainMind Signup" workflow fires → welcome email)
 - [ ] Theme toggle cycles System → Light → Dark and persists across reloads on **all three pages**
 - [ ] Dark mode looks correct on landing, /privacy, and /terms (footer toggle is the fastest way to flip)
 - [ ] Phone mockups don't break at narrow widths (≤ 380px)

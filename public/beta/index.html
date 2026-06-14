@@ -86,21 +86,28 @@
 </svg>
 
 
+  <!-- partial:header:start -->
   <header class="site-header" id="site-header">
     <div class="site-header__inner">
-      <a href="../index.html" class="header-brand" aria-label="PlainMind home">
-        <picture><source srcset="../assets/plainmind-light.webp" type="image/webp" class="light-only" /><img src="../assets/plainmind-light.png" class="header-icon light-only" alt="" width="32" height="32" /></picture>
-        <picture><source srcset="../assets/plainmind-dark.webp" type="image/webp" class="dark-only" /><img src="../assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="32" height="32" /></picture>
+      <a href="/" class="header-brand" aria-label="PlainMind home">
+        <picture>
+          <source srcset="/assets/plainmind-light.webp" type="image/webp" class="light-only" />
+          <img src="/assets/plainmind-light.png" class="header-icon light-only" alt="" width="32" height="32" />
+        </picture>
+        <picture>
+          <source srcset="/assets/plainmind-dark.webp" type="image/webp" class="dark-only" />
+          <img src="/assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="32" height="32" />
+        </picture>
         <span class="header-wordmark">PlainMind</span>
       </a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="../index.html#features">Features</a>
-        <a href="../index.html#how-it-works">How it works</a>
-        <a href="../beta/index.html">Beta</a>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#features">Features</a>
       </nav>
-      <a href="#beta-form" class="btn btn-outline header-cta">Join the Open Beta</a>
+      <a href="/beta/#beta-form" class="btn btn-outline header-cta">Join the Open Beta</a>
     </div>
   </header>
+  <!-- partial:header:end -->
 
   <main id="main">
     <section class="page-hero container">
@@ -162,12 +169,19 @@
     </section>
   </main>
 
+  <!-- partial:footer:start -->
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <div class="site-footer__top">
-        <a href="../index.html" class="header-brand site-footer__brand" aria-label="PlainMind home">
-          <picture><source srcset="../assets/plainmind-light.webp" type="image/webp" class="light-only" /><img src="../assets/plainmind-light.png" class="header-icon light-only" alt="" width="28" height="28" /></picture>
-          <picture><source srcset="../assets/plainmind-dark.webp" type="image/webp" class="dark-only" /><img src="../assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="28" height="28" /></picture>
+        <a href="/" class="header-brand site-footer__brand" aria-label="PlainMind home">
+          <picture>
+            <source srcset="/assets/plainmind-light.webp" type="image/webp" class="light-only" />
+            <img src="/assets/plainmind-light.png" class="header-icon light-only" alt="" width="28" height="28" />
+          </picture>
+          <picture>
+            <source srcset="/assets/plainmind-dark.webp" type="image/webp" class="dark-only" />
+            <img src="/assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="28" height="28" />
+          </picture>
           <span class="header-wordmark">PlainMind</span>
         </a>
         <p class="site-footer__line">A calmer way to capture what matters.</p>
@@ -188,15 +202,16 @@
         </button>
         <p class="site-footer__copy">© 2026 PlainMind · Redefined Creative LLC</p>
         <nav class="site-footer__links" aria-label="More">
-          <a href="../privacy/index.html">Privacy</a>
-          <a href="../terms/index.html">Terms</a>
-          <a href="../help/index.html">Help</a>
-          <a href="../roadmap/index.html">Roadmap</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/help/">Help</a>
+          <a href="/roadmap/">Roadmap</a>
           <a href="mailto:support@plainmind.app">Contact</a>
         </nav>
       </div>
     </div>
   </footer>
+  <!-- partial:footer:end -->
 
   <script src="../js/theme.js" defer></script>
   <script src="../js/signup.js" defer></script>

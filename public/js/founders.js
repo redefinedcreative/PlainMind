@@ -1,22 +1,36 @@
-/* founders.js — live founding-member count near the signup forms.
-   Fetches /api/founders and reveals "Only X of 200 founding spots left" once the count
-   crosses the reveal threshold (server-decided), with a "full" state at the cap.
-   Stays hidden below the threshold or on any error. */
+/* founders.js — live founding-member status near the signup forms.
+   Always shows something (transparent), but stages the copy so a thin early number is never
+   surfaced: an open invite below the threshold → the live "X of 200 left" once it's compelling
+   → a "full" state at the cap. Copy is tuned per surface via data-founders="signup" | "welcome".
+   Stays hidden only on error. */
 (function () {
   var els = document.querySelectorAll("[data-founders]");
   if (!els.length) return;
 
+  var COPY = {
+    invite: {
+      signup: "Be one of the first 200 founders.",
+      welcome: "You're one of the first 200 founders.",
+    },
+    counting: {
+      signup: "Only <strong>{n}</strong> of 200 founding spots left.",
+      welcome: "Only <strong>{n}</strong> of 200 founding spots left.",
+    },
+    full: {
+      signup: "Founding spots are full — join the waitlist for launch.",
+      welcome: "All 200 founding spots are claimed.",
+    },
+  };
+
   fetch("/api/founders", { headers: { accept: "application/json" } })
     .then(function (r) { return r.json().catch(function () { return {}; }); })
     .then(function (d) {
-      if (!d || !d.ok || !d.reveal) return; // below threshold / unavailable → stay hidden
-      var full = !!d.full;
-      var msg = full
-        ? "Founding spots are full — join the waitlist for launch."
-        : "Only <strong>" + d.remaining + "</strong> of " + d.cap + " founding spots left.";
+      if (!d || !d.ok || !d.stage || !COPY[d.stage]) return; // unavailable → stay hidden
       els.forEach(function (el) {
-        el.innerHTML = msg;                       // values come from our own API, not user input
-        el.classList.toggle("founders-status--full", full);
+        var ctx = el.getAttribute("data-founders") === "welcome" ? "welcome" : "signup";
+        var msg = COPY[d.stage][ctx].replace("{n}", d.remaining); // values from our own API
+        el.innerHTML = msg;
+        el.classList.toggle("founders-status--full", d.stage === "full");
         el.removeAttribute("hidden");
       });
     })

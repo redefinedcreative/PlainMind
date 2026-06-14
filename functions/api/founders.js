@@ -7,13 +7,14 @@
 //   SURECONTACT_API_KEY   (Secret, needs READ)        — same key the signup Function uses
 //   SURECONTACT_LIST_UUID (plaintext)                  — the "PlainMind Beta" list UUID
 //
-// Privacy/optics: the exact count is withheld until we cross REVEAL_AT (100) — below that the
-// response is just { ok, reveal:false } so a thin early number never leaks. Edge-cached for
-// CACHE_TTL so page loads don't call SureContact every time.
+// Privacy/optics: we always return a stage so the program is visible from day one, but a thin
+// early number never leaks — below NUMBER_AT (50) the response is just { ok, stage:"invite" }
+// (an open invite, no count); at/above it we add the live "remaining"; at the cap, stage:"full".
+// Edge-cached for CACHE_TTL so page loads don't call SureContact every time.
 
 const API_BASE = "https://api.surecontact.com/api/v1/public";
 const CAP = 200;        // founding-member ceiling
-const REVEAL_AT = 100;  // only surface the count publicly once we've crossed this
+const NUMBER_AT = 50;   // below this, show an open invite (no raw number); above, show the live count
 const CACHE_TTL = 120;  // seconds to edge-cache the upstream count
 
 function json(data, status, cacheSeconds) {
@@ -69,22 +70,14 @@ export async function onRequestGet({ env }) {
     return json({ ok: false, error: "unavailable" }, 502, 0);
   }
 
-  // Below the reveal threshold: don't expose the thin early number.
-  if (count < REVEAL_AT) {
-    return json({ ok: true, reveal: false }, 200, CACHE_TTL);
-  }
-
+  // Stage the response so a thin early number is never exposed: below NUMBER_AT we return only
+  // an "invite" stage (no raw count); above it, the live "remaining"; at the cap, "full".
   const claimed = Math.min(count, CAP);
-  return json(
-    {
-      ok: true,
-      reveal: true,
-      claimed,
-      cap: CAP,
-      remaining: Math.max(0, CAP - claimed),
-      full: count >= CAP,
-    },
-    200,
-    CACHE_TTL
-  );
+  let stage = "invite";
+  if (count >= CAP) stage = "full";
+  else if (claimed >= NUMBER_AT) stage = "counting";
+
+  const payload = { ok: true, stage, cap: CAP };
+  if (stage === "counting") payload.remaining = Math.max(0, CAP - claimed);
+  return json(payload, 200, CACHE_TTL);
 }

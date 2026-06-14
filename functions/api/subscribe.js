@@ -131,5 +131,19 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
+  // 3) Phase 2 — assign a founder number in our own store (D1), by signup order. Best-effort and
+  //    fully optional: if D1 isn't bound yet this is skipped, and a D1 hiccup never fails a signup
+  //    (the saved contact + list membership are the win). UNIQUE(email) makes it idempotent.
+  if (enroll && env.DB) {
+    try {
+      await env.DB
+        .prepare("INSERT OR IGNORE INTO founders (email, created_at) VALUES (?, ?)")
+        .bind(email, new Date().toISOString())
+        .run();
+    } catch (e) {
+      /* swallow — contact is already saved on the list */
+    }
+  }
+
   return json({ ok: true, first_name: firstName || null });
 }

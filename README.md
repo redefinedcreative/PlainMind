@@ -118,6 +118,7 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Redesigned `/welcome/` — "Founding Pass" (Direction B), from Claude Design handoff.** Split hero with an assembling Founding Member pass, "what happens next" steps, a roadmap preview, a soft founding-member band, a launch-day credit wall, and Keegan's note. Adds `welcome-plus.css` (web root) + `js/welcome-plus.js` (replaces `welcome.js` on this page; `welcome.js` is now unused). Built on existing tokens — no new palette. Reconciliations from the raw handoff: (1) restored the concrete **$19.99/yr-for-life + first-200 + badge** offer line in the founding section (handoff had omitted pricing); (2) the per-tester "founder no. 47" is replaced by the **live cohort count** via `/api/founders` — under 50 signups it reads "one of the first 200 founders," then the live count; no fake personal number (true per-tester numbering is Phase 2); (3) the founder standing line was moved into the (removed) "You're on the list" pill's slot to cut redundancy. Source bundle: `Concept Design/Welcome_Page_Design/`.
 - **Welcome roadmap → live Featurebase board (no fake voting).** Considered pulling real items via the Featurebase API but it needs a paid plan, so that build was dropped. Instead the roadmap cards are a curated preview (status pills, no fabricated vote counts) that link out to the existing free board `plainmind.featurebase.app/roadmap`, plus a "See the live roadmap & vote →" CTA — real voting happens there. Removed the optimistic-vote JS/CSS.
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
+- **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
 ## Beta signup → SureContact (Cloudflare Function)
 
@@ -153,6 +154,24 @@ The signup no longer uses SureContact's JS embed. The on-brand form posts to a *
 **Local testing:** `/api/subscribe` only exists when Functions run, so a plain `python3 -m http.server` won't hit it — use `npx wrangler pages dev public` (with the env vars set locally) to exercise the full flow.
 
 **At launch:** the same single CTA component becomes "Download on the App Store"; the `/welcome` flow can be retired or repurposed.
+
+## Founder store (Phase 2 — `/api/founder-claim`)
+
+The first-200 founder program needs a per-person founder **number**, which SureContact can't provide (no enrollment order). A Cloudflare **D1** database (`schema.sql`) is the authority: one row per signup, `number` (1..N) = signup order, first 200 = founders. Full design: `App Launch/PlainMind_Phase2_Monetization_Scope.md`.
+
+- `/api/subscribe` assigns a number on signup (`INSERT OR IGNORE`, best-effort — skipped if D1 unbound).
+- `/api/founder-claim` (`{email}`) → `{founder, number, of:200, token}` for the in-app numbered badge + the gated $19.99 founder SKU. `token` = HMAC(`number:email`) for anti-spoof.
+- `/api/founders` reads the D1 count (falls back to the SureContact list count).
+
+**Setup (one-time):**
+1. `wrangler d1 create plainmind-founders`
+2. `wrangler d1 execute plainmind-founders --remote --file=schema.sql`
+3. Pages → Settings → Functions → **D1 bindings**: bind the database as **`DB`**.
+4. Pages → Settings → **env vars**: add **`FOUNDER_TOKEN_SECRET`** (Secret; any long random string).
+
+**No backfill needed** — there are no founders yet, so the store correctly starts at zero and the first signup after D1 is bound becomes **#1**. ⚠ One operational note: if you make *test* signups after binding D1, clear them (`wrangler d1 execute plainmind-founders --remote --command "DELETE FROM founders;"`) before going live, so real founders start clean at #1.
+
+All D1 access is **defensive**: deploying these Functions before `DB` is bound does *not* break signup or the live count — the founder features stay dormant until D1 exists.
 
 ## What to verify before launch
 

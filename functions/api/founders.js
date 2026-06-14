@@ -29,6 +29,15 @@ function json(data, status, cacheSeconds) {
 
 // Pull the total list size from SureContact, edge-cached so we don't hit the API per pageview.
 async function getListCount(env) {
+  // Phase 2: D1 is the authority for the founder count once bound. Fall back to the SureContact
+  // list count (the original source) if D1 isn't bound or errors.
+  if (env.DB) {
+    try {
+      const row = await env.DB.prepare("SELECT COUNT(*) AS n FROM founders").first();
+      if (row && typeof row.n === "number") return row.n;
+    } catch (e) { /* fall through to the SureContact count */ }
+  }
+
   const cache = caches.default;
   const cacheKey = new Request("https://founders.cache/plainmind-beta-count");
   const hit = await cache.match(cacheKey);
@@ -59,7 +68,7 @@ async function getListCount(env) {
 }
 
 export async function onRequestGet({ env }) {
-  if (!env.SURECONTACT_API_KEY || !env.SURECONTACT_LIST_UUID) {
+  if (!env.DB && (!env.SURECONTACT_API_KEY || !env.SURECONTACT_LIST_UUID)) {
     return json({ ok: false, error: "not configured" }, 500, 0);
   }
 

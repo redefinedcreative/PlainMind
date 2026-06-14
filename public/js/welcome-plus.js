@@ -10,8 +10,7 @@
      pass + credit chip, and saves the name to the contact via /api/subscribe —
      mirroring the original welcome.js handoff. Direct visits skip the prompt.
    - Calm scroll choreography for the steps + credit wall.
-   - Roadmap items the tester can nudge with a vote (optimistic UI; wire to a
-     real endpoint if you want votes to persist — see VOTE ENDPOINT below).
+   - Roadmap items are links out to the live Featurebase board (real voting lives there).
    - Subtle scroll parallax on the ambient hero glow (no infinite loops).
    - Respects prefers-reduced-motion and resolves to a static end-state. */
 (function () {
@@ -175,28 +174,8 @@
     observeEls.forEach(function (el) { el.classList.add("in-view"); });
   }
 
-  /* ---------- roadmap voting ----------
-     Optimistic UI only. To persist votes, POST to your own endpoint here, e.g.
-     fetch("/api/roadmap/vote", { method:"POST", body: JSON.stringify({ id, voted }) }).
-     The data-road-id attribute on each .w2-road is a convenient key to send. */
-  document.querySelectorAll(".w2-road__vote").forEach(function (btn) {
-    var countEl = btn.querySelector(".w2-road__count");
-    var base = parseInt(countEl.textContent, 10) || 0;
-    btn.addEventListener("click", function () {
-      var voted = btn.classList.toggle("is-voted");
-      countEl.textContent = base + (voted ? 1 : 0);
-      btn.setAttribute("aria-pressed", voted ? "true" : "false");
-      if (voted && !reduce) {
-        var fly = document.createElement("span");
-        fly.className = "w2-vote-fly"; fly.textContent = "+1";
-        var r = btn.getBoundingClientRect();
-        fly.style.left = (r.left + r.width / 2 - 8 + window.scrollX) + "px";
-        fly.style.top = (r.top - 6 + window.scrollY) + "px";
-        document.body.appendChild(fly);
-        setTimeout(function () { if (fly.parentNode) fly.parentNode.removeChild(fly); }, 800);
-      }
-    });
-  });
+  /* Roadmap items link out to the live Featurebase board for real voting — no in-page
+     vote state to manage here. */
 
   /* ---------- subtle hero parallax (scroll-driven, not looped) ---------- */
   if (hero && !reduce) {

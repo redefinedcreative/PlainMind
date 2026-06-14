@@ -164,28 +164,22 @@ html.w2-intro-pending .welcome-seal__check { animation-play-state: paused; }
 .w2-roadmap { display: grid; gap: var(--space-md); }
 @media (min-width: 720px) { .w2-roadmap { grid-template-columns: repeat(2, 1fr); } }
 .w2-road {
-  display: flex; align-items: flex-start; gap: var(--space-md);
+  display: flex; align-items: center; gap: var(--space-md);
   background: var(--bg-card); border: 1px solid var(--divider);
   border-radius: var(--radius-lg); padding: var(--space-lg);
   box-shadow: var(--card-shadow); text-align: left;
+  text-decoration: none; color: inherit;
   transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-out);
 }
-.w2-road:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-lift); }
-.w2-road__vote {
-  flex: 0 0 auto; width: 52px; align-self: stretch;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-  border: 1px solid var(--divider-strong); border-radius: var(--radius-md);
-  background: var(--bg-card-soft); color: var(--accent-readable); cursor: pointer;
-  font: inherit; padding: 8px 0;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.12s var(--ease-out);
-}
-.w2-road__vote:hover { background: var(--accent-soft); border-color: var(--accent-readable); }
-.w2-road__vote:active { transform: scale(0.94); }
-.w2-road__vote svg { width: 16px; height: 16px; transition: transform 0.25s var(--ease-back); }
-.w2-road__vote.is-voted { background: var(--accent-readable); border-color: var(--accent-readable); color: var(--accent-on); }
-.w2-road__vote.is-voted svg { transform: translateY(-2px); }
-.w2-road__count { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+.w2-road:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-lift); border-color: var(--divider-strong); }
 .w2-road__main { min-width: 0; }
+.w2-road__go {
+  flex: 0 0 auto; margin-left: auto; align-self: center;
+  display: inline-flex; color: var(--accent-readable);
+  transition: transform 0.25s var(--ease-out), opacity 0.25s var(--ease-out); opacity: 0.65;
+}
+.w2-road__go svg { width: 18px; height: 18px; }
+.w2-road:hover .w2-road__go { transform: translate(2px, -2px); opacity: 1; }
 .w2-road__status {
   display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600;
   letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px;
@@ -197,18 +191,7 @@ html.w2-intro-pending .welcome-seal__check { animation-play-state: paused; }
 .w2-road__status[data-s="shipped"] .w2-tag { background: var(--sage-success); }
 .w2-road__title { font-family: var(--font-display); font-size: 17px; font-weight: 600; margin: 0 0 3px; color: var(--text); }
 .w2-road__text { font-size: 14px; line-height: 1.5; color: var(--text-secondary); margin: 0; text-wrap: pretty; }
-.w2-roadmap__note {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  margin-top: var(--space-lg); font-size: 14px; color: var(--text-tertiary);
-}
-.w2-roadmap__note .icon { width: 15px; height: 15px; color: var(--accent-readable); }
-
-/* tiny one-shot float when a vote lands */
-@keyframes w2-vote-pop { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-26px); opacity: 0; } }
-.w2-vote-fly {
-  position: absolute; pointer-events: none; font-size: 13px; font-weight: 700;
-  color: var(--accent-readable); animation: w2-vote-pop 0.8s var(--ease-out) forwards;
-}
+.w2-roadmap__cta { text-align: center; margin-top: var(--space-xl); }
 
 /* -----------------------------------------------------------
    Founding member — soft belonging band (no prices)

@@ -288,20 +288,6 @@ button { font: inherit; }
 }
 .eyebrow--center { text-align: center; }
 
-.learn-more {
-  display: inline-flex; align-items: center; gap: 8px;
-  color: var(--accent-readable); text-decoration: none;
-  font-size: 15px; font-weight: 600;
-  width: fit-content;
-  padding: 10px 18px;
-  border: 1px solid var(--divider-strong);
-  border-radius: var(--radius-md);
-  transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
-}
-.learn-more:hover { background: var(--accent-soft); border-color: var(--accent-readable); }
-.learn-more .icon { width: 17px; height: 17px; transition: transform 0.4s var(--ease-out); }
-.learn-more:hover .icon { transform: translateX(6px); }
-
 /* ===========================================================
    Pill + buttons
    =========================================================== */

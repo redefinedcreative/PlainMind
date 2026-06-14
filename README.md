@@ -92,6 +92,31 @@ git push
 ```
 Cloudflare Pages auto-deploys on every push to `main`. Each PR also gets a preview URL.
 
+## Shared header & footer (layout sync)
+
+The site is intentionally static with **no build step** — every nav and footer link is real markup in the page (best for SEO; no JS injection, no paint flash). The tradeoff is that the header and footer exist as **copies in every page**. To stop them drifting, there's a single source of truth:
+
+- `_partials/header.html` and `_partials/footer.html` (repo root, **not** deployed — only `public/` ships).
+- `tools/sync-layout.mjs` stamps those partials into each in-sync page between `<!-- partial:header:start -->…<!-- partial:header:end -->` markers.
+
+**To change the menu or footer:** edit the partial, then run:
+```
+node tools/sync-layout.mjs
+```
+It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not hand-edit the header/footer inside a page** — the next sync overwrites it. Edit the partial instead.
+
+- **Full header + footer (in sync):** `index`, `beta`, `press`, `roadmap`, `help`, `privacy`, `terms` — the `PAGES` array in `tools/sync-layout.mjs`.
+- **Footer-only (in sync):** `welcome/` — it has a unique minimal brand-only header (post-signup arrival) that's left untouched, but it shares the global footer (`FOOTER_ONLY` array). So a footer edit still reaches welcome; a header edit does not.
+- Links in the partials are **root-relative** (`/`, `/assets/…`, `/beta/#beta-form`, `/privacy/`) so the block is byte-identical regardless of folder depth.
+
+**Changes — 2026-06-14:**
+- Header nav simplified + reordered to **How it works · Features · [Join the Open Beta]** (dropped the redundant "Beta" text link); propagated to all pages.
+- Removed the four redundant "Learn more" buttons in the features section (+ their now-dead `.learn-more` CSS).
+- Fixed `.beta-includes` perk cards (disc bullets + indent → `list-style:none; padding:0`).
+- Founding-member **live count** (`/api/founders` + `js/founders.js`): staged/transparent — an open invite under 50 signups, the live "X of 200 left" from 50, "full" at 200; copy tuned per surface (`data-founders="signup" | "welcome"`).
+- Introduced this header/footer sync system (`_partials/` + `tools/sync-layout.mjs`).
+- **Redesigned `/welcome/` — "Founding Pass" (Direction B), from Claude Design handoff.** Split hero with an assembling Founding Member pass, "what happens next" steps, a vote-able roadmap (optimistic UI only — no persistence yet), a soft founding-member band, a launch-day credit wall, and Keegan's note. Adds `welcome-plus.css` (web root) + `js/welcome-plus.js` (replaces `welcome.js` on this page; `welcome.js` is now unused). Built on existing tokens — no new palette. Reconciliations from the raw handoff: (1) restored the concrete **$19.99/yr-for-life + first-200 + badge** offer line in the founding section (handoff had omitted pricing); (2) the per-tester "founder no. 47" is replaced by the **live cohort count** via `/api/founders` — under 50 signups it reads "one of the first 200 founders," then the live count; no fake personal number (true per-tester numbering is Phase 2); (3) representative roadmap/credit data with the misleading "+188 more" fixed to "+ more to come." Source bundle: `Concept Design/Welcome_Page_Design/`.
+
 ## Beta signup → SureContact (Cloudflare Function)
 
 The signup no longer uses SureContact's JS embed. The on-brand form posts to a **Cloudflare Pages Function** that talks to the SureContact REST API server-side (so the API key is never exposed in the browser).

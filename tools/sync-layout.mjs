@@ -17,7 +17,7 @@ import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), ".."); // PlainMind-Website/
 
-// In-sync pages (relative to public/). welcome/ is deliberately excluded — minimal unique header.
+// Pages that share the FULL header + footer (relative to public/).
 const PAGES = [
   "index.html",
   "beta/index.html",
@@ -26,6 +26,13 @@ const PAGES = [
   "help/index.html",
   "privacy/index.html",
   "terms/index.html",
+];
+
+// Pages that share ONLY the footer — their header is intentionally unique, so it's left untouched.
+// welcome/ has a minimal brand-only header (post-signup arrival) but still gets the shared footer
+// (brand, theme toggle, legal links) so legal/links stay consistent + in sync everywhere.
+const FOOTER_ONLY = [
+  "welcome/index.html",
 ];
 
 // Each region: the regex matches an existing marker block OR the bare element (first run), so the
@@ -51,10 +58,16 @@ function block(name, body) {
   return `  <!-- partial:${name}:start -->\n${inner}\n  <!-- partial:${name}:end -->`;
 }
 
+const footerOnly = REGIONS.filter((r) => r.name === "footer");
+const TARGETS = [
+  ...PAGES.map((page) => ({ page, regions: REGIONS })),
+  ...FOOTER_ONLY.map((page) => ({ page, regions: footerOnly })),
+];
+
 let changed = 0;
 let failed = 0;
 
-for (const page of PAGES) {
+for (const { page, regions } of TARGETS) {
   const pagePath = join(ROOT, "public", page);
   let html;
   try {
@@ -66,7 +79,7 @@ for (const page of PAGES) {
   }
 
   const before = html;
-  for (const region of REGIONS) {
+  for (const region of regions) {
     const body = await readFile(join(ROOT, region.file), "utf8");
     const replacement = block(region.name, body);
     if (!region.re.test(html)) {
@@ -86,5 +99,5 @@ for (const page of PAGES) {
   }
 }
 
-console.log(`\nDone: ${changed} updated, ${PAGES.length - changed} unchanged${failed ? `, ${failed} problems` : ""}.`);
+console.log(`\nDone: ${changed} updated, ${TARGETS.length - changed} unchanged${failed ? `, ${failed} problems` : ""}.`);
 if (failed) process.exit(1);

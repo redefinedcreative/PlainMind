@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex" />
 
   <title>You're on the list — PlainMind</title>
-  <meta name="description" content="You're on the PlainMind beta list. Here's what happens next." />
+  <meta name="description" content="You're a PlainMind founding member. Here's what happens next — and how you'll help shape the app." />
   <link rel="canonical" href="https://plainmind.app/welcome/" />
 
   <!-- Anti-flash theme detection: must run before paint -->
@@ -29,16 +29,11 @@
       requestAnimationFrame(function () { document.documentElement.classList.add("theme-ready"); });
     });
   </script>
-  <script>
-    /* Pre-paint: if we arrived from a signup, freeze the hero confirmation behind the
-       name overlay so the seal draw + reveals wait until the prompt is dismissed.
-       Set here (not in deferred welcome.js) so it applies before the seal animates. */
-    try { if (sessionStorage.getItem("pm-signup-email")) document.documentElement.classList.add("intro-pending"); } catch (e) {}
-  </script>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/welcome-plus.css" />
   <meta name="theme-color" content="#F7F3EC" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1A1E23" media="(prefers-color-scheme: dark)" />
   <script src="https://cdn.usefathom.com/script.js" data-site="NCTQOJDN" defer></script>
@@ -62,99 +57,299 @@
     </div>
   </header>
 
-  <main id="main" class="welcome">
-    <section class="welcome-hero container">
-      <span class="welcome-seal" aria-hidden="true">
-        <svg viewBox="0 0 52 52" fill="none">
-          <circle class="welcome-seal__ring" cx="26" cy="26" r="24" />
-          <path class="welcome-seal__check" d="M16 27l7 7 13-15" />
-        </svg>
-      </span>
-      <span class="pill">You're on the list</span>
-      <h1 class="display welcome-hero__title" id="welcome-greeting">You're in.</h1>
-      <p class="lede welcome-hero__sub" id="welcome-sub">We'll email your TestFlight invite the moment the beta opens. Here's what to expect.</p>
-      <p class="founders-status" data-founders="welcome" hidden></p>
+  <main id="main" class="dir-b">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="w2-hero">
+      <div class="w2-hero__ambient" aria-hidden="true"></div>
+
+      <div class="w2-hero__inner container">
+        <div class="w2-passwrap">
+          <div class="w2-passcopy">
+            <span class="welcome-seal w2-seal w2-rise" style="--d:0" aria-hidden="true">
+              <svg viewBox="0 0 52 52" fill="none">
+                <circle class="welcome-seal__ring" cx="26" cy="26" r="24"></circle>
+                <path class="welcome-seal__check" d="M16 27l7 7 13-15"></path>
+              </svg>
+            </span>
+            <span class="pill w2-rise" style="--d:0.05">You're on the list</span>
+            <h1 class="display w2-title w2-rise" style="--d:0.12" data-greeting>You're in.</h1>
+            <p class="lede w2-sub w2-rise" style="--d:0.3">Your founding-member pass is reserved. We'll email your TestFlight invite the moment the beta opens — and from there, you're one of the people who gets to shape what PlainMind becomes.</p>
+            <span class="w2-standing w2-rise" style="--d:0.42">
+              <span class="w2-standing__dot" aria-hidden="true"></span>
+              <span data-founders-text>You're one of the first 200 founders.</span>
+            </span>
+          </div>
+
+          <div class="w2-pass-anim" aria-label="Your founding member pass">
+            <div class="w2-pass">
+              <div class="w2-pass__top">
+                <span class="w2-pass__brand">
+                  <picture class="light-only"><source srcset="/assets/plainmind-light.webp" type="image/webp" /><img src="/assets/plainmind-light.png" alt="" width="26" height="26" /></picture>
+                  <picture class="dark-only"><source srcset="/assets/plainmind-dark.webp" type="image/webp" /><img src="/assets/plainmind-dark.png" alt="" width="26" height="26" /></picture>
+                  <span>PlainMind</span>
+                </span>
+                <span class="w2-pass__seal" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="13"></circle><path d="M11 16.5l3.2 3.2L21 12" stroke-width="2"></path></svg>
+                </span>
+              </div>
+              <p class="w2-pass__tier">Founding Member · Beta</p>
+              <p class="w2-pass__name" data-name-slot data-fallback="Beta Member">Beta Member</p>
+              <div class="w2-pass__rule"></div>
+              <div class="w2-pass__grid">
+                <div class="w2-pass__field"><span class="w2-pass__k">Member</span><span class="w2-pass__v">Founding</span></div>
+                <div class="w2-pass__field"><span class="w2-pass__k">Since</span><span class="w2-pass__v">Jun 2026</span></div>
+                <div class="w2-pass__field"><span class="w2-pass__k">Seats</span><span class="w2-pass__v">200</span></div>
+              </div>
+              <div class="w2-pass__perf" aria-hidden="true"></div>
+              <div class="w2-pass__barcode" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="container welcome-steps" aria-label="What happens next">
-      <h2 class="welcome-section-title">What happens next</h2>
-      <ol class="steps">
-        <li class="step reveal reveal--soft" style="--i:0">
-          <div class="step__rail"><span class="step__num">1</span></div>
-          <div class="step__body">
-            <h3 class="step__title">You're on the list</h3>
-            <p class="step__text">Your spot is saved. There's nothing else you need to do right now — we'll take it from here.</p>
+    <!-- ===================== WHAT HAPPENS NEXT ===================== -->
+    <section class="w2-section container" aria-labelledby="next-title">
+      <div class="w2-section__head reveal">
+        <span class="w2-eyebrow">What happens next</span>
+        <h2 class="w2-h" id="next-title">Three quiet steps. We do most of them.</h2>
+      </div>
+      <ol class="w2-steps">
+        <li class="w2-step" data-observe>
+          <div class="w2-step__rail"><span class="w2-step__num">1</span><span class="w2-step__line"></span></div>
+          <div class="w2-step__body">
+            <h3 class="w2-step__title">Your spot is saved</h3>
+            <p class="w2-step__text">There's nothing else to do right now. No account, no setup — we'll take it from here.</p>
           </div>
         </li>
-        <li class="step reveal reveal--soft" style="--i:1">
-          <div class="step__rail"><span class="step__num">2</span></div>
-          <div class="step__body">
-            <h3 class="step__title">Your invite arrives by email</h3>
-            <p class="step__text">When the beta opens, we'll send a TestFlight invite to this address. Keep an eye on your inbox.</p>
+        <li class="w2-step" data-observe>
+          <div class="w2-step__rail"><span class="w2-step__num">2</span><span class="w2-step__line"></span></div>
+          <div class="w2-step__body">
+            <h3 class="w2-step__title">Your invite arrives by email</h3>
+            <p class="w2-step__text">When the beta opens, we'll send a TestFlight invite to this address. Keep an eye on your inbox.</p>
           </div>
         </li>
-        <li class="step reveal reveal--soft" style="--i:2">
-          <div class="step__rail"><span class="step__num">3</span></div>
-          <div class="step__body">
-            <h3 class="step__title">PlainMind on your home screen</h3>
-            <p class="step__text">Tap the invite on your iPhone, install TestFlight if you need it, and PlainMind is yours.</p>
+        <li class="w2-step" data-observe>
+          <div class="w2-step__rail"><span class="w2-step__num">3</span><span class="w2-step__line"></span></div>
+          <div class="w2-step__body">
+            <h3 class="w2-step__title">PlainMind on your home screen</h3>
+            <p class="w2-step__text">Tap the invite on your iPhone, install TestFlight if you need it, and PlainMind is yours — weeks before launch.</p>
           </div>
         </li>
       </ol>
     </section>
 
-    <section class="container welcome-perks" aria-label="What you get as a beta member">
-      <div class="perks-panel reveal reveal--soft">
-        <h2 class="welcome-section-title">What you get as a beta member</h2>
-        <ul class="perks">
-          <li class="perk">
-            <span class="perk__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
-            </span>
-            <h3 class="perk__title">First in line</h3>
-            <p class="perk__text">You'll be using PlainMind well before it reaches the App Store.</p>
-          </li>
-          <li class="perk">
-            <span class="perk__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3H4a1 1 0 0 0-1 1v5.59A2 2 0 0 0 3.83 11l9.58 9.59a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.83z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>
-            </span>
-            <h3 class="perk__title">Founding-member pricing</h3>
-            <p class="perk__text">The first 200 founders lock Pro at $19.99/year — for life — plus a founder badge in the app. Our thanks for being here at the start.</p>
-          </li>
-          <li class="perk">
-            <span class="perk__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg>
-            </span>
-            <h3 class="perk__title">A direct line to the team</h3>
-            <p class="perk__text">Your feedback goes straight to us and steers what we build next.</p>
-          </li>
-        </ul>
+    <!-- ===================== SHAPE PLAINMIND (ROADMAP) ===================== -->
+    <section class="w2-section w2-section--wide container" aria-labelledby="shape-title">
+      <div class="w2-section__head w2-section__head--center reveal">
+        <span class="w2-eyebrow">Your hand on the wheel</span>
+        <h2 class="w2-h" id="shape-title">Help decide what we build next.</h2>
+        <p class="w2-lede">This is the live roadmap. Beta testers don't just file feedback — your votes move items up the list, and what rises is what we build toward v1.0. Give one a nudge.</p>
+      </div>
+
+      <div class="w2-roadmap reveal">
+        <div class="w2-road">
+          <button type="button" class="w2-road__vote" aria-pressed="false" aria-label="Vote for Reading view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+            <span class="w2-road__count">214</span>
+          </button>
+          <div class="w2-road__main">
+            <span class="w2-road__status" data-s="building"><span class="w2-tag"></span>In progress</span>
+            <h3 class="w2-road__title">A calm reading view</h3>
+            <p class="w2-road__text">Open any saved link as clean, distraction-free text — no banners, no chrome.</p>
+          </div>
+        </div>
+        <div class="w2-road">
+          <button type="button" class="w2-road__vote" aria-pressed="false" aria-label="Vote for Nested tags">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+            <span class="w2-road__count">176</span>
+          </button>
+          <div class="w2-road__main">
+            <span class="w2-road__status" data-s="planned"><span class="w2-tag"></span>Planned</span>
+            <h3 class="w2-road__title">Tags you can nest</h3>
+            <p class="w2-road__text">Group saves the way you think — folders within folders, as deep as you like.</p>
+          </div>
+        </div>
+        <div class="w2-road">
+          <button type="button" class="w2-road__vote" aria-pressed="false" aria-label="Vote for Shortcuts support">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+            <span class="w2-road__count">132</span>
+          </button>
+          <div class="w2-road__main">
+            <span class="w2-road__status" data-s="planned"><span class="w2-tag"></span>Planned</span>
+            <h3 class="w2-road__title">Shortcuts &amp; automation</h3>
+            <p class="w2-road__text">Save, tag, and file from your own Shortcuts — PlainMind, on autopilot.</p>
+          </div>
+        </div>
+        <div class="w2-road">
+          <button type="button" class="w2-road__vote" aria-pressed="false" aria-label="Vote for Bulk actions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+            <span class="w2-road__count">98</span>
+          </button>
+          <div class="w2-road__main">
+            <span class="w2-road__status" data-s="planned"><span class="w2-tag"></span>Planned</span>
+            <h3 class="w2-road__title">Bulk actions in the library</h3>
+            <p class="w2-road__text">Select many, then tag, move, or clear them in a single calm sweep.</p>
+          </div>
+        </div>
+      </div>
+      <p class="w2-roadmap__note">
+        <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#icon-messages" /></svg>
+        Votes are weighted toward beta testers. Yours counts more here than it ever will again.
+      </p>
+    </section>
+
+    <!-- ===================== FOUNDING MEMBER (SOFT) ===================== -->
+    <section class="w2-section w2-section--wide container" aria-labelledby="founding-title">
+      <div class="w2-founding reveal">
+        <div class="w2-founding__seal" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+            <circle cx="50" cy="50" r="44"></circle>
+            <circle cx="50" cy="50" r="36"></circle>
+            <path d="M38 50l8 8 16-18" stroke-width="2.4"></path>
+          </svg>
+        </div>
+        <div class="w2-founding__inner">
+          <span class="w2-eyebrow">Founding member</span>
+          <h2 class="w2-founding__title" id="founding-title">Being early isn't a perk. It's a place you keep.</h2>
+          <p class="w2-founding__lede">The people in the beta are the ones who decide how PlainMind feels at launch. When it becomes something you pay for, that won't reset what you helped build — your standing as a founding member carries forward with you.</p>
+          <ul class="w2-founding__list">
+            <li class="w2-founding__item">
+              <span class="w2-founding__ico"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#icon-upload" /></svg></span>
+              <h3 class="w2-founding__h">First, and on the record</h3>
+              <p class="w2-founding__p">You used PlainMind before anyone — and we'll remember the order you arrived in.</p>
+            </li>
+            <li class="w2-founding__item">
+              <span class="w2-founding__ico"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#icon-messages" /></svg></span>
+              <h3 class="w2-founding__h">Heard, not just counted</h3>
+              <p class="w2-founding__p">Your feedback reaches the founder directly and steers what ships in v1.0.</p>
+            </li>
+            <li class="w2-founding__item">
+              <span class="w2-founding__ico"><svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#icon-bookmark" /></svg></span>
+              <h3 class="w2-founding__h">A standing thank-you</h3>
+              <p class="w2-founding__p">When PlainMind goes paid, founders keep a permanent place — and a founder's welcome.</p>
+            </li>
+          </ul>
+          <p class="w2-founding__offer">The first 200 founders lock Pro at <strong>$19.99/year — for life</strong>, plus a founder badge in the app.</p>
+          <p class="w2-founding__foot">No hard sell today. Just a seat — and a price — we're holding for you.</p>
+        </div>
       </div>
     </section>
 
-    <section class="container welcome-video" aria-label="A note from the team">
-      <h2 class="welcome-section-title">A note from the team</h2>
-      <div class="welcome-video__frame reveal reveal--soft" data-video-slot>
-        <!-- Drop the thank-you video embed here (an <iframe> or <video>) to replace the poster. -->
-        <div class="welcome-video__poster">
-          <span class="welcome-video__play" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <p class="welcome-video__label">A short hello from the team — coming soon</p>
+    <!-- ===================== LAUNCH-DAY CREDIT WALL ===================== -->
+    <section class="w2-section w2-section--wide container w2-credits" data-observe aria-labelledby="credit-title">
+      <div class="w2-section__head w2-section__head--center reveal">
+        <span class="w2-eyebrow">Launch day</span>
+        <h2 class="w2-h" id="credit-title">Your name ships with the app.</h2>
+        <p class="w2-lede">Every founding tester is credited in PlainMind 1.0 — a quiet wall of the people who were here first. This is roughly where yours will sit.</p>
+      </div>
+      <div class="w2-credits__panel">
+        <p class="w2-credits__label">Founding testers · 1.0 credits</p>
+        <div class="w2-credits__names">
+          <span class="w2-name-chip" style="--ci:0">Mara K.</span>
+          <span class="w2-name-chip" style="--ci:1">Devin O.</span>
+          <span class="w2-name-chip" style="--ci:2">Priya N.</span>
+          <span class="w2-name-chip" style="--ci:3">Sam W.</span>
+          <span class="w2-name-chip w2-name-chip--you" style="--ci:4" data-name-chip>You</span>
+          <span class="w2-name-chip" style="--ci:5">Theo R.</span>
+          <span class="w2-name-chip" style="--ci:6">Lena F.</span>
+          <span class="w2-name-chip" style="--ci:7">Quinn A.</span>
+          <span class="w2-name-chip" style="--ci:8">Iris M.</span>
+          <span class="w2-name-chip" style="--ci:9">Jonah B.</span>
+          <span class="w2-name-chip" style="--ci:10">Noor S.</span>
+          <span class="w2-name-chip" style="--ci:11">+ more to come</span>
         </div>
+        <p class="w2-credits__sub">Credited with the name you give us — and only that. Nothing else, ever.</p>
+      </div>
+    </section>
+
+    <!-- ===================== FOUNDER NOTE ===================== -->
+    <section class="w2-section w2-section--wide container" aria-labelledby="note-title">
+      <div class="w2-note reveal">
+        <span class="w2-note__quote" aria-hidden="true">&ldquo;</span>
+        <div class="w2-note__body">
+          <h2 class="sr-only" id="note-title">A note from the team</h2>
+          <p>I built PlainMind because saving something shouldn't feel like another feed to manage. It should feel like setting it down somewhere calm and trusting it'll be there.</p>
+          <p>You're here early enough that the app is still soft — still taking the shape of the people using it. So tell me what's clumsy, what's missing, what you wish it did. I read every note.</p>
+          <div class="w2-note__sign">
+            <span class="w2-note__avatar" aria-hidden="true">K</span>
+            <span class="w2-note__who">
+              <span class="w2-note__name">Keegan, founder</span>
+              <span class="w2-note__role">PlainMind · Redefined Creative</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CLOSING ===================== -->
+    <section class="container w2-close">
+      <h2 class="w2-close__h">Shape it now. Decide later.</h2>
+      <p class="w2-close__p">Your invite is on its way. When it lands, the only thing we'll ask is what you think — the rest is yours to influence.</p>
+      <div class="w2-close__row">
+        <a href="#shape-title" class="btn btn-primary">See what you can move</a>
       </div>
     </section>
   </main>
 
-  <!-- "Introduce yourself" — shown by welcome.js only when we know the signup email -->
+  <!-- partial:footer:start -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__top">
+        <a href="/" class="header-brand site-footer__brand" aria-label="PlainMind home">
+          <picture>
+            <source srcset="/assets/plainmind-light.webp" type="image/webp" class="light-only" />
+            <img src="/assets/plainmind-light.png" class="header-icon light-only" alt="" width="28" height="28" />
+          </picture>
+          <picture>
+            <source srcset="/assets/plainmind-dark.webp" type="image/webp" class="dark-only" />
+            <img src="/assets/plainmind-dark.png" class="header-icon dark-only" alt="" width="28" height="28" />
+          </picture>
+          <span class="header-wordmark">PlainMind</span>
+        </a>
+        <p class="site-footer__line">A calmer way to capture what matters.</p>
+        <nav class="site-footer__social" aria-label="Social">
+          <a href="https://x.com/plainmindapp" aria-label="PlainMind on X"><svg class="icon"><use href="#icon-x" /></svg></a>
+          <a href="https://bsky.app/profile/plainmindapp" aria-label="PlainMind on Bluesky"><svg class="icon"><use href="#icon-bluesky" /></svg></a>
+          <a href="https://www.threads.net/@plainmindapp" aria-label="PlainMind on Threads"><svg class="icon"><use href="#icon-threads" /></svg></a>
+        </nav>
+      </div>
+      <div class="site-footer__bottom">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch theme">
+          <span class="theme-toggle__icon" aria-hidden="true">
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="theme-toggle__sys" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </span>
+          <span class="theme-toggle__label" id="theme-toggle-label">System</span>
+        </button>
+        <p class="site-footer__copy">© 2026 PlainMind · Redefined Creative LLC</p>
+        <nav class="site-footer__links" aria-label="More">
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/help/">Help</a>
+          <a href="/roadmap/">Roadmap</a>
+          <a href="mailto:support@plainmind.app">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  <!-- partial:footer:end -->
+
+  <!-- Introduce yourself overlay — shown only when arriving from a signup (sessionStorage pm-signup-email) -->
   <div class="intro-overlay" data-intro hidden>
     <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <span class="w2-intro__seal" aria-hidden="true">
+        <svg viewBox="0 0 52 52" fill="none"><circle class="welcome-seal__ring" cx="26" cy="26" r="24" style="animation:none;stroke-dashoffset:0"></circle><path class="welcome-seal__check" d="M16 27l7 7 13-15" style="animation:none;stroke-dashoffset:0"></path></svg>
+      </span>
+      <p class="w2-intro__eyebrow" data-founders-introeyebrow>You're one of the first 200 founders</p>
       <h2 class="intro-card__title" id="intro-title">Great to meet you.</h2>
-      <p class="intro-card__body">Wait — I don't know your name yet. What should I call you?</p>
+      <p class="intro-card__body">Before we go further — what should we call you? It's how you'll be credited when PlainMind ships.</p>
       <form class="intro-form" data-intro-form novalidate>
         <label class="sr-only" for="intro-name">First name</label>
         <input type="text" id="intro-name" name="first_name" autocomplete="given-name" placeholder="First name" />
-        <button type="submit" class="btn btn-primary">Introduce yourself</button>
+        <button type="submit" class="btn btn-primary">That's me</button>
       </form>
       <button type="button" class="intro-skip" data-intro-skip>Maybe later</button>
     </div>
@@ -162,7 +357,6 @@
 
   <script src="/js/theme.js" defer></script>
   <script src="/js/reveal.js" defer></script>
-  <script src="/js/welcome.js" defer></script>
-  <script src="/js/founders.js" defer></script>
+  <script src="/js/welcome-plus.js" defer></script>
 </body>
 </html>

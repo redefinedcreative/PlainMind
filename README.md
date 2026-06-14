@@ -163,13 +163,21 @@ The first-200 founder program needs a per-person founder **number**, which SureC
 - `/api/founder-claim` (`{email}`) → `{founder, number, of:200, token}` for the in-app numbered badge + the gated $19.99 founder SKU. `token` = HMAC(`number:email`) for anti-spoof.
 - `/api/founders` reads the D1 count (falls back to the SureContact list count).
 
-**Setup (one-time):**
+**Setup (one-time) — ✅ DONE 2026-06-14** (D1 provisioned, schema loaded via the dashboard D1 console, bound as `DB`, `FOUNDER_TOKEN_SECRET` set, validated end-to-end with a test signup → `#1`, then reset to zero):
 1. `wrangler d1 create plainmind-founders`
 2. `wrangler d1 execute plainmind-founders --remote --file=schema.sql`
 3. Pages → Settings → Functions → **D1 bindings**: bind the database as **`DB`**.
 4. Pages → Settings → **env vars**: add **`FOUNDER_TOKEN_SECRET`** (Secret; any long random string).
 
-**No backfill needed** — there are no founders yet, so the store correctly starts at zero and the first signup after D1 is bound becomes **#1**. ⚠ One operational note: if you make *test* signups after binding D1, clear them (`wrangler d1 execute plainmind-founders --remote --command "DELETE FROM founders;"`) before going live, so real founders start clean at #1.
+**No backfill needed** — there are no founders yet, so the store starts at zero and the first signup becomes **#1**.
+
+⚠ **Pre-launch cleanup gotcha (learned 2026-06-14).** The schema uses `AUTOINCREMENT`, so SQLite remembers the highest number ever assigned in the internal `sqlite_sequence` table. **`DELETE FROM founders` alone does NOT reset the counter** — after a test signup took `#1`, the *next* signup would become **#2**, leaving no founder #1. To fully reset after *any* test signups (so real founder #1 is #1), clear **both** tables:
+
+```sql
+DELETE FROM founders;
+DELETE FROM sqlite_sequence WHERE name='founders';
+```
+Then verify both `SELECT COUNT(*)` return 0. (This is the final step before go-live if testing happened on the live D1.)
 
 All D1 access is **defensive**: deploying these Functions before `DB` is bound does *not* break signup or the live count — the founder features stay dormant until D1 exists.
 

@@ -85,8 +85,24 @@
 
   <script>
     (function () {
-      var params = new URLSearchParams(location.search);
-      var email = (params.get("e") || params.get("email") || "").trim();
+      // Read a query param WITHOUT URLSearchParams' "+ → space" conversion.
+      // Emails commonly use plus-addressing (e.g. you+tag@gmail.com), and the
+      // app parses the link with URLComponents, which keeps "+" literal — so the
+      // web fallback must match, or a plus-addressed founder would be corrupted.
+      function rawParam(name) {
+        var q = location.search.slice(1);
+        var pairs = q ? q.split("&") : [];
+        for (var i = 0; i < pairs.length; i++) {
+          var eq = pairs[i].indexOf("=");
+          var key = eq < 0 ? pairs[i] : pairs[i].slice(0, eq);
+          if (decodeURIComponent(key) === name) {
+            var val = eq < 0 ? "" : pairs[i].slice(eq + 1);
+            try { return decodeURIComponent(val); } catch (e) { return val; }
+          }
+        }
+        return "";
+      }
+      var email = (rawParam("e") || rawParam("email") || "").trim();
       var openBtn = document.getElementById("open-app");
       // Wire the custom-scheme fallback (used when the Universal Link didn't
       // auto-open the app — e.g. opened on desktop, or association not yet

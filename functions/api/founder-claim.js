@@ -49,7 +49,7 @@ export async function onRequestPost({ request, env }) {
 
   let row;
   try {
-    row = await env.DB.prepare("SELECT number FROM founders WHERE email = ?").bind(email).first();
+    row = await env.DB.prepare("SELECT number, name, created_at FROM founders WHERE email = ?").bind(email).first();
   } catch (e) {
     return json({ ok: false, error: "Couldn't reach the founder service." }, 502);
   }
@@ -62,5 +62,14 @@ export async function onRequestPost({ request, env }) {
     ? await sign(`${number}:${email}`, env.FOUNDER_TOKEN_SECRET)
     : null;
 
-  return json({ ok: true, founder: true, number, of: CAP, token });
+  // `name` + `created_at` enrich the in-app founder pass (member name + "since").
+  return json({
+    ok: true,
+    founder: true,
+    number,
+    of: CAP,
+    token,
+    name: row.name || null,
+    created_at: row.created_at || null,
+  });
 }

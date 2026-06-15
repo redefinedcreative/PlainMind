@@ -11,5 +11,11 @@
 CREATE TABLE IF NOT EXISTS founders (
   number     INTEGER PRIMARY KEY AUTOINCREMENT,  -- 1..N, by signup order; <=200 = founder
   email      TEXT UNIQUE NOT NULL,               -- lower-cased
-  created_at TEXT NOT NULL                        -- ISO 8601, set at first signup
+  created_at TEXT NOT NULL,                       -- ISO 8601, set at first signup
+  name       TEXT                                 -- first name (from /welcome); shown on the in-app founder pass
 );
+
+-- Migration for an EXISTING founder store created before `name` existed.
+-- Run once against the live DB (harmless to skip on a fresh DB — the CREATE
+-- above already includes the column):
+--   ALTER TABLE founders ADD COLUMN name TEXT;

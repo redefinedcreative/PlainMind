@@ -134,12 +134,24 @@ export async function onRequestPost({ request, env }) {
   // 3) Phase 2 — assign a founder number in our own store (D1), by signup order. Best-effort and
   //    fully optional: if D1 isn't bound yet this is skipped, and a D1 hiccup never fails a signup
   //    (the saved contact + list membership are the win). UNIQUE(email) makes it idempotent.
-  if (enroll && env.DB) {
+  if (env.DB) {
     try {
-      await env.DB
-        .prepare("INSERT OR IGNORE INTO founders (email, created_at) VALUES (?, ?)")
-        .bind(email, new Date().toISOString())
-        .run();
+      // First marketing touch (enroll) creates the founder row, in signup order.
+      if (enroll) {
+        await env.DB
+          .prepare("INSERT OR IGNORE INTO founders (email, created_at, name) VALUES (?, ?, ?)")
+          .bind(email, new Date().toISOString(), firstName || null)
+          .run();
+      }
+      // The first name usually arrives on a SEPARATE later call (the /welcome
+      // "introduce yourself" step, enroll=false). Persist it to the founder row
+      // so the in-app founder pass can show the member's name.
+      if (firstName) {
+        await env.DB
+          .prepare("UPDATE founders SET name = ? WHERE email = ?")
+          .bind(firstName, email)
+          .run();
+      }
     } catch (e) {
       /* swallow — contact is already saved on the list */
     }

@@ -12,6 +12,20 @@
 
 const CAP = 200;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Resubscribe grace after a founder subscription lapses, before the $19.99 price
+// is lost for good (§13 #3 — "don't re-honor after a real lapse", with grace).
+const GRACE_MS = 60 * 24 * 60 * 60 * 1000;
+
+// Founder *price* eligibility. The badge/number always persist; only the $19.99
+// price is gated. Status comes from the RevenueCat webhook (founder_active /
+// founder_expires_at on the row).
+function isPriceEligible(row) {
+  if (row.founder_active) return true;            // active now (incl. cancelled-but-not-yet-expired)
+  if (!row.founder_expires_at) return true;       // never purchased → first founder purchase allowed
+  const expired = Date.parse(row.founder_expires_at);
+  if (Number.isNaN(expired)) return true;         // unknown timestamp → don't penalize
+  return Date.now() < expired + GRACE_MS;         // lapsed, but still within the resubscribe grace
+}
 
 function json(data, status) {
   return new Response(JSON.stringify(data), {
@@ -49,7 +63,7 @@ export async function onRequestPost({ request, env }) {
 
   let row;
   try {
-    row = await env.DB.prepare("SELECT number, name, created_at FROM founders WHERE email = ?").bind(email).first();
+    row = await env.DB.prepare("SELECT number, name, created_at, founder_active, founder_expires_at FROM founders WHERE email = ?").bind(email).first();
   } catch (e) {
     return json({ ok: false, error: "Couldn't reach the founder service." }, 502);
   }
@@ -62,7 +76,8 @@ export async function onRequestPost({ request, env }) {
     ? await sign(`${number}:${email}`, env.FOUNDER_TOKEN_SECRET)
     : null;
 
-  // `name` + `created_at` enrich the in-app founder pass (member name + "since").
+  // `name` + `created_at` enrich the in-app founder pass; `priceEligible` gates
+  // the $19.99 offering (false once they've lapsed past the grace — Phase B).
   return json({
     ok: true,
     founder: true,
@@ -71,5 +86,6 @@ export async function onRequestPost({ request, env }) {
     token,
     name: row.name || null,
     created_at: row.created_at || null,
+    priceEligible: isPriceEligible(row),
   });
 }

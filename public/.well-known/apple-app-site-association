@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["3VCY928Y2Y.com.redefinedcreative.plainmind"],
+        "components": [
+          { "/": "/claim", "comment": "Founder claim entry point" },
+          { "/": "/claim/*", "comment": "Founder claim subpaths" }
+        ]
+      }
+    ]
+  }
+}

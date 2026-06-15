@@ -7,6 +7,12 @@
   Permissions-Policy: geolocation=(), camera=(), microphone=(), browsing-topics=(), interest-cohort=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://cdn.usefathom.com https://*.termageddon.com https://termageddon.com; style-src 'self' 'unsafe-inline' https://*.termageddon.com; img-src 'self' data: https://*.termageddon.com; font-src 'self' https://*.termageddon.com; connect-src 'self' https://challenges.cloudflare.com https://cdn.usefathom.com https://*.termageddon.com https://termageddon.com; frame-src https://challenges.cloudflare.com https://*.termageddon.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests
 
+# Apple App Site Association — must serve as JSON, no redirect, no auth.
+# Drives Universal Links (applinks:plainmind.app) for the founder-claim deep link.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: no-cache
+
 # Long-cache fingerprintable static assets.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

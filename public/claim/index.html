@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="noindex" />
+
+  <title>Claim your founding spot — PlainMind</title>
+  <meta name="description" content="Open PlainMind to claim your founding-member spot." />
+  <link rel="canonical" href="https://plainmind.app/claim/" />
+
+  <!-- Anti-flash theme detection: must run before paint -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("pm-theme");
+        var preferDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = (saved === "light" || saved === "dark") ? saved : (preferDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.setAttribute("data-theme-source", saved ? "user" : "system");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+  <script>
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { document.documentElement.classList.add("theme-ready"); });
+    });
+  </script>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <meta name="theme-color" content="#F7F3EC" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1A1E23" media="(prefers-color-scheme: dark)" />
+
+  <style>
+    /* Scoped to /claim — a focused, single-purpose landing card. Brand palette
+       per PROJECT.md §7; adapts to the site's [data-theme] attribute. */
+    .claim-main { min-height: 70vh; display: grid; place-items: center; padding: 48px 20px; }
+    .claim-card {
+      max-width: 520px; width: 100%; text-align: center;
+      background: #FFFFFF; border-radius: 16px; padding: 40px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    [data-theme="dark"] .claim-card { background: #242A2F; box-shadow: 0 4px 24px rgba(0,0,0,0.30); }
+    .claim-kicker {
+      font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #4A7475; font-weight: 600; margin: 0 0 12px;
+    }
+    [data-theme="dark"] .claim-kicker { color: #8FC5C6; }
+    .claim-card h1 { font-family: "New York", ui-serif, Georgia, serif; font-size: 1.9rem; margin: 0 0 12px; }
+    .claim-card p { color: inherit; opacity: 0.75; line-height: 1.55; margin: 0 auto 24px; max-width: 40ch; }
+    .claim-email { font-weight: 600; opacity: 1; }
+    .claim-btn {
+      display: inline-block; background: #4A7475; color: #fff; text-decoration: none;
+      font-weight: 600; padding: 14px 28px; border-radius: 999px; margin: 4px 0 8px;
+    }
+    [data-theme="dark"] .claim-btn { background: #8FC5C6; color: #1A1E23; }
+    .claim-alt { display: block; margin-top: 14px; font-size: 0.92rem; }
+    .claim-alt a { color: #4A7475; }
+    [data-theme="dark"] .claim-alt a { color: #8FC5C6; }
+  </style>
+
+  <script src="https://cdn.usefathom.com/script.js" data-site="NCTQOJDN" defer></script>
+</head>
+<body>
+  <main class="claim-main">
+    <div class="claim-card">
+      <p class="claim-kicker">Founding Member</p>
+      <h1>Claim your founding spot</h1>
+      <p id="claim-copy">
+        Tap below to open PlainMind and lock in your founding-member pricing and numbered badge.
+      </p>
+      <a id="open-app" class="claim-btn" href="plainmind://claim">Open PlainMind</a>
+      <span class="claim-alt">
+        Don't have the app yet?
+        <!-- TODO(launch): replace idAPP_STORE_ID with the real App Store ID. -->
+        <a href="https://apps.apple.com/app/idAPP_STORE_ID">Get PlainMind on the App&nbsp;Store</a>
+      </span>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var email = (params.get("e") || params.get("email") || "").trim();
+      var openBtn = document.getElementById("open-app");
+      // Wire the custom-scheme fallback (used when the Universal Link didn't
+      // auto-open the app — e.g. opened on desktop, or association not yet
+      // propagated). Carries the same email the app would have received.
+      openBtn.href = email
+        ? "plainmind://claim?e=" + encodeURIComponent(email)
+        : "plainmind://claim";
+      if (email) {
+        document.getElementById("claim-copy").innerHTML =
+          'Claiming for <span class="claim-email"></span>. Tap below to open PlainMind and lock in your founding-member pricing and numbered badge.';
+        // Set as text (not HTML) to avoid injection from the query string.
+        document.querySelector(".claim-email").textContent = email;
+      }
+    })();
+  </script>
+</body>
+</html>

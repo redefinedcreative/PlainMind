@@ -411,6 +411,21 @@ button { font: inherit; }
 }
 
 /* ===========================================================
+   App Store CTA — replaced the beta signup forms at 1.0 launch.
+   Same rhythm as .signup-form so the hero and final-CTA blocks
+   keep their vertical spacing.
+   =========================================================== */
+.store-cta { width: 100%; max-width: 460px; }
+.store-cta__btn { min-height: 52px; font-size: 16px; padding-inline: 28px; }
+.store-cta__note {
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+.store-cta--final { margin: 0 auto; text-align: center; }
+.store-cta--final .store-cta__note { text-align: center; }
+
+/* ===========================================================
    Trust signals
    =========================================================== */
 .trust-signals {

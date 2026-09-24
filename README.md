@@ -120,6 +120,40 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## 1.0 launch conversion — beta signup removed (2026-09-24)
+
+**PlainMind 1.0 was approved by App Review on 2026-09-24.** The site no longer recruits beta testers; every
+conversion point is now a link to the App Store (`https://apps.apple.com/app/id6780289082`).
+
+What changed:
+
+- `_partials/header.html` — the header CTA went from "Join the Open Beta" (`/beta/#beta-form`) to **"Get the app"**,
+  and from `.btn-outline` to `.btn-primary` since it is now the primary action. Propagated to all 7 in-sync pages
+  with `node tools/sync-layout.mjs`.
+- **CTA label is "Get PlainMind"** on every download button, including the header. The label deliberately does not
+  name the destination, so the supporting note under each button carries it: "Free on the App Store. …".
+- `public/index.html` — hero pill "Upcoming Open Beta" → "Now on the App Store"; **both signup forms replaced with
+  the new `.store-cta` block**; final-CTA heading → "PlainMind is here. / Save what matters."; trust signals →
+  Free to use / No account needed / Private by default; `og:description` no longer says "Open beta opening soon";
+  schema.org gained `downloadUrl` + `installUrl`; the dead `#beta-signup` anchor id became `#get-the-app`;
+  `signup.js`, `founders.js` and the Turnstile script tag were dropped (nothing on the page uses them now).
+- `public/beta/index.html` — **kept at the same URL on purpose** (old emails and the sitemap point at it) and
+  repurposed into "PlainMind is on the App Store" plus a thank-you to everyone who signed up.
+- `public/welcome/index.html` — it promised "we'll email your TestFlight invite the moment the beta opens", which
+  would never arrive. Now reflects a shipped app: the pass reads "Founding Member" (was "Beta Member") and step 3
+  is "Claim your badge" with a download button.
+- `public/claim/index.html` — **fixed a live broken link**: the fallback still pointed at the literal placeholder
+  `idAPP_STORE_ID`. Same bug that was in the iOS app's `Constants.swift`.
+- `public/styles.css` — added the `.store-cta` block, sized to keep the hero/final-CTA rhythm the forms had.
+
+`js/signup.js`, `js/founders.js` and `functions/api/subscribe.js` are **left in place, unused**. Both scripts bail
+early when their elements are absent, and the Function is harmless. Keeping them means the signup flow can be
+restored for a future beta without rebuilding it.
+
+**Deploy ordering matters:** the repo auto-deploys to Cloudflare Pages on push, and the App Store link 404s for
+users until the app is actually *released* (approved ≠ released; release is Manual). Do not push this until
+**Release This Version** has been clicked in App Store Connect.
+
 ## Beta signup → SureContact (Cloudflare Function)
 
 The signup no longer uses SureContact's JS embed. The on-brand form posts to a **Cloudflare Pages Function** that talks to the SureContact REST API server-side (so the API key is never exposed in the browser).
@@ -186,7 +220,7 @@ All D1 access is **defensive**: deploying these Functions before `DB` is bound d
 Visual checks (do these in a real browser after local preview or after first Cloudflare deploy):
 
 - [ ] Landing hero shows the locked tagline: **"Save anything. Find it later."**
-- [x] Both signup forms render and accept submissions; the email lands in SureContact (verified 2026-06-09 — contact created → added to PlainMind Beta list → "PlainMind Signup" workflow fires → welcome email)
+- [x] ~~Both signup forms render and accept submissions~~ — **removed 2026-09-24** at the 1.0 launch conversion; both are now App Store links
 - [ ] Theme toggle cycles System → Light → Dark and persists across reloads on **all three pages**
 - [ ] Dark mode looks correct on landing, /privacy, and /terms (footer toggle is the fastest way to flip)
 - [ ] Phone mockups don't break at narrow widths (≤ 380px)

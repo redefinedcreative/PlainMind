@@ -12,7 +12,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="PlainMind — Save anything. Find it later." />
-  <meta property="og:description" content="A calm, private place to save what matters. Save from any iOS app in one tap, then find it later. Open beta opening soon." />
+  <meta property="og:description" content="A calm, private place to save what matters. Save from any iOS app in one tap, then find it later. Free on the App Store." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://plainmind.app/" />
   <meta property="og:image" content="https://plainmind.app/assets/og/og-home.png" />
@@ -67,6 +67,8 @@
     "operatingSystem": "iOS",
     "description": "A calm, private place to save the links, music, places, PDFs, and ideas you want to remember. Save from any iOS app in one tap, then find it later.",
     "url": "https://plainmind.app/",
+    "downloadUrl": "https://apps.apple.com/app/id6780289082",
+    "installUrl": "https://apps.apple.com/app/id6780289082",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -160,7 +162,7 @@
         <a href="/#how-it-works">How it works</a>
         <a href="/#features">Features</a>
       </nav>
-      <a href="/beta/#beta-form" class="btn btn-outline header-cta">Join the Open Beta</a>
+      <a href="https://apps.apple.com/app/id6780289082" class="btn btn-primary header-cta">Get PlainMind</a>
     </div>
   </header>
   <!-- partial:header:end -->
@@ -172,7 +174,7 @@
          ==================================================== -->
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-content">
-        <span class="pill">Upcoming Open Beta</span>
+        <span class="pill">Now on the App Store</span>
         <h1 class="display hero-title" id="hero-title">
           <span class="hero-line">
             <span class="word">Save</span> <span class="word">what</span> <span class="word">matters.</span>
@@ -183,16 +185,10 @@
         </h1>
         <p class="lede">A calm, private place for the links, music, places, and ideas you want to remember. Save from any app in one tap — then find it again when you need it.</p>
 
-        <form class="signup-form" id="signup-hero" novalidate>
-          <div class="signup-form__row">
-            <label class="sr-only" for="email-hero">Email address</label>
-            <input type="email" id="email-hero" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
-            <button type="submit" class="btn btn-primary signup-form__submit">Join the beta</button>
-          </div>
-          <div class="cf-turnstile signup-form__turnstile" data-sitekey="0x4AAAAAADaDxUCQ0-TfMZ4C" data-appearance="interaction-only" data-theme="auto"></div>
-          <p class="signup-form__note" data-signup-note>No spam, ever — just a quick hello now, then your invite when the beta opens.</p>
-        </form>
-        <p class="founders-status" data-founders="signup" hidden></p>
+        <div class="store-cta">
+          <a href="https://apps.apple.com/app/id6780289082" class="btn btn-primary store-cta__btn">Get PlainMind</a>
+          <p class="store-cta__note">Free on the App Store. No account, no ads, no feed.</p>
+        </div>
 
         <ul class="trust-signals">
           <li>
@@ -688,31 +684,25 @@
     <!-- ====================================================
          Final CTA — Cooks moment 3
          ==================================================== -->
-    <section id="beta-signup" class="final-cta" aria-labelledby="final-title" data-cta-stage>
+    <section id="get-the-app" class="final-cta" aria-labelledby="final-title" data-cta-stage>
       <div class="final-cta__bg" data-cta-bg aria-hidden="true">
         <span class="final-cta__watermark">Saved.</span>
       </div>
       <div class="final-cta__inner container">
         <h2 class="display final-cta__heading reveal" id="final-title">
-          Be the first to try PlainMind.<br />
-          Join the <em class="accent">Open Beta.</em>
+          PlainMind is here.<br />
+          Save <em class="accent">what matters.</em>
         </h2>
 
-        <form class="signup-form signup-form--final" id="signup-final" novalidate>
-          <div class="signup-form__row">
-            <label class="sr-only" for="email-final">Email address</label>
-            <input type="email" id="email-final" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
-            <button type="submit" class="btn btn-primary signup-form__submit">Join the beta</button>
-          </div>
-          <div class="cf-turnstile signup-form__turnstile" data-sitekey="0x4AAAAAADaDxUCQ0-TfMZ4C" data-appearance="interaction-only" data-theme="auto"></div>
-          <p class="signup-form__note" data-signup-note>Save anything. Find it later.</p>
-        </form>
-        <p class="founders-status" data-founders="signup" hidden></p>
+        <div class="store-cta store-cta--final reveal">
+          <a href="https://apps.apple.com/app/id6780289082" class="btn btn-primary store-cta__btn">Get PlainMind</a>
+          <p class="store-cta__note">Free on the App Store. Save anything. Find it later.</p>
+        </div>
 
         <ul class="trust-signals trust-signals--centered">
-          <li><svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>Early access</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>Shape the product</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>No spam, ever</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>Free to use</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>No account needed</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>Private by default</li>
         </ul>
       </div>
     </section>
@@ -772,8 +762,5 @@
   <script src="js/reveal.js" defer></script>
   <script src="js/share-demo.js" defer></script>
   <script src="js/parallax.js" defer></script>
-  <script src="js/signup.js" defer></script>
-  <script src="js/founders.js" defer></script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

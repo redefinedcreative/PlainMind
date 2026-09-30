@@ -120,6 +120,30 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Welcome page — the tagging contradiction, resolved (2026-09-30)
+
+The site promised two opposite things. The landing page and the press kit both
+say **"No tagging, no folders"**; `/welcome/` had three roadmap cards promising
+tags — "Tags you can nest — folders within folders, as deep as you like",
+"Save, **tag**, and file from your own Shortcuts", and "Select many, then
+**tag**, move, or clear them".
+
+**No tags is the decision**, and the app now has the thing that replaces them:
+automatic, note-derived Collections, shipping in 1.1. So:
+
+- The nesting-tags card is now **"Collections that make themselves"**, status
+  changed from Planned to **Building**, describing what was actually built —
+  you write a note, and when a phrase turns up across a few saves PlainMind
+  offers to group them. It is the opposite of folders, which is why it can sit
+  beside "no tagging, no folders" without contradicting it.
+- The Shortcuts card drops "tag": "Save straight from your own Shortcuts".
+- The bulk-actions card drops "tag" for verbs the app actually has:
+  "refresh, export, or clear them".
+
+**Worth a separate pass:** Featurebase is the source of truth for the public
+roadmap, and these welcome cards are **hardcoded with no sync to it**. They
+drifted once and will drift again.
+
 ## 1.0 launch conversion — beta signup removed (2026-09-24)
 
 **PlainMind 1.0 was approved by App Review on 2026-09-24.** The site no longer recruits beta testers; every

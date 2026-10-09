@@ -120,6 +120,54 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Release history page + stale roadmap cards (2026-10-09)
+
+**New `/releases/`** — a public changelog, one entry per App Store version,
+newest first. Built from the app's own `ReleaseNotes.all` so the in-app
+"What's new" sheet and the site say the same thing; keep them in step when a
+version ships. Dates are the **Ready for Distribution** timestamps from App
+Store Connect, not submission or approval dates:
+
+| Version | Released |
+|---|---|
+| 1.1 | 2026-10-09 (approved 2026-10-05) |
+| 1.0 | 2026-09-24 |
+
+Page follows the standard scaffolding (theme bootstrap, `styles.css`, partial
+markers) and is registered in `tools/sync-layout.mjs` `PAGES`, so it gets the
+shared header and footer. **Footer gained a `Releases` link** — edited in
+`_partials/footer.html` and synced to all nine pages. Added to `sitemap.xml`.
+Styles are a `.release*` block appended to `styles.css` (existing tokens only;
+two-column on desktop, stacked on phones, sticky version number dropped at
+≤640px where it fought the scroll).
+
+**Four `/welcome/` roadmap cards were wrong** and had been since launch. They
+are hardcoded (no Featurebase sync — see 2026-06-14), so nothing corrected them
+as features shipped:
+
+- *A calm reading view* — "In progress" → **Shipped in 1.1**
+- *Collections that make themselves* — "Building" → **Shipped in 1.1**
+- *Shortcuts & automation* — "Planned" → **Shipped** (the App Intents provider
+  predates 1.0, so this was wrong on launch day)
+- *Bulk actions in the library* — "Planned" → **Shipped** (select → share,
+  refresh, delete all exist)
+
+The `shipped` status style already existed in `welcome-plus.css`. The section's
+own copy says "planned, in progress, and shipped", so nothing else needed
+rewording — but **the section now previews four shipped items and nothing
+upcoming**, which defeats its "help decide what we build next" purpose. Pick
+the next items from Featurebase and swap them in.
+
+**Known stale, not changed (needs a decision):**
+- **Press kit** says `Launch: September 29, 2026` — ASC says 1.0 went live
+  **September 24**.
+- **Press kit** pricing reads `Pro $3.99/mo or $29.99/yr · Max $9.99/mo or
+  $79.99/yr`; `PROJECT.md` §6 records a **$24.99** regular annual against the
+  $19.99 founder price. One of the two is wrong — confirm against App Store
+  Connect before editing, since pricing copy is a durable decision.
+- **Landing page never mentions Collections**, the headline 1.1 feature. Its
+  feature set is still 1.0's.
+
 ## Welcome page — the tagging contradiction, resolved (2026-09-30)
 
 The site promised two opposite things. The landing page and the press kit both

@@ -1557,3 +1557,34 @@ html.intro-open { overflow: hidden; }
 .policy-embed th, .policy-embed td { border: 1px solid var(--divider) !important; padding: 8px 12px !important; text-align: left !important; }
 .policy-embed hr { border: none !important; border-top: 1px solid var(--divider) !important; margin: 1.5em 0 !important; }
 .policy_embed_div[aria-busy="true"] { color: var(--text-tertiary) !important; }
+
+/* ── Release history (/releases/) ───────────────────────────────────────── */
+/* A changelog reads as a list of dated blocks, so the version sits in its own
+   column on wide screens and stacks above the notes on a phone. No new
+   palette — same tokens as everything else. */
+.releases { display: flex; flex-direction: column; gap: 0; max-width: 72ch; }
+
+.release { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0 2rem;
+           padding: 2.25rem 0; border-top: 1px solid var(--divider); }
+.release:first-child { border-top: none; padding-top: 0.5rem; }
+
+.release__head { position: sticky; top: 5.5rem; align-self: start; }
+.release__version { font-size: 1.5rem; line-height: 1.1; margin: 0;
+                    font-variant-numeric: tabular-nums; }
+.release__date { margin: 0.3rem 0 0; font-size: 0.85rem; color: var(--text-tertiary); }
+
+.release__headline { margin: 0 0 1rem; font-size: 1.05rem; color: var(--text-secondary); }
+.release__list { margin: 0; padding-left: 1.1rem; display: flex;
+                 flex-direction: column; gap: 0.6rem; }
+.release__list li { line-height: 1.6; }
+.release__list li::marker { color: var(--accent); }
+
+.releases__foot { margin-top: 2.5rem; font-size: 0.95rem; color: var(--text-tertiary); }
+
+@media (max-width: 640px) {
+  /* Sticky version numbers fight the scroll on a phone, and the two-column
+     grid leaves the notes too narrow to read. */
+  .release { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.75rem 0; }
+  .release__head { position: static; display: flex; align-items: baseline; gap: 0.6rem; }
+  .release__date { margin: 0; }
+}

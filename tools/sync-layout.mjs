@@ -23,6 +23,7 @@ const PAGES = [
   "beta/index.html",
   "press/index.html",
   "roadmap/index.html",
+  "releases/index.html",
   "help/index.html",
   "privacy/index.html",
   "terms/index.html",

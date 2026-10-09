@@ -632,21 +632,34 @@ button { font: inherit; }
   transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
   pointer-events: none;
 }
-.demo-library__title { font-family: var(--font-display); font-weight: 700; font-size: 18px; text-align: center; margin: 0; }
-.demo-library__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+/* Toolbar: Select · Library · filter + more — the real app's chrome. */
+.demo-library__bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.demo-library__title { font-family: var(--font-display); font-weight: 700; font-size: 16px; text-align: center; margin: 0; flex: 1; }
+.demo-library__select { font-size: 11px; color: var(--accent-readable); flex: none; }
+.demo-library__tools { display: inline-flex; align-items: center; gap: 7px; flex: none; color: var(--phone-screen-meta); }
+.demo-library__tools .icon { width: 13px; height: 13px; }
+
+/* Month marker — a leading label with a hairline, as the library groups by date. */
+.demo-library__month { display: flex; align-items: center; gap: 8px; margin: 2px 0 0;
+                       font-family: var(--font-display); font-size: 10px; color: var(--phone-screen-meta); }
+.demo-library__month::after { content: ""; flex: 1; height: 1px; background: var(--phone-screen-divider); }
+
+.demo-library__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .demo-library__row {
   display: flex; align-items: center; gap: 10px;
-  background: var(--phone-screen-soft); border-radius: var(--radius-md); padding: 10px;
+  background: var(--phone-screen-soft); border-radius: var(--radius-md); padding: 9px 10px;
 }
-.demo-library__rowtext { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
-.demo-library__pill { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; font-size: 10px; font-weight: 600; color: var(--fc); }
-.demo-library__pill .icon { width: 12px; height: 12px; color: var(--fc); }
+/* Two lines, fixed: a serif title over `glyph source · date`. The standalone
+   type pill this replaces was removed from the app in the row density pass,
+   so a mockup showing one advertises a control that no longer exists. */
+.demo-library__rowtext { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.demo-library__glyph { width: 11px; height: 11px; color: var(--fc); flex: none; }
 .demo-library__thumb {
-  width: 42px; height: 42px; border-radius: 10px; flex: none;
+  width: 38px; height: 38px; border-radius: 9px; flex: none;
   background: linear-gradient(140deg, color-mix(in srgb, var(--fc) 70%, white) 0%, var(--fc) 100%);
 }
 .demo-library__rowtitle { font-family: var(--font-display); font-size: 13px; font-weight: 600; display: block; color: var(--phone-screen-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.demo-library__rowmeta { font-size: 11px; color: var(--phone-screen-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.demo-library__rowmeta { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--phone-screen-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .demo-library__row--new { opacity: 0; transform: translateY(-6px); }
 
 /* the share sheet */

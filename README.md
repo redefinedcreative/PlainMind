@@ -158,13 +158,34 @@ rewording — but **the section now previews four shipped items and nothing
 upcoming**, which defeats its "help decide what we build next" purpose. Pick
 the next items from Featurebase and swap them in.
 
-**Known stale, not changed (needs a decision):**
-- **Press kit** says `Launch: September 29, 2026` — ASC says 1.0 went live
-  **September 24**.
-- **Press kit** pricing reads `Pro $3.99/mo or $29.99/yr · Max $9.99/mo or
-  $79.99/yr`; `PROJECT.md` §6 records a **$24.99** regular annual against the
-  $19.99 founder price. One of the two is wrong — confirm against App Store
-  Connect before editing, since pricing copy is a durable decision.
+**Press kit corrected (2026-10-09).** All three verified against primary
+sources, not PROJECT.md:
+
+- **Launch date** — was `September 29, 2026` in both the facts block and the
+  About paragraph. App Store Connect's version history has 1.0 going *Ready for
+  Distribution* on **September 24**. Fixed, and the About paragraph moved out of
+  the pre-launch future tense ("launches on…" → "has been on the App Store
+  since…"). Added a `Current version` line.
+- **Pricing** — was `Pro $3.99/mo or $29.99/yr · Max $9.99/mo or $79.99/yr`.
+  The live App Store listing reads "Pro is **$2.99 per month or $24.99 per
+  year**", so Pro was a dollar over on both plans. **Max was removed entirely:
+  it is not sold.** `Monetization.proEntitlement` is annotated "all 5 products",
+  nothing in `Views/` references `maxEntitlement`, and the paywall and Compare
+  Plans screens offer Free and Pro only.
+- **Collections** — new "Collections, and why they make themselves" block,
+  placed after About. Written from the app's own teaching copy, so every claim
+  is checkable in `BrandCopy.Collections`: notes only (never titles or saved
+  contents), on-device matching, suggestions off by default, deleting a
+  collection destroys nothing, dismissed suggestions are not re-offered.
+
+A site-wide sweep confirms no stale price or launch date remains.
+
+**Still stale, not changed (needs a decision):**
+- **Press kit screenshots** (`assets/press/screenshot-library.*`,
+  `screenshot-sharesheet.*`) are dated **2026-05-30** — they predate 1.0's
+  shipped design, never mind 1.1. A 1.1 library capture exists at
+  `App Launch/Screenshots/1.1-6.9inch/`; there is no 1.1 equivalent of the
+  share-sheet shot, which needs a fresh device capture.
 - **Landing page never mentions Collections**, the headline 1.1 feature. Its
   feature set is still 1.0's.
 

@@ -120,6 +120,42 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Hi-res saved-item detail mockup (2026-10-09)
+
+`tools/make-detail-mockup.mjs` renders the item detail screen at **true device
+resolution** — 1320×2868, the 6.9" iPhone — with no `--mock-scale` anywhere:
+every value is the app's own point value at 1:1, so the output can sit beside a
+real screenshot. Colours come from the generated token block, so it follows the
+app the way the site does.
+
+```
+node tools/make-detail-mockup.mjs                      # dark @2x
+node tools/make-detail-mockup.mjs --light --scale 1
+node tools/make-detail-mockup.mjs --out some/path.png
+```
+
+Output lands in `App Launch/Screenshots/detail-{dark,light}@{1,2}x.png`
+(@2x = 2640×5736).
+
+**HTML rather than a screenshot** because a screenshot is one theme, one
+article, one moment — it cannot be recut for a new size or headline, and it
+goes stale silently. This re-renders correctly whenever the tokens change.
+
+Layout was measured against a real device capture rather than eyeballed, which
+corrected four things in sequence: the artwork runs to ~59% of the screen
+height, the title sits low over it, the chip sits tight above the card, and the
+card runs **off the bottom edge** — the page scrolls, it does not end in empty
+space. The app also nests a lighter reader card inside a dimmer shell; a single
+flat card loses that depth.
+
+**The title colour follows the theme.** White over dark artwork, `--app-primary`
+graphite over light — a white title on a pale hero is close to illegible, and
+graphite is what the app's own token says in light mode.
+
+The hero artwork is generated (layered gradients, blurred), not a photograph.
+Swap in a real image by replacing `.art__img`'s background if a specific
+article is ever needed.
+
 ## App design tokens are generated, not copied (2026-10-09)
 
 The mockups kept going stale because every colour, radius and metric in them

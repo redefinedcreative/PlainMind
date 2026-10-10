@@ -920,24 +920,25 @@ button { font: inherit; }
 .status-bar__icons { display: inline-flex; align-items: center; gap: 4px; }
 
 /* lib mock */
-.lib-header { text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--phone-screen-text); padding: 2px 0 1px; }
-.lib-chips { display: flex; gap: 5px; padding: 0 6px 2px; overflow: hidden; }
-.lib-chip {
-  display: inline-flex; align-items: center; gap: 3px; padding: 3px 8px;
-  border-radius: var(--radius-pill); background: var(--phone-screen-chip-bg);
-  color: var(--phone-screen-text); font-size: 9px; font-weight: 500; white-space: nowrap; flex: none;
-}
-.lib-chip .icon { width: 11px; height: 11px; color: var(--fc); }
-.lib-chip--all { background: color-mix(in srgb, var(--fc) 16%, transparent); color: var(--fc); }
-.lib-section { text-align: center; font-size: 9px; font-weight: 600; color: var(--phone-screen-meta); padding: 1px 0; }
+/* Toolbar, not a bare title — the shipped library carries Select on the
+   leading edge and a filter + more pill on the trailing one. */
+.lib-header { display: flex; align-items: center; gap: 6px; padding: 2px 6px 1px; color: var(--phone-screen-text); }
+.lib-header__title { flex: 1; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 15px; }
+.lib-header__select { flex: none; font-size: 9px; color: var(--accent-readable); }
+.lib-header__tools { flex: none; display: inline-flex; align-items: center; gap: 6px; color: var(--phone-screen-meta); }
+.lib-header__tools .icon { width: 11px; height: 11px; }
+/* Month markers lead now, with a hairline, rather than centring. */
+.lib-section { display: flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 8.5px; color: var(--phone-screen-meta); padding: 2px 6px 0; }
+.lib-section::after { content: ""; flex: 1; height: 1px; background: var(--phone-screen-divider); }
 .lib-list { list-style: none; margin: 0; padding: 0 6px; display: flex; flex-direction: column; gap: 7px; flex: 1; overflow: hidden; }
 /* library rows — cards matching the app: type indicator (top) -> title -> subtitle */
 .lib-item { display: flex; align-items: center; gap: 9px; background: var(--phone-screen-soft); border-radius: 12px; padding: 8px 9px; }
-.lib-item__main { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
-.lib-item__pill { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; font-size: 8px; font-weight: 600; color: var(--fc); }
-.lib-item__pill .icon { width: 10px; height: 10px; color: var(--fc); }
+.lib-item__main { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+/* The type word moved inline into the meta line at a fraction of the
+   vertical cost; the standalone pill no longer exists. */
+.lib-item__glyph { width: 9px; height: 9px; color: var(--fc); flex: none; }
 .lib-item__title { font-family: var(--font-display); font-size: 11.5px; font-weight: 600; color: var(--phone-screen-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lib-item__meta { font-size: 8.5px; color: var(--phone-screen-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lib-item__meta { display: flex; align-items: center; gap: 4px; font-size: 8.5px; color: var(--phone-screen-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lib-thumb {
   width: 38px; height: 38px; border-radius: 8px; flex: none;
   background: linear-gradient(140deg, color-mix(in srgb, var(--fc) 70%, white) 0%, var(--fc) 100%);
@@ -978,28 +979,71 @@ button { font: inherit; }
 .mock-fab .icon { width: 16px; height: 16px; }
 .mock-fab--active { color: var(--accent-readable); }
 
-/* lib mock — one-shot staggered entrance: the library calmly settles into order.
-   Replaces the old infinite 12s filter-cycle ("stale pulse"). Triggered once
-   when the mock scrolls into view; chips settle first, then rows arrive. */
-.phone-mock--library .lib-chip,
+/* lib mock — one-shot staggered entrance: the library calmly settles into
+   order. Triggered once when the mock scrolls into view.
+   The chip row this used to stagger first is gone — the app hides the filter
+   row until it is asked for — so the rows now start where the chips did
+   rather than after a half-second of nothing. */
 .phone-mock--library .lib-anim {
   opacity: 0; transform: translateY(9px);
   transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
 }
-.phone-mock--library.in-view .lib-chip,
 .phone-mock--library.in-view .lib-anim { opacity: 1; transform: translateY(0); }
-.phone-mock--library.in-view .lib-chips .lib-chip:nth-child(1) { transition-delay: 0.16s; }
-.phone-mock--library.in-view .lib-chips .lib-chip:nth-child(2) { transition-delay: 0.21s; }
-.phone-mock--library.in-view .lib-chips .lib-chip:nth-child(3) { transition-delay: 0.26s; }
-.phone-mock--library.in-view .lib-chips .lib-chip:nth-child(4) { transition-delay: 0.31s; }
-.phone-mock--library.in-view .lib-chips .lib-chip:nth-child(5) { transition-delay: 0.36s; }
-.phone-mock--library.in-view .lib-chips .lib-chip:nth-child(6) { transition-delay: 0.41s; }
-.phone-mock--library.in-view .lib-list .lib-anim:nth-child(1) { transition-delay: 0.46s; }
-.phone-mock--library.in-view .lib-list .lib-anim:nth-child(2) { transition-delay: 0.54s; }
-.phone-mock--library.in-view .lib-list .lib-anim:nth-child(3) { transition-delay: 0.62s; }
-.phone-mock--library.in-view .lib-list .lib-anim:nth-child(4) { transition-delay: 0.70s; }
-.phone-mock--library.in-view .lib-list .lib-anim:nth-child(5) { transition-delay: 0.78s; }
-.phone-mock--library.in-view .lib-list .lib-anim:nth-child(6) { transition-delay: 0.86s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(1) { transition-delay: 0.16s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(2) { transition-delay: 0.24s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(3) { transition-delay: 0.32s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(4) { transition-delay: 0.40s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(5) { transition-delay: 0.48s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(6) { transition-delay: 0.56s; }
+
+/* detail mock — the 1.1 item page: one scrolling page under full-bleed
+   artwork, closer to the Music app than the stack of cards it replaced.
+   The old .detail-* rules described that stack and went with it. */
+.phone-mock--detail .phone-mock__screen { padding: 0; gap: 0; }
+.d7-hero {
+  position: relative; height: 112px; flex: none;
+  background: linear-gradient(170deg, #6E8E96 0%, #8FA7A4 42%, var(--phone-screen-bg) 100%);
+}
+.d7-nav { position: absolute; inset: 8px 8px auto; display: flex; align-items: center; justify-content: space-between; }
+.d7-nav__btn, .d7-nav__pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: color-mix(in srgb, var(--phone-screen-soft) 82%, transparent);
+  border-radius: 999px; padding: 4px 7px; color: var(--phone-screen-text);
+  backdrop-filter: blur(6px);
+}
+.d7-nav .icon { width: 10px; height: 10px; }
+.d7-nav__btn--back .icon { transform: rotate(90deg); }
+
+.d7-title {
+  font-family: var(--font-display); font-size: 15px; font-weight: 700; line-height: 1.2;
+  text-align: center; color: var(--phone-screen-text); margin: -14px 10px 0; position: relative;
+}
+.d7-chips { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 6px;
+            font-size: 8.5px; color: var(--phone-screen-meta); }
+.d7-chip { display: inline-flex; align-items: center; gap: 4px; }
+.d7-chip .icon { width: 9px; height: 9px; }
+.d7-chip__divider { width: 1px; height: 9px; background: var(--phone-screen-divider); }
+
+/* "Full text · N words" — the reader card 1.1 added. */
+.d7-card {
+  margin: 10px 8px 0; padding: 9px; border-radius: 12px;
+  background: var(--phone-screen-soft);
+  display: flex; flex-direction: column; gap: 5px; flex: 1; overflow: hidden;
+}
+.d7-card__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1px; }
+.d7-card__label { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-display);
+                  font-size: 10px; font-weight: 700; color: var(--phone-screen-text); }
+.d7-card__label .icon { width: 10px; height: 10px; color: var(--accent-readable); }
+.d7-card__count { font-size: 8px; color: var(--phone-screen-meta); }
+.d7-line { height: 6px; border-radius: 3px; background: var(--phone-screen-divider); }
+.d7-line--short { width: 62%; }
+
+.d7-cta {
+  margin: 0 auto 10px; display: inline-flex; align-items: center; gap: 5px;
+  background: var(--accent); color: var(--accent-on); border-radius: 999px;
+  padding: 6px 16px; font-size: 9.5px; font-weight: 600; flex: none;
+}
+.d7-cta .icon { width: 10px; height: 10px; }
 
 /* search mock */
 .qs-header { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--accent-readable); padding: 2px 6px 1px; }

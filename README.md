@@ -120,6 +120,53 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## App mockups rebuilt for 1.1 (2026-10-09)
+
+The site's phone mockups are **hand-coded HTML/CSS**, not video — five of
+them, and all five were behind the shipped app. The giveaway was a standalone
+type pill (`Link`, `Place`) above each row title: that control was removed in
+the row density pass, so the site was advertising something the app no longer
+has.
+
+**The animation was never the problem.** `share-demo.js` drives the hero
+through nine phases with CSS doing the motion, handles `prefers-reduced-motion`
+and pauses off-screen and on hidden tabs. It is untouched. Only the markup it
+animates was stale.
+
+| Mockup | Change |
+|---|---|
+| Hero (`demo-phone`) | two-line rows, `Select · Library · filter + more` toolbar, month marker with hairline |
+| `phone-mock--library` | same row treatment; **the permanent type-chip row is gone** — 1.1 hides the filter row until asked, and it no longer holds collections or sources |
+| `phone-mock--detail` | **rebuilt**, not re-skinned: 1.1 replaced the card stack with one scrolling page under full-bleed artwork |
+| `phone-mock--search` | Type/Source/When facets card (Power search folded in), quick searches now week/month/**year**, suggested searches added |
+| `phone-mock--settings` | Collections row under Your Library |
+| `phone-mock--collections` | **new** — see below |
+
+Two details worth keeping in mind when editing these:
+
+- **Entrance stagger.** The library mock used to stagger chips (0.16–0.41s)
+  then rows (from 0.46s). With the chips gone the rows start at 0.16s, or the
+  animation opens on half a second of nothing.
+- **Screen overflow.** The search mock's facets card plus the keyboard
+  overflowed the phone; facet padding is deliberately tight and the suggested
+  list is two rows, not three.
+
+**New Collections section** (`phone-mock--collections`), placed after the
+library block since collections are a property of the library. Two beats on one
+scroll-in, using the existing `.anim-host` / `.in-view` trigger rather than a
+loop — the suggestion card sits **above a populated library** (which is where
+the app puts it), then collapses as the chip appears and the non-matching rows
+fold away. An earlier cut faded the list in from nothing, which implied the
+library was empty until a collection existed. Reduced motion holds beat one and
+hides the chip, because showing the applied chip beside the offer would put a
+collection on screen the user is simultaneously being asked whether to create.
+
+Landing copy gains a "New in 1.1 / Collections that make themselves" block —
+the page previously mentioned Collections **zero times**.
+
+All mock content is now neutral; the mocks previously named real places and a
+real video platform, and the hero used a real publication's domain.
+
 ## Release history page + stale roadmap cards (2026-10-09)
 
 **New `/releases/`** — a public changelog, one entry per App Store version,

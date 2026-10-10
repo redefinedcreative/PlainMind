@@ -1045,6 +1045,21 @@ button { font: inherit; }
 }
 .d7-cta .icon { width: 10px; height: 10px; }
 
+/* search mock — 1.1 folded Power search into this screen, so the facets
+   card (Type / Source / When) sits above the quick searches, and the
+   suggested searches below them are new. */
+.facets { display: flex; flex-direction: column; gap: 1px; margin: 2px 6px 0;
+          background: var(--phone-screen-divider); border-radius: 10px; overflow: hidden; }
+.facet { display: flex; align-items: center; gap: 5px; padding: 4.5px 8px;
+         background: var(--phone-screen-soft); font-size: 8.5px; color: var(--phone-screen-text); }
+.facet .icon { width: 10px; height: 10px; color: var(--accent-readable); }
+.facet__chev { margin-left: auto; color: var(--phone-screen-meta); width: 9px; height: 9px; }
+.qs-card--wide { grid-column: 1 / -1; }
+.sugg-row { display: flex; align-items: center; gap: 6px; padding: 4px 7px;
+            background: var(--phone-screen-soft); border-radius: 9px;
+            font-size: 8.5px; color: var(--phone-screen-text); }
+.sugg-row .icon { width: 10px; height: 10px; color: var(--accent-readable); }
+
 /* search mock */
 .qs-header { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--accent-readable); padding: 2px 6px 1px; }
 .qs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 6px; }

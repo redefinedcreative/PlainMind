@@ -527,30 +527,21 @@
                   <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
                 </span>
               </div>
+              <div class="facets">
+                <span class="facet"><svg class="icon"><use href="#icon-all" /></svg>Type<svg class="icon facet__chev"><use href="#icon-chevron-down" /></svg></span>
+                <span class="facet"><svg class="icon"><use href="#icon-globe" /></svg>Source<svg class="icon facet__chev"><use href="#icon-chevron-down" /></svg></span>
+                <span class="facet"><svg class="icon"><use href="#icon-calendar" /></svg>When<svg class="icon facet__chev"><use href="#icon-chevron-down" /></svg></span>
+              </div>
               <div class="qs-header">Quick searches</div>
               <div class="qs-grid">
-                <span class="qs-card qs-card--recent">
-                  <svg class="icon"><use href="#icon-recent" /></svg>
-                  <span>Recently saved</span>
-                </span>
-                <span class="qs-card">
-                  <svg class="icon"><use href="#icon-calendar" /></svg>
-                  <span>This week</span>
-                </span>
-                <span class="qs-card">
-                  <svg class="icon"><use href="#icon-calendar" /></svg>
-                  <span>This month</span>
-                </span>
-                <span class="qs-card">
-                  <svg class="icon"><use href="#icon-tray" /></svg>
-                  <span>Unopened</span>
-                </span>
+                <span class="qs-card"><svg class="icon"><use href="#icon-calendar" /></svg><span>This week</span></span>
+                <span class="qs-card"><svg class="icon"><use href="#icon-calendar" /></svg><span>This month</span></span>
+                <span class="qs-card qs-card--wide"><svg class="icon"><use href="#icon-calendar" /></svg><span>This year</span></span>
               </div>
-              <div class="recent-header">Recent searches</div>
+              <div class="recent-header">Suggested searches</div>
               <ul class="recent-list">
-                <li class="recent-row"><span>disney</span><span class="recent-row__x">✕</span></li>
-                <li class="recent-row"><span>los angeles</span><span class="recent-row__x">✕</span></li>
-                <li class="recent-row"><span>las vegas</span><span class="recent-row__x">✕</span></li>
+                <li class="sugg-row"><svg class="icon" style="color: var(--filter-link);"><use href="#icon-link" /></svg><span>Links this month</span></li>
+                <li class="sugg-row"><svg class="icon" style="color: var(--filter-image);"><use href="#icon-image" /></svg><span>Images this year</span></li>
               </ul>
               <div class="mock-searchbar">
                 <span class="mock-searchfield">
@@ -618,6 +609,13 @@
                 <span class="set-row__val">47.2 MB</span>
               </div>
               <div class="set-section">Your Library</div>
+              <div class="set-row set-row--tap">
+                <span class="set-row__lead"><svg class="icon"><use href="#icon-folder" /></svg> Collections</span>
+                <span class="set-row__right">
+                  <span class="stats-badge">2</span>
+                  <svg class="icon set-chevron"><use href="#icon-chevron" /></svg>
+                </span>
+              </div>
               <div class="set-row set-row--tap">
                 <span class="set-row__lead"><svg class="icon"><use href="#icon-stats" /></svg> Stats</span>
                 <span class="set-row__right">

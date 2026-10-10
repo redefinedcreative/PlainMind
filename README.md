@@ -120,6 +120,55 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## App design tokens are generated, not copied (2026-10-09)
+
+The mockups kept going stale because every colour, radius and metric in them
+was a **hand-copy** of a value living in the iOS app, and nothing caught drift.
+They are now **derived**: `tools/sync-app-tokens.mjs` reads the app's own
+sources and stamps the result into `public/styles.css` between
+`/* app-tokens:start */` and `/* app-tokens:end */`.
+
+```
+node tools/sync-app-tokens.mjs           # regenerate
+node tools/sync-app-tokens.mjs --check   # exit 1 if stale — wire into CI
+```
+
+Sources (override the app path with `PLAINMIND_APP`):
+
+| Source | Gives |
+|---|---|
+| `Assets.xcassets/*.colorset` | 16 semantic colours with **light + dark** pairs |
+| `Models/ContentType.swift` | the 8 content-type colours |
+| `Utilities/Constants.swift` | `Spacing`, `CornerRadius`, `ShadowStyle` |
+| `Utilities/Theme.swift` | `Stroke`, `Opacity`, `Hero`, `Layout` |
+
+**The asset catalog is the right colour source, not `BrandPalette.swift`** —
+the Swift file holds flat literals, the catalog holds the light/dark pairs the
+app actually renders.
+
+**Alpha is load-bearing.** `BrandSecondary` is `BrandPrimary` at 60%,
+`BrandTertiary` at 40%, dark `BrandPrimary` is white at 90% and dark
+`BrandDivider` is stone at 20%. A first cut dropped alpha and collapsed three
+distinct text tokens onto one colour.
+
+**Sizes are emitted as the app's raw point values**, scaled at the use site:
+
+```css
+border-radius: calc(var(--app-radius-card) * 1px * var(--hero-scale));
+```
+
+`--mock-scale` (feature mocks) and `--hero-scale` (the larger hero phone) are
+**ours**, not the app's, so they live in the site's own `:root` — putting one
+inside the generated block made `--check` fail, correctly.
+
+**What the hand-copies had wrong:** mock meta text was `0.5` where the app's
+`BrandSecondary` is `0.6`; dark body text was `0.92` against the app's `0.9`;
+and only five of the eight content-type colours existed, so a music, podcast or
+video row could not be drawn in its real colour at all.
+
+**Still raw numbers:** typography sizes in the mocks, and most padding. The
+tokens exist (`--app-space-*`) — wiring the rest is mechanical.
+
 ## App mockups rebuilt for 1.1 (2026-10-09)
 
 The site's phone mockups are **hand-coded HTML/CSS**, not video — five of

@@ -120,6 +120,49 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Link-preview cards are generated now (2026-10-11)
+
+The three cards in `public/assets/og/` were drawn by hand in May 2026 and then
+quietly rotted. The home card still read **"iOS · OPEN BETA SOON"** — eighteen
+days after 1.0 shipped and two days after 1.1 — and the `/beta/` card still
+said "Open Beta · TestFlight" even though that page's own `<h1>` had long since
+become "PlainMind is on the App Store". Nothing caught it, because a PNG cannot
+be `--check`ed.
+
+`tools/make-og-cards.mjs` renders all three from the generated token block, the
+same way the phone mockups and the detail asset do. Copy lives in one `CARDS`
+array at the top of the file; a brand-colour change moves every card without
+anyone touching copy at all.
+
+```
+node tools/make-og-cards.mjs            # write all three
+node tools/make-og-cards.mjs --check    # fail if a card is missing
+```
+
+The design is the original's, matched against it band by band (brand lockup,
+eyebrow, two headline lines, hairline, domain all land within a few pixels).
+One deliberate change: the hand-drawn cards used `#6CA0A1` for the teal, which
+is not a token and predates the design system. The generated cards use
+`--app-accent-readable` (`#4A7475`), which is what `.accent` resolves to on the
+page each card represents.
+
+**What changed beyond the artwork**
+
+- `/beta/` still had `og:title` "Open Beta — PlainMind for iOS" and was missing
+  `twitter:title` and `twitter:description` entirely, so X fell back to the raw
+  `<title>` and showed no description. Both added, title corrected.
+- `og-beta.png` is deleted; that page's card is now `og-download.png`, named
+  for what the page actually is.
+- `og-home.png` and `og-press.png` keep their filenames but their **content**
+  changed, and social scrapers cache by URL — so those references carry `?v=2`.
+  Without it, every platform that has already scraped plainmind.app would keep
+  serving "OPEN BETA SOON" from its own cache.
+
+**Already-posted shares keep the old card** — their platform holds its own copy
+and nothing we do reaches it. To refresh the common ones by hand:
+Facebook `developers.facebook.com/tools/debug/`, LinkedIn
+`www.linkedin.com/post-inspector/`, X `cards-dev.twitter.com/validator`.
+
 ## Mockups rebuilt to app geometry; the detail record is Redefined Creative (2026-10-10)
 
 The phone mockups already took their **colours** from the app (see *App design

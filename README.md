@@ -120,6 +120,164 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Mockups rebuilt to app geometry; the detail record is Redefined Creative (2026-10-10)
+
+The phone mockups already took their **colours** from the app (see *App design
+tokens are generated, not copied*, below). Their **geometry** was still
+hand-copied, and it had drifted badly:
+
+| element | app | the mock had | out by |
+|---|---|---|---|
+| `--mock-scale` | 260px ÷ 402pt = **0.6468** | `0.34` | 1.9× |
+| row thumbnail | `Metrics.rowThumbnail` 44pt | 38px | +33% |
+| row card radius | `CornerRadius.sheet` 16pt | ~8px | −50% |
+| screen margin | `Spacing.lg` 16pt | 14px | +35% |
+
+`--mock-scale` being roughly half the true ratio is why the single rule that
+used it carried a magic `* 2.4` to cancel the error; every other rule was an
+eyeballed pixel. The **type** scale, oddly, was nearly right — 11.5px against a
+true 11.0px — which is how the drift stayed invisible.
+
+### What changed
+
+**`tools/sync-app-tokens.mjs` now generates layout and typography too.**
+
+- `--mock-scale` is **derived**, not chosen: `(frame − 2×bezel) ÷ device width`.
+  Change the frame width at the top of the generator; never at a use site.
+- `--app-row-*` from `Metrics` (DeviceClass.swift), `--app-detail-*` from
+  `D7Metrics`, `--app-bar-*` from `BottomBarMetrics`.
+- `--app-text-*` — the SwiftUI TextStyle size table, the large end read out of
+  `displayUIFont`'s own switch.
+- `--app-tier-*` — **parsed out of the tier table in `BrandTypography.swift`'s
+  own header comment**, which is the app's statement of record. Each tier emits
+  a size, weight, family and colour, so a mock can wear a tier whole instead of
+  re-deciding its three parts.
+
+`--check` still fails the build when any of it goes stale.
+
+**Every mock is now app points through `--mock-scale`.** The aliases on
+`.phone-mock__screen` (`--sp-lg`, `--t-item`, `--row-h`, …) carry the app's own
+names. A bare pixel in the mock CSS is now a bug unless it describes the
+plastic — bezel, notch, handset radius — which the app has no opinion about.
+
+**The item-detail mock was rebuilt to `DetailViewD7`.** It was a 112px gradient
+band over a skeleton card; it is now the real hierarchy — in-flow hero artwork
+with a gradient-masked blur band carrying the title and the type/source pill,
+then one solid `D7GlassCard` holding three `detailSectionZone`s (Full text,
+Details, Note), a glass action bar at the tab bar's width, and the tab bar.
+`--d7-scroll` holds the page a little way down its own scroll: far enough that
+all three zones clear the floating action bar, near enough that the title
+clears the nav chrome.
+
+**The hero share-sheet demo** got the same treatment — its library row was on
+`CornerRadius.card` where the app uses `.sheet`, and it had no tab bar at all.
+
+**Settings section headers** were uppercase and tracked; the app's are brand
+serif subheadline, medium, primary, sentence case. The app tried uppercase and
+abandoned it — the headers stopped working as scan anchors at eight sections.
+
+### Corrected against the device, not the Simulator (2026-10-10, same day)
+
+The first pass drew the tab bar as a capsule of tabs plus a **detached search
+circle** — the iOS 26 reading of the `.search` tab role, and what the Simulator
+still renders (`1.1-framed/02-menu.png`, a 9:41 capture, shows exactly that).
+
+The **device** disagrees. `1.1-6.9inch/01-library.png` and `03-reader.png` are
+real captures (4:44, 36% battery) and both show **one centred pill holding all
+three tabs**, Search included.
+
+That mismatch was also why the Open Link bar looked wrong.
+`DetailViewD7.actionBarWidth` is `min(width * 0.68, 340) + Spacing.lg * 2`,
+sized to match the tab bar's **centred** pill — against a full-width tab row it
+read as too narrow for no reason. Both now derive from the same `0.68`, so they
+line up by construction: measured in the browser, 176.8px wide and the same
+centre, to the pixel.
+
+Fixed in the four site mocks, the hero share-sheet demo and
+`make-detail-mockup.mjs`.
+
+While the device captures were open, one more gap: the **library toolbar** was
+bare text and bare glyphs. On device, Select is its own glass pill and the
+filter + ⋯ are one glass capsule — the same grouping rule as the detail page's
+Share + ⋯ (adjacent trailing bar items with no spacer between them).
+
+Then three more, all measured off `03-reader.png` rather than eyeballed:
+
+| | device | mock had | now |
+|---|---|---|---|
+| gap, action bar → tab bar | 9.0pt | 3.7pt | 9.0pt |
+| tab bar capsule height | 66.7pt | 58.3pt | 66.3pt |
+| tab bar → screen bottom | 23.7pt | 26.0pt | 24.3pt |
+
+The gap is `DetailBottomActionBar`'s `.padding(.bottom, Spacing.sm)`; at 3.7pt
+the two pieces of floating chrome collided. The capsule was short because the
+tab label inherited the page's global `line-height`, which inflated it to ~20pt
+— pinned to 1.2.
+
+**The selected tab is a lens, not a tint.** Sampled on device: the bar reads
+`rgb(54,56,60)` over a `rgb(26,30,33)` page, and the selected tab falls back to
+`rgb(28,32,35)` — the page showing back through the glass. The mock had a teal
+wash, i.e. the selected tab *lighter* than the bar, which is backwards. The
+glass itself is now mixed off the page colour through `--app-secondary`, which
+flips with the theme: lighter in dark, darker in light, as the captures show.
+
+**The Library glyph** was a single open book; the app uses SF Symbol
+`books.vertical` — three spines, label ticks, the third leaning. Redrawn, and
+the tab icon box went 22pt → 28pt because the device glyph draws ~24pt tall.
+
+The small detail mock had to lose its "View more" row and the Saved detail row
+to fit all three zones between the nav and the action bar without clipping —
+the card was 64pt taller than the space available. The hi-res asset keeps both;
+it has a whole screen to work with.
+
+**Lesson for next time:** `App Launch/Screenshots/1.1-6.9inch/` holds real
+device captures. Check a mock against those before trusting a code comment
+about how a system control renders — the comment describes intent, the capture
+describes iOS.
+
+### The hand-picked record
+
+The detail screen — in the mock and in `tools/make-detail-mockup.mjs` — is a
+real save of **redefinedcreative.com**, Keegan's own business. Title and
+description are the page's own `og:` tags; the body is its own copy; the hero
+is its `og:image`; the favicon is real.
+
+The source reads **"Redefined Creative"**, not the hostname, and that is what
+the app would actually show: `DomainDisplayName` misses the curated table, then
+`SiteNameResolver` route B matches the title's trailing segment letter-for-letter
+against the domain label (`redefinedcreative`) — self-verifying, so one save is
+enough.
+
+The saved **title drops the `| Redefined Creative` suffix** the page serves.
+Titles are tap-to-edit in the app and the source pill directly beneath already
+carries the site name, so the suffix was duplicated. Pass `--record` to use the
+raw `og:title` instead.
+
+**The hero image is the weak link.** It is the real `og:image`, which is a busy
+multi-coloured stock photo at 1100×733 — it fights the calm palette, and it
+upscales ~2.2× to fill a 1320px-wide hero. `--art path.png` swaps it without
+touching anything else.
+
+### `tools/make-detail-mockup.mjs`
+
+Rewritten to lay out at **440×956 — the device's size in points** — and render
+at a device scale factor of 3, exactly as the phone does. `font-size: 34px` in
+that file now *is* `.largeTitle`; `padding: 24px` *is* `Spacing.xl`. The old
+version drew on a 1320px canvas and treated points as device pixels, so every
+value carried a hidden ×3 (`118px` for a 34pt title) that could not be checked
+against anything.
+
+```
+node tools/sync-app-tokens.mjs                      # after any app design change
+node tools/make-detail-mockup.mjs --scale 1         # 1320×2868, dark
+node tools/make-detail-mockup.mjs --light --scale 1
+node tools/make-detail-mockup.mjs --scroll 430      # the sections, hero scrolled off
+node tools/make-detail-mockup.mjs --record r.json --art hero.png
+```
+
+Outputs land in `App Launch/Screenshots/detail-*.png`. The record is data, not
+markup — `--record` swaps the saved item without touching the layout.
+
 ## Hi-res saved-item detail mockup (2026-10-09)
 
 `tools/make-detail-mockup.mjs` renders the item detail screen at **true device

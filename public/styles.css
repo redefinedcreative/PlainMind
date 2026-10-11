@@ -11,8 +11,14 @@
  * which keeps the proportions true instead of re-guessing each number.
  */
 :root {
-  /* Mock phones render at roughly a third of device scale. */
-  --mock-scale: 0.34;
+  /* Mock phone geometry. --mock-scale converts an app POINT to a mock PIXEL:
+   *   (272 - 2x6) / 402pt = 0.6468
+   * Change the frame width here, not at a use site. */
+  --mock-device-width: 402;
+  --mock-device-height: 874;
+  --mock-frame-width: 272px;
+  --mock-bezel: 6px;
+  --mock-scale: 0.6468;
 
   /* semantic colours — light (asset catalog) */
   --app-accent: #7BAFB0;
@@ -129,6 +135,85 @@
   --app-layout-tap-target-min: 44;
   --app-layout-row-min-height: 56;
   --app-layout-count-column-min-width: 28;
+
+  /* list-row metrics — Metrics (DeviceClass.swift), phone class (pt) */
+  --app-row-thumbnail: 44;
+  --app-row-title-size: 17;
+  --app-row-gutter: 5;
+
+  /* item-detail layout — D7Metrics (pt, except the fraction) */
+  --app-detail-hero-height: 280;
+  --app-detail-card-top-spacer: 212;
+  --app-detail-hero-pill-top: 168;
+  --app-detail-hero-height-fraction: 0.56;
+  --app-detail-hero-image-min-band: 150;
+  --app-detail-hero-fade-lead-in: 132;
+  --app-detail-hero-to-panel-gap: 4;
+  --app-detail-pane-max-layout-height: 820;
+  --app-detail-glyph-size: 100;
+  --app-detail-control-size: 38;
+  --app-detail-card-corner-radius: 28;
+  --app-detail-favicon-size: 18;
+
+  /* floating bottom bar — BottomBarMetrics (pt) */
+  --app-bar-outer-corner-radius: 28;
+  --app-bar-padding: 8;
+  --app-bar-button-height: 44;
+
+  /* text-style sizes — SwiftUI TextStyle at the Large content size (pt) */
+  --app-text-large-title: 34;
+  --app-text-title: 28;
+  --app-text-title1: 28;
+  --app-text-title2: 22;
+  --app-text-title3: 20;
+  --app-text-headline: 17;
+  --app-text-body: 17;
+  --app-text-callout: 16;
+  --app-text-subheadline: 15;
+  --app-text-footnote: 13;
+  --app-text-caption: 12;
+  --app-text-caption1: 12;
+  --app-text-caption2: 11;
+
+  /* type tiers — the table in BrandTypography.swift's own header.
+   * Each tier emits a size, a weight and a family so a mock can wear a
+   * tier whole rather than re-deciding its three parts. */
+  --app-tier-hero-size: 34;
+  --app-tier-hero-weight: 700;
+  --app-tier-hero-family: var(--app-font-serif);
+  --app-tier-hero-color: var(--app-primary);
+  --app-tier-title-size: 28;
+  --app-tier-title-weight: 600;
+  --app-tier-title-family: var(--app-font-serif);
+  --app-tier-title-color: var(--app-primary);
+  --app-tier-screen-title-size: 22;
+  --app-tier-screen-title-weight: 600;
+  --app-tier-screen-title-family: var(--app-font-serif);
+  --app-tier-screen-title-color: var(--app-primary);
+  --app-tier-section-header-size: 15;
+  --app-tier-section-header-weight: 500;
+  --app-tier-section-header-family: var(--app-font-serif);
+  --app-tier-section-header-color: var(--app-secondary);
+  --app-tier-inline-label-size: 12;
+  --app-tier-inline-label-weight: 500;
+  --app-tier-inline-label-family: var(--app-font-serif);
+  --app-tier-inline-label-color: var(--app-tertiary);
+  --app-tier-item-title-size: 17;
+  --app-tier-item-title-weight: 600;
+  --app-tier-item-title-family: var(--app-font-serif);
+  --app-tier-item-title-color: var(--app-primary);
+  --app-tier-body-size: 17;
+  --app-tier-body-weight: 400;
+  --app-tier-body-family: var(--app-font-system);
+  --app-tier-body-color: var(--app-primary);
+  --app-tier-metadata-size: 13;
+  --app-tier-metadata-weight: 400;
+  --app-tier-metadata-family: var(--app-font-system);
+  --app-tier-metadata-color: var(--app-secondary);
+  --app-tier-subtitle-size: 15;
+  --app-tier-subtitle-weight: 400;
+  --app-tier-subtitle-family: var(--app-font-system);
+  --app-tier-subtitle-color: var(--app-secondary);
 }
 
 :root[data-theme="dark"] {
@@ -218,6 +303,12 @@
      values are scaled by this rather than --mock-scale. Ours, not the app's,
      so it is defined here and not in the generated block. */
   --hero-scale: 0.86;
+
+  /* The app names its two type families "Serif" and "System"; the site already
+     carries both. Aliasing here (rather than in the generated block) keeps the
+     generator free of any opinion about which webfont stands in for SF. */
+  --app-font-serif: var(--font-display);
+  --app-font-system: var(--font-body);
 
   /* The mock screen reads straight from the generated app tokens, so it
      follows the product instead of a copy of it. These resolve per theme
@@ -801,32 +892,79 @@ button { font: inherit; }
 .demo-library__tools .icon { width: 13px; height: 13px; }
 
 /* Month marker — a leading label with a hairline, as the library groups by date. */
-.demo-library__month { display: flex; align-items: center; gap: 8px; margin: 2px 0 0;
-                       font-family: var(--font-display); font-size: 10px; color: var(--phone-screen-meta); }
+.demo-library__month { display: flex; align-items: center; gap: calc(var(--app-space-sm) * 1px * var(--hero-scale)); margin: 2px 0 0;
+                       font-family: var(--app-font-serif); font-weight: 500;
+                       font-size: calc(var(--app-text-footnote) * 1px * var(--hero-scale));
+                       color: var(--phone-screen-meta); }
 .demo-library__month::after { content: ""; flex: 1; height: 1px; background: var(--phone-screen-divider); }
 
-.demo-library__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+/* Metrics.rowGutter is applied top AND bottom, so the visible gutter is twice it. */
+.demo-library__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column;
+                      gap: calc(var(--app-row-gutter) * 2 * 1px * var(--hero-scale)); }
 .demo-library__row {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: calc(var(--app-space-md) * 1px * var(--hero-scale));
   background: var(--phone-screen-soft);
-  /* CornerRadius.card, at mock scale — not an eyeballed 12px. */
-  border-radius: calc(var(--app-radius-card) * 1px * var(--hero-scale));
-  padding: 9px 10px;
+  /* CornerRadius.sheet (16pt) — the row card's radius, not CornerRadius.card.
+     AllItemsView is explicit about the choice: it matches the detail sheet's
+     hero chrome so the radius language is consistent across both surfaces. */
+  border-radius: calc(var(--app-radius-sheet) * 1px * var(--hero-scale));
+  /* 16pt in, 10pt down — the row is fixed at two lines, so the vertical
+     padding no longer absorbs a variable-height block. */
+  padding: calc(10px * var(--hero-scale)) calc(var(--app-space-lg) * 1px * var(--hero-scale));
 }
 /* Two lines, fixed: a serif title over `glyph source · date`. The standalone
    type pill this replaces was removed from the app in the row density pass,
    so a mockup showing one advertises a control that no longer exists. */
 .demo-library__rowtext { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
-.demo-library__glyph { width: 11px; height: 11px; color: var(--fc); flex: none; }
+.demo-library__glyph { width: calc(11px * var(--hero-scale)); height: calc(11px * var(--hero-scale));
+                       color: var(--fc); flex: none; }
 .demo-library__thumb {
   /* Metrics.rowThumbnail (44pt) at hero scale. */
   width: calc(44px * var(--hero-scale)); height: calc(44px * var(--hero-scale));
   border-radius: calc(var(--app-radius-small) * 1px * var(--hero-scale)); flex: none;
   background: linear-gradient(140deg, color-mix(in srgb, var(--fc) 70%, white) 0%, var(--fc) 100%);
 }
-.demo-library__rowtitle { font-family: var(--font-display); font-size: 13px; font-weight: 600; display: block; color: var(--phone-screen-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.demo-library__rowmeta { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--phone-screen-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.demo-library__rowtitle { font-family: var(--app-font-serif);
+  font-size: calc(var(--app-row-title-size) * 1px * var(--hero-scale));
+  font-weight: var(--app-tier-item-title-weight); display: block; color: var(--phone-screen-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.demo-library__rowmeta { display: flex; align-items: center; gap: calc(var(--app-space-xs) * 1px * var(--hero-scale));
+  font-size: calc(var(--app-text-footnote) * 1px * var(--hero-scale)); color: var(--phone-screen-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .demo-library__row--new { opacity: 0; transform: translateY(-6px); }
+
+/* The library the demo reveals has a tab bar, because the app always does.
+   Same iOS 26 construction as the feature mocks — a floating capsule of tabs
+   with Search detached in its own circle — at --hero-scale rather than
+   --mock-scale, since this phone is drawn larger. */
+.demo-tabbar {
+  position: absolute; left: 0; right: 0;
+  bottom: calc(24px * var(--hero-scale));
+  display: flex; align-items: center; justify-content: center;
+}
+.demo-tabs {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--phone-screen-bg) 68%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+  border: 0.5px solid var(--phone-screen-divider);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+.demo-tabs {
+  align-items: stretch; justify-content: space-between; border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--app-secondary) 14%, var(--phone-screen-bg));
+  width: calc(var(--mock-device-width) * 0.68px * var(--hero-scale));
+  gap: calc(4px * var(--hero-scale)); padding: calc(6px * var(--hero-scale));
+}
+.demo-tab {
+  flex: 1; min-width: 0;
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: calc(2px * var(--hero-scale));
+  padding: calc(5px * var(--hero-scale)) calc(6px * var(--hero-scale));
+  border-radius: var(--radius-pill);
+  font-size: calc(var(--app-text-caption) * 1px * var(--hero-scale));
+  font-weight: 500; line-height: 1.2; color: var(--phone-screen-meta);
+}
+.demo-tab .icon { width: calc(28px * var(--hero-scale)); height: calc(28px * var(--hero-scale)); }
+.demo-tab--active { color: var(--accent-readable); background: var(--phone-screen-bg); font-weight: 600; }
 
 /* the share sheet */
 .share-sheet {
@@ -1055,10 +1193,26 @@ button { font: inherit; }
   .feature-block--image-right .feature-block__text   { order: 0; }
 }
 
-/* phone mock shared */
+/* ═══ phone mocks ════════════════════════════════════════════════════════════
+   Every length below is an APP POINT put through --mock-scale, which is
+   DERIVED (mock screen px ÷ device pt) rather than chosen. A bare pixel value
+   here is a bug unless it describes the plastic — the bezel, the notch, the
+   corner radius of the handset — which the app has no opinion about.
+
+   This is the second attempt at keeping these honest. The first generated the
+   COLOURS and left the geometry hand-copied, and the geometry duly drifted:
+   --mock-scale was 0.34 against a true ratio of 0.6468, so the one rule that
+   used it carried a `* 2.4` to cancel the error, and every other rule was an
+   eyeballed pixel. Thumbnails were 33% oversized, radii 55%, margins 35%.
+
+   The device is the 6.3" iPhone (402×874pt). The hi-res detail asset renders
+   the 6.9" instead, because that is the App Store's screenshot size.
+   ─────────────────────────────────────────────────────────────────────────── */
 .phone-mock {
-  position: relative; width: 272px; aspect-ratio: 9 / 19.5;
-  border-radius: 38px; background: #0B0E12; padding: 6px;
+  position: relative;
+  width: var(--mock-frame-width);
+  aspect-ratio: var(--mock-device-width) / var(--mock-device-height);
+  border-radius: 38px; background: #0B0E12; padding: var(--mock-bezel);
   box-shadow: var(--phone-shadow); flex-shrink: 0;
   opacity: 0; transform: translateY(24px);
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
@@ -1070,87 +1224,177 @@ button { font: inherit; }
   width: 80px; height: 22px; background: #0B0E12; border-radius: 12px; z-index: 2;
 }
 :root[data-theme="dark"] .phone-mock__notch { background: #05070A; }
+
 .phone-mock__screen {
+  /* point → mock pixel. Named so a rule can read `var(--sp-lg)` rather than
+     repeating the calc; the names mirror the app's own (Spacing.lg, and so on). */
+  --sp-xxs: calc(var(--app-space-xxs) * var(--mock-scale) * 1px);
+  --sp-xs:  calc(var(--app-space-xs)  * var(--mock-scale) * 1px);
+  --sp-sm:  calc(var(--app-space-sm)  * var(--mock-scale) * 1px);
+  --sp-md:  calc(var(--app-space-md)  * var(--mock-scale) * 1px);
+  --sp-lg:  calc(var(--app-space-lg)  * var(--mock-scale) * 1px);
+  --sp-xl:  calc(var(--app-space-xl)  * var(--mock-scale) * 1px);
+  --r-small: calc(var(--app-radius-small) * var(--mock-scale) * 1px);
+  --r-card:  calc(var(--app-radius-card)  * var(--mock-scale) * 1px);
+  --r-sheet: calc(var(--app-radius-sheet) * var(--mock-scale) * 1px);
+  /* type tiers, by the app's own names */
+  --t-screen: calc(var(--app-text-title2)          * var(--mock-scale) * 1px);
+  --t-item:   calc(var(--app-tier-item-title-size) * var(--mock-scale) * 1px);
+  --t-body:   calc(var(--app-tier-body-size)       * var(--mock-scale) * 1px);
+  --t-sub:    calc(var(--app-text-subheadline)     * var(--mock-scale) * 1px);
+  --t-meta:   calc(var(--app-text-footnote)        * var(--mock-scale) * 1px);
+  --t-cap:    calc(var(--app-text-caption)         * var(--mock-scale) * 1px);
+  /* row geometry — ItemListRow is fixed at two lines, so every row is the
+     thumbnail plus the card's 10pt vertical padding, top and bottom. */
+  --thumb:   calc(var(--app-row-thumbnail) * var(--mock-scale) * 1px);
+  --row-h:   calc((var(--app-row-thumbnail) + 20) * var(--mock-scale) * 1px);
+  --row-gap: calc(var(--app-row-gutter) * 2 * var(--mock-scale) * 1px);
+  --glyph:   calc(11 * var(--mock-scale) * 1px);   /* meta-line type glyph */
+  --safe-top: calc(59 * var(--mock-scale) * 1px);
+  --navbar-h: calc(44 * var(--mock-scale) * 1px);
+
   position: relative; width: 100%; height: 100%; border-radius: 32px;
   background: var(--phone-screen-bg); overflow: hidden;
-  color: var(--phone-screen-text); font-size: 10.5px;
-  padding: 30px 8px 0; display: flex; flex-direction: column; gap: 6px;
+  color: var(--phone-screen-text);
+  font-family: var(--app-font-system);
+  display: flex; flex-direction: column;
+  /* The safe-area band the status bar occupies. Horizontal margin is NOT set
+     here — each surface carries its own, as it does in the app. */
+  padding-top: var(--safe-top); gap: var(--sp-sm);
 }
 .status-bar {
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 10.5px; font-weight: 600; padding: 0 6px; height: 13px;
+  font-size: var(--t-meta); font-weight: 600;
   color: var(--phone-screen-text);
 }
-/* feature mocks: status bar flanks the notch / dynamic island (frees in-flow room, shifts content up) */
-.phone-mock .status-bar { position: absolute; top: 12px; left: 0; right: 0; z-index: 3; padding: 0 14px; }
+/* Flanks the notch rather than sitting in flow, which is where the device puts
+   it and which frees the whole safe-area band for content. */
+.phone-mock .status-bar {
+  position: absolute; top: 12px; left: 0; right: 0; z-index: 3; padding: 0 14px;
+}
 .status-bar__icons { display: inline-flex; align-items: center; gap: 4px; }
 
-/* lib mock */
-/* Toolbar, not a bare title — the shipped library carries Select on the
-   leading edge and a filter + more pill on the trailing one. */
-.lib-header { display: flex; align-items: center; gap: 6px; padding: 2px 6px 1px; color: var(--phone-screen-text); }
-.lib-header__title { flex: 1; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 15px; }
-.lib-header__select { flex: none; font-size: 9px; color: var(--accent-readable); }
-.lib-header__tools { flex: none; display: inline-flex; align-items: center; gap: 6px; color: var(--phone-screen-meta); }
-.lib-header__tools .icon { width: 11px; height: 11px; }
-/* Month markers lead now, with a hairline, rather than centring. */
-.lib-section { display: flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 8.5px; color: var(--phone-screen-meta); padding: 2px 6px 0; }
+/* ── Library (AllItemsView) ───────────────────────────────────────────────
+   Navigation bar: Select leading, the serif screen title in the principal
+   slot, filter + ⋯ trailing. The type-filter strip is NOT here — the app keeps
+   it hidden until the filter button asks for it. */
+.lib-header {
+  flex: none; height: var(--navbar-h);
+  display: flex; align-items: center; gap: var(--sp-sm);
+  padding: 0 var(--sp-lg); color: var(--phone-screen-text);
+}
+.lib-header__title {
+  flex: 1; text-align: center;
+  font-family: var(--app-font-serif); font-weight: 600;
+  font-size: var(--t-screen); color: var(--phone-screen-text);
+}
+/* Toolbar items wear glass, not bare text: Select is its own pill and the
+   filter + ⋯ are ONE capsule, because adjacent trailing bar items with no
+   spacer between them is what makes iOS group them. Same construction as the
+   detail page's Share + ⋯. */
+.lib-header__select, .lib-header__tools {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--app-card-background) 62%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--app-primary) 10%, transparent);
+  height: calc(var(--app-detail-control-size) * var(--mock-scale) * 1px);
+}
+.lib-header__select { font-size: var(--t-body); padding: 0 var(--sp-md); }
+.lib-header__tools { gap: var(--sp-md); padding: 0 var(--sp-md); }
+.lib-header__tools .icon { width: var(--t-body); height: var(--t-body); }
+
+/* Date group header — serif footnote medium, secondary, with a structural
+   hairline running to the trailing edge. */
+.lib-section {
+  flex: none; display: flex; align-items: center; gap: var(--sp-sm);
+  font-family: var(--app-font-serif); font-weight: 500;
+  font-size: var(--t-meta); color: var(--phone-screen-meta);
+  padding: var(--sp-sm) var(--sp-lg) var(--sp-xs);
+}
 .lib-section::after { content: ""; flex: 1; height: 1px; background: var(--phone-screen-divider); }
-.lib-list { list-style: none; margin: 0; padding: 0 6px; display: flex; flex-direction: column; gap: 7px; flex: 1; overflow: hidden; }
-/* library rows — cards matching the app: type indicator (top) -> title -> subtitle */
-.lib-item { display: flex; align-items: center; gap: 9px; background: var(--phone-screen-soft);
-            border-radius: calc(var(--app-radius-card) * 1px * var(--mock-scale) * 2.4); padding: 8px 9px; }
-.lib-item__main { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
-/* The type word moved inline into the meta line at a fraction of the
-   vertical cost; the standalone pill no longer exists. */
-.lib-item__glyph { width: 9px; height: 9px; color: var(--fc); flex: none; }
-.lib-item__title { font-family: var(--font-display); font-size: 11.5px; font-weight: 600; color: var(--phone-screen-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lib-item__meta { display: flex; align-items: center; gap: 4px; font-size: 8.5px; color: var(--phone-screen-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Each row is its own card on a page-coloured gutter: 16pt outside, 16pt in. */
+.lib-list {
+  list-style: none; margin: 0; padding: 0 var(--sp-lg);
+  display: flex; flex-direction: column; gap: var(--row-gap);
+  flex: 1; overflow: hidden;
+}
+.lib-item {
+  display: flex; align-items: center; gap: var(--sp-md);
+  background: var(--app-card-background);
+  border-radius: var(--r-sheet);
+  padding: calc(10 * var(--mock-scale) * 1px) var(--sp-lg);
+  box-shadow: 0 calc(2 * var(--mock-scale) * 1px)
+                calc(4 * var(--mock-scale) * 1px) rgba(0, 0, 0, 0.06);
+}
+.lib-item__main {
+  display: flex; flex-direction: column;
+  gap: calc(3 * var(--mock-scale) * 1px); flex: 1; min-width: 0;
+}
+/* One line, tail truncation — the row's job is recognition, not reading. */
+.lib-item__title {
+  font-family: var(--app-font-serif);
+  font-weight: var(--app-tier-item-title-weight);
+  font-size: var(--t-item); color: var(--phone-screen-text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lib-item__meta {
+  display: flex; align-items: center; gap: var(--sp-xs);
+  font-size: var(--t-meta); color: var(--phone-screen-meta);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lib-item__glyph { width: var(--glyph); height: var(--glyph); color: var(--fc); flex: none; }
 .lib-thumb {
-  width: 38px; height: 38px; border-radius: 8px; flex: none;
+  width: var(--thumb); height: var(--thumb); border-radius: var(--r-small); flex: none;
   background: linear-gradient(140deg, color-mix(in srgb, var(--fc) 70%, white) 0%, var(--fc) 100%);
 }
 
-/* iOS 26 — floating, translucent-blurred tab bar that hovers over content:
-   a left capsule of tabs + a separate search circle, both frosted glass. */
+/* ── iOS 27 tab bar: ONE centred floating capsule holding every tab, Search
+      included. It was drawn as a capsule plus a detached search circle — the
+      iOS 26 reading of the `.search` tab role, and what the Simulator still
+      renders. On device (1.1-6.9inch/01-library.png, 03-reader.png) the three
+      tabs share one pill.
+
+      This is also why the Open Link bar looked wrong: `actionBarWidth` is
+      `min(width * 0.68, 340) + Spacing.lg * 2`, sized to match the tab bar's
+      CENTRED pill. Against a full-width tab row it read as too narrow. Both
+      now derive from the same 0.68, so they line up by construction rather
+      than by eye. */
 .mock-tabbar {
-  position: absolute; left: 10px; right: 10px; bottom: 9px; z-index: 4;
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  position: absolute; left: 0; right: 0;
+  /* 24pt clear of the screen bottom — measured on device, not guessed. */
+  bottom: calc(24 * var(--mock-scale) * 1px); z-index: 4;
+  display: flex; align-items: center; justify-content: center;
 }
 .mock-tabs {
-  display: inline-flex; align-items: stretch; gap: 3px; height: 40px; padding: 4px;
+  display: inline-flex; align-items: stretch; justify-content: space-between;
+  width: calc(var(--mock-device-width) * 0.68 * var(--mock-scale) * 1px);
+  gap: calc(4 * var(--mock-scale) * 1px); padding: calc(6 * var(--mock-scale) * 1px);
   border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--phone-screen-bg) 68%, transparent);
+  background: color-mix(in srgb, var(--app-secondary) 14%, var(--phone-screen-bg));
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   backdrop-filter: blur(12px) saturate(160%);
   border: 0.5px solid var(--phone-screen-divider);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 .mock-tab {
-  display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-  font-size: 8px; font-weight: 500; color: var(--phone-screen-meta);
-  padding: 0 12px; border-radius: var(--radius-pill);
+  flex: 1; min-width: 0;
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: calc(2 * var(--mock-scale) * 1px);
+  /* 8pt, not 5 — the device capsule is 66.6pt tall and 5 made it 58. */
+  padding: calc(5 * var(--mock-scale) * 1px) calc(6 * var(--mock-scale) * 1px);
+  border-radius: var(--radius-pill);
+  font-size: var(--t-cap); font-weight: 500; line-height: 1.2;
+  color: var(--phone-screen-meta);
 }
-.mock-tab .icon { width: 14px; height: 14px; }
-.mock-tab--active { color: var(--accent-readable); background: var(--accent-soft); font-weight: 600; }
-.mock-fab {
-  width: 40px; height: 40px; border-radius: 50%; flex: none;
-  display: inline-flex; align-items: center; justify-content: center;
-  color: var(--phone-screen-text);
-  background: color-mix(in srgb, var(--phone-screen-bg) 68%, transparent);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  backdrop-filter: blur(12px) saturate(160%);
-  border: 0.5px solid var(--phone-screen-divider);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-.mock-fab .icon { width: 16px; height: 16px; }
-.mock-fab--active { color: var(--accent-readable); }
+/* 26pt, not 22 — the device glyph draws ~24pt tall. */
+.mock-tab .icon { width: calc(28 * var(--mock-scale) * 1px); height: calc(28 * var(--mock-scale) * 1px); }
+.mock-tab--active { color: var(--accent-readable); background: var(--phone-screen-bg); font-weight: 600; }
 
 /* lib mock — one-shot staggered entrance: the library calmly settles into
-   order. Triggered once when the mock scrolls into view.
-   The chip row this used to stagger first is gone — the app hides the filter
-   row until it is asked for — so the rows now start where the chips did
-   rather than after a half-second of nothing. */
+   order. Triggered once when the mock scrolls into view. */
 .phone-mock--library .lib-anim {
   opacity: 0; transform: translateY(9px);
   transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
@@ -1162,69 +1406,240 @@ button { font: inherit; }
 .phone-mock--library.in-view .lib-list .lib-anim:nth-child(4) { transition-delay: 0.40s; }
 .phone-mock--library.in-view .lib-list .lib-anim:nth-child(5) { transition-delay: 0.48s; }
 .phone-mock--library.in-view .lib-list .lib-anim:nth-child(6) { transition-delay: 0.56s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(7) { transition-delay: 0.64s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(8) { transition-delay: 0.72s; }
+.phone-mock--library.in-view .lib-list .lib-anim:nth-child(9) { transition-delay: 0.80s; }
 
-/* detail mock — the 1.1 item page: one scrolling page under full-bleed
-   artwork, closer to the Music app than the stack of cards it replaced.
-   The old .detail-* rules described that stack and went with it. */
-.phone-mock--detail .phone-mock__screen { padding: 0; gap: 0; }
+/* ── Item detail (DetailViewD7) ───────────────────────────────────────────
+   ONE scrolling column: the hero header — artwork with a blur band at its
+   bottom carrying the title and the type/source pill — then a single solid
+   panel of sections. Not a stack of independently-positioned layers; that was
+   the old design, and the old `.detail-*` rules went with it.
+
+   `--d7-scroll` holds the page a little way down its own scroll, because the
+   hero claims 56% of the screen and the sections are the part worth showing.
+   The app looks exactly like this with one flick. */
+/* The hero bleeds under the status bar (`ignoresSafeArea(.container)`), so
+   this screen carries no safe-area padding — unlike every other mock. */
+.phone-mock--detail .phone-mock__screen {
+  /* Tuned, not arbitrary: far enough that all three zones clear the floating
+     action bar, near enough that the title clears the nav chrome. */
+  --d7-scroll: calc(204 * var(--mock-scale) * 1px);
+  padding-top: 0; gap: 0;
+}
+.d7-page {
+  position: absolute; top: 0; left: 0; right: 0;
+  transform: translateY(calc(-1 * var(--d7-scroll)));
+}
 .d7-hero {
-  position: relative; height: 112px; flex: none;
-  background: linear-gradient(170deg, #6E8E96 0%, #8FA7A4 42%, var(--phone-screen-bg) 100%);
+  position: relative;
+  /* D7Metrics.heroHeightFraction against the device height. */
+  min-height: calc(var(--mock-device-height) * var(--app-detail-hero-height-fraction)
+                   * var(--mock-scale) * 1px);
+  overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
 }
-.d7-nav { position: absolute; inset: 8px 8px auto; display: flex; align-items: center; justify-content: space-between; }
-.d7-nav__btn, .d7-nav__pill {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: color-mix(in srgb, var(--phone-screen-soft) 82%, transparent);
-  border-radius: 999px; padding: 4px 7px; color: var(--phone-screen-text);
-  backdrop-filter: blur(6px);
+.d7-hero__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* The blur is a gradient-MASKED material, not a blurred copy of the artwork —
+   one rectangle, and it cannot fall out of register with the image beneath. */
+.d7-band {
+  position: relative;
+  padding: calc(var(--app-detail-hero-fade-lead-in) * var(--mock-scale) * 1px)
+           var(--sp-xl) var(--sp-lg);
+  display: flex; flex-direction: column; align-items: center; gap: var(--sp-md);
 }
-.d7-nav .icon { width: 10px; height: 10px; }
-.d7-nav__btn--back .icon { transform: rotate(90deg); }
-
+.d7-band::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%);
+}
+.d7-band::after {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--phone-screen-bg) 50%, transparent) 42%,
+    color-mix(in srgb, var(--phone-screen-bg) 90%, transparent) 68%,
+    var(--phone-screen-bg) 100%);
+}
+.d7-band > * { position: relative; z-index: 1; }
+/* `.brandHero()` — tier 1: serif largeTitle bold, centred. The band resolves
+   to a near-solid page colour, which is what lets this use the ADAPTIVE label
+   colour rather than a baked-in white. */
 .d7-title {
-  font-family: var(--font-display); font-size: 15px; font-weight: 700; line-height: 1.2;
-  text-align: center; color: var(--phone-screen-text); margin: -14px 10px 0; position: relative;
+  margin: 0; text-align: center;
+  font-family: var(--app-font-serif); font-weight: var(--app-tier-hero-weight);
+  font-size: calc(var(--app-tier-hero-size) * var(--mock-scale) * 1px);
+  line-height: 1.16; letter-spacing: -0.01em; color: var(--phone-screen-text);
 }
-.d7-chips { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 6px;
-            font-size: 8.5px; color: var(--phone-screen-meta); }
-.d7-chip { display: inline-flex; align-items: center; gap: 4px; }
-.d7-chip .icon { width: 9px; height: 9px; }
-.d7-chip__divider { width: 1px; height: 9px; background: var(--phone-screen-divider); }
+/* `DetailFilterPillRow(style: .onHero)` — a real material and primary-weight
+   labels, because the card treatment's 6% wash vanished against artwork. */
+.d7-pills {
+  display: inline-flex; align-items: stretch; border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--app-card-background) 72%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  box-shadow: inset 0 0 0 0.75px color-mix(in srgb, var(--app-primary) 12%, transparent);
+}
+.d7-pill {
+  display: inline-flex; align-items: center; gap: var(--sp-xs);
+  padding: var(--sp-sm) var(--sp-lg);
+  font-size: var(--t-meta); font-weight: 600; color: var(--phone-screen-text);
+  white-space: nowrap;
+}
+.d7-pill .icon { width: calc(12 * var(--mock-scale) * 1px); height: calc(12 * var(--mock-scale) * 1px); }
+.d7-pill__rule {
+  width: 0.75px; align-self: center; flex: none;
+  height: calc(16 * var(--mock-scale) * 1px);
+  background: color-mix(in srgb, var(--app-primary) 30%, transparent);
+}
+/* Rounded, not circular: most favicons are square marks and a circle crops
+   their corners. Sized to the label's cap height. */
+.d7-favicon {
+  width: calc(14 * var(--mock-scale) * 1px); height: calc(14 * var(--mock-scale) * 1px);
+  border-radius: 2px; flex: none; object-fit: contain;
+}
 
-/* "Full text · N words" — the reader card 1.1 added. */
+/* D7GlassCard — the one SOLID surface. "Content is solid. Chrome is glass." */
 .d7-card {
-  margin: 10px 8px 0; padding: 9px; border-radius: 12px;
-  background: var(--phone-screen-soft);
-  display: flex; flex-direction: column; gap: 5px; flex: 1; overflow: hidden;
+  margin: calc(var(--app-detail-hero-to-panel-gap) * var(--mock-scale) * 1px) var(--sp-lg) 0;
+  padding: var(--sp-xl) 0;
+  display: flex; flex-direction: column; gap: var(--sp-xl);
+  background: var(--app-card-background);
+  border-radius: calc(var(--app-detail-card-corner-radius) * var(--mock-scale) * 1px);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--app-stone) 40%, transparent);
 }
-.d7-card__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1px; }
-.d7-card__label { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-display);
-                  font-size: 10px; font-weight: 700; color: var(--phone-screen-text); }
-.d7-card__label .icon { width: 10px; height: 10px; color: var(--accent-readable); }
-.d7-card__count { font-size: 8px; color: var(--phone-screen-meta); }
-.d7-line { height: 6px; border-radius: 3px; background: var(--phone-screen-divider); }
-.d7-line--short { width: 62%; }
+/* `detailSectionZone()` — the PAGE colour inside the card, so each layer is
+   legible against the next: the card is lighter than the page it floats on,
+   and the sections inside it are darker than the card. */
+.d7-zone {
+  margin: 0 var(--sp-lg); padding: var(--sp-md);
+  background: var(--phone-screen-bg); border-radius: var(--r-card);
+  display: flex; flex-direction: column; gap: var(--sp-sm);
+}
+.d7-sec { display: flex; align-items: center; gap: var(--sp-sm); }
+/* `D7SectionBadge` — shared by the Note and Details headers so both read as
+   one family. */
+.d7-badge {
+  width: calc((var(--app-detail-favicon-size) + var(--app-space-sm)) * var(--mock-scale) * 1px);
+  height: calc((var(--app-detail-favicon-size) + var(--app-space-sm)) * var(--mock-scale) * 1px);
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--r-small); color: var(--accent-readable);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.d7-badge .icon { width: var(--t-meta); height: var(--t-meta); }
+.d7-sec__title {
+  font-family: var(--app-font-serif); font-weight: 600;
+  font-size: var(--t-item); color: var(--phone-screen-text);
+}
+.d7-sec__trail { margin-left: auto; font-size: var(--t-meta); color: var(--app-tertiary); }
+.d7-sec__chev { margin-left: auto; color: var(--app-tertiary); display: inline-flex; }
+.d7-sec__chev .icon {
+  width: var(--t-meta); height: var(--t-meta); transform: rotate(180deg);
+}
+/* `ReaderText` — body tier, secondary, blocks spaced md. */
+.d7-reader { display: flex; flex-direction: column; gap: var(--sp-md); }
+.d7-reader p {
+  margin: 0; font-size: var(--t-body); color: var(--phone-screen-meta);
+  line-height: calc((var(--app-tier-body-size) + var(--app-space-xs)) * var(--mock-scale) * 1px);
+}
+.d7-more {
+  display: inline-flex; align-items: center; gap: var(--sp-xxs);
+  font-size: var(--t-sub); font-weight: 500; color: var(--accent-readable);
+}
+.d7-more .icon { width: var(--t-cap); height: var(--t-cap); }
+/* `D7DetailsCard` rows — open by default (`detailsOpen = true`). */
+.d7-rows { padding-top: var(--sp-sm); }
+.d7-row { display: flex; align-items: center; gap: var(--sp-sm); padding: var(--sp-sm) 0; }
+.d7-row .icon { width: var(--t-meta); height: var(--t-meta); }
+.d7-row__icon {
+  width: var(--sp-lg); flex: none; display: inline-flex; justify-content: center;
+  color: var(--phone-screen-meta);
+}
+.d7-row__key { font-size: var(--t-meta); color: var(--phone-screen-meta); }
+/* The value is the SERIF footnote, semibold. */
+.d7-row__val {
+  margin-left: auto; font-family: var(--app-font-serif); font-weight: 600;
+  font-size: var(--t-meta); color: var(--phone-screen-text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.d7-tint { color: var(--filter-link) !important; }
+/* Flat on the card at rest — no box until you tap in. */
+.d7-note {
+  margin: 0; font-size: var(--t-body); color: var(--phone-screen-text);
+  line-height: calc((var(--app-tier-body-size) + var(--app-space-xs)) * var(--mock-scale) * 1px);
+  padding: var(--sp-xs) 0;
+}
 
-.d7-cta {
-  margin: 0 auto 10px; display: inline-flex; align-items: center; gap: 5px;
-  background: var(--accent); color: var(--accent-on); border-radius: 999px;
-  padding: 6px 16px; font-size: 9.5px; font-weight: 600; flex: none;
+/* Floating chrome. The nav bar holds the system back button leading, with
+   Share and ⋯ grouped into ONE glass capsule trailing — two adjacent bar items
+   with no spacer between them is what makes iOS 26 group them. */
+.d7-nav {
+  position: absolute; top: var(--safe-top); left: 0; right: 0; z-index: 5;
+  height: var(--navbar-h); display: flex; align-items: center;
+  justify-content: space-between; padding: 0 var(--sp-md);
 }
-.d7-cta .icon { width: 10px; height: 10px; }
+.d7-glass {
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--phone-screen-text);
+  background: color-mix(in srgb, var(--app-card-background) 62%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--app-primary) 10%, transparent);
+}
+.d7-nav__btn {
+  width: calc(var(--app-detail-control-size) * var(--mock-scale) * 1px);
+  height: calc(var(--app-detail-control-size) * var(--mock-scale) * 1px);
+  border-radius: 50%;
+}
+.d7-nav__pill {
+  height: calc(var(--app-detail-control-size) * var(--mock-scale) * 1px);
+  border-radius: var(--radius-pill);
+  padding: 0 calc(10 * var(--mock-scale) * 1px); gap: calc(14 * var(--mock-scale) * 1px);
+}
+.d7-nav .icon { width: calc(17 * var(--mock-scale) * 1px); height: calc(17 * var(--mock-scale) * 1px); }
+.d7-nav__btn--back .icon { transform: rotate(180deg); }
+
+/* `DetailBottomActionBar` — a glass pill at the TAB BAR's width (a wider bar
+   above a narrower one reads as two unrelated things stacked), holding a 44pt
+   accent button inset by BottomBarMetrics.padding a side. */
+.d7-actionbar {
+  position: absolute; left: 50%; z-index: 4;
+  transform: translateX(-50%);
+  /* Spacing.sm clear of the tab bar — device gap measures 9.7pt. */
+  bottom: calc(100 * var(--mock-scale) * 1px);
+  width: calc((min(var(--mock-device-width) * 0.68, 340) + var(--app-space-lg) * 2)
+              * var(--mock-scale) * 1px);
+  padding: 0 var(--sp-lg);
+}
+.d7-actionbar__glass {
+  display: flex; flex-direction: column; align-items: stretch;
+  padding: calc(var(--app-bar-padding) * var(--mock-scale) * 1px);
+  border-radius: calc(var(--app-bar-outer-corner-radius) * var(--mock-scale) * 1px);
+}
+.d7-cta {
+  height: calc(var(--app-bar-button-height) * var(--mock-scale) * 1px);
+  border-radius: calc((var(--app-bar-outer-corner-radius) - var(--app-bar-padding))
+                      * var(--mock-scale) * 1px);
+  background: var(--accent); color: var(--accent-on);
+  display: flex; align-items: center; justify-content: center; gap: var(--sp-sm);
+  font-size: var(--t-sub); font-weight: 600;
+}
+.d7-cta .icon { width: calc(15 * var(--mock-scale) * 1px); height: calc(15 * var(--mock-scale) * 1px); }
 
 /* search mock — 1.1 folded Power search into this screen, so the facets
    card (Type / Source / When) sits above the quick searches, and the
    suggested searches below them are new. */
-.facets { display: flex; flex-direction: column; gap: 1px; margin: 2px 6px 0;
+.facets { display: flex; flex-direction: column; gap: 1px; margin: var(--sp-xxs) var(--sp-lg) 0;
           background: var(--phone-screen-divider); border-radius: 10px; overflow: hidden; }
-.facet { display: flex; align-items: center; gap: 5px; padding: 4.5px 8px;
-         background: var(--phone-screen-soft); font-size: 8.5px; color: var(--phone-screen-text); }
+.facet { display: flex; align-items: center; gap: var(--sp-sm); padding: var(--sp-sm) var(--sp-md);
+         background: var(--phone-screen-soft); font-size: var(--t-meta); color: var(--phone-screen-text); }
 .facet .icon { width: 10px; height: 10px; color: var(--accent-readable); }
 .facet__chev { margin-left: auto; color: var(--phone-screen-meta); width: 9px; height: 9px; }
 .qs-card--wide { grid-column: 1 / -1; }
-.sugg-row { display: flex; align-items: center; gap: 6px; padding: 4px 7px;
-            background: var(--phone-screen-soft); border-radius: 9px;
-            font-size: 8.5px; color: var(--phone-screen-text); }
+.sugg-row { display: flex; align-items: center; gap: var(--sp-sm); padding: var(--sp-xs) var(--sp-sm);
+            background: var(--phone-screen-soft); border-radius: var(--r-card);
+            font-size: var(--t-meta); color: var(--phone-screen-text); }
 .sugg-row .icon { width: 10px; height: 10px; color: var(--accent-readable); }
 
 /* collections mock — two beats on one scroll-in, not a loop: the suggestion
@@ -1232,7 +1647,7 @@ button { font: inherit; }
    the same .anim-host / .in-view trigger the other feature mocks use, so it
    plays once and settles rather than demanding attention forever. */
 .coll-suggest {
-  margin: 4px 6px 0; padding: 8px 9px; border-radius: 12px;
+  margin: var(--sp-xs) var(--sp-lg) 0; padding: var(--sp-sm) var(--sp-md); border-radius: var(--r-card);
   max-height: 90px; overflow: hidden;
   background: color-mix(in srgb, var(--accent) 12%, var(--phone-screen-soft));
   border: 1px solid color-mix(in srgb, var(--accent) 36%, transparent);
@@ -1250,7 +1665,7 @@ button { font: inherit; }
 .coll-btn--primary { background: var(--accent); color: var(--accent-on); font-weight: 600; }
 
 .coll-chip {
-  align-self: flex-start; margin: 4px 0 0 6px;
+  align-self: flex-start; margin: var(--sp-xs) 0 0 var(--sp-lg);
   display: inline-flex; align-items: center; gap: 4px;
   font-size: 8px; padding: 3px 7px; border-radius: 999px;
   background: color-mix(in srgb, var(--accent) 14%, transparent);
@@ -1265,7 +1680,7 @@ button { font: inherit; }
    the chip appears, and the rows that do not match fold away. The library
    never appears from nothing, because it was never empty. */
 .phone-mock--collections .coll-chip { opacity: 0; transform: translateY(4px); }
-.coll-row { max-height: 54px; overflow: hidden; }
+.coll-row { max-height: var(--row-h); overflow: hidden; }
 .phone-mock--collections .coll-chip,
 .phone-mock--collections .coll-row {
   transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out),
@@ -1293,27 +1708,27 @@ button { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .phone-mock--collections .coll-suggest,
   .phone-mock--collections.in-view .coll-suggest {
-    opacity: 1; max-height: 90px; padding: 8px 9px; margin: 4px 6px 0; border-width: 1px;
+    opacity: 1; max-height: 90px; padding: var(--sp-sm) var(--sp-md); margin: var(--sp-xs) var(--sp-lg) 0; border-width: 1px;
   }
   .phone-mock--collections .coll-row,
-  .phone-mock--collections.in-view .coll-row--out { opacity: 1; max-height: 54px; }
+  .phone-mock--collections.in-view .coll-row--out { opacity: 1; max-height: var(--row-h); }
   .phone-mock--collections .coll-chip,
   .phone-mock--collections.in-view .coll-chip { display: none; }
   .phone-mock--collections * { transition: none !important; }
 }
 
 /* search mock */
-.qs-header { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--accent-readable); padding: 2px 6px 1px; }
-.qs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 6px; }
+.qs-header { font-family: var(--app-font-serif); font-weight: 600; font-size: var(--t-screen); color: var(--accent-readable); padding: var(--sp-xxs) var(--sp-lg) 0; }
+.qs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-sm); padding: 0 var(--sp-lg); }
 .qs-card { display: flex; flex-direction: column; gap: 4px; padding: 8px 9px; border-radius: 10px; background: var(--phone-screen-chip-bg); font-size: 9.5px; font-weight: 500; color: var(--phone-screen-text); transition: background 0.3s ease, color 0.3s ease; }
 .qs-card .icon { width: 15px; height: 15px; color: var(--accent-readable); }
-.recent-header { font-size: 9px; font-weight: 600; color: var(--phone-screen-meta); padding: 5px 6px 0; }
-.recent-list { list-style: none; margin: 0; padding: 0 6px; display: flex; flex-direction: column; }
+.recent-header { font-size: var(--t-meta); font-weight: 600; color: var(--phone-screen-meta); padding: var(--sp-xs) var(--sp-lg) 0; }
+.recent-list { list-style: none; margin: 0; padding: 0 var(--sp-lg); display: flex; flex-direction: column; }
 .recent-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 2px; font-size: 10px; color: var(--phone-screen-text); border-bottom: 0.5px solid var(--phone-screen-divider); }
 .recent-list .recent-row:last-child { border-bottom: none; }
 .recent-row__x { color: var(--phone-screen-meta); font-size: 9px; }
 /* search field + circular X, above a docked iOS keyboard */
-.mock-searchbar { display: flex; align-items: center; gap: 6px; margin: auto 6px 0; }
+.mock-searchbar { display: flex; align-items: center; gap: var(--sp-sm); margin: auto var(--sp-lg) 0; }
 .mock-searchfield {
   flex: 1; display: flex; align-items: center; gap: 7px;
   padding: 9px 12px; border-radius: var(--radius-pill);
@@ -1330,7 +1745,7 @@ button { font: inherit; }
 .mock-searchclose .icon { width: 13px; height: 13px; }
 
 /* stylized iOS keyboard — adapts to light/dark via --kbd-* tokens */
-.mock-kbd { margin: 0 -8px; padding: 11px 3px 20px; background: var(--kbd-bg); display: flex; flex-direction: column; gap: 6px; border-radius: 16px 16px 0 0; }
+.mock-kbd { margin: 0; padding: 11px 3px 20px; background: var(--kbd-bg); display: flex; flex-direction: column; gap: 6px; border-radius: 16px 16px 0 0; }
 .kbd-row { display: flex; justify-content: center; gap: 3px; padding: 0 3px; }
 .kbd-row--2 { padding: 0 16px; }
 .kbd-key {
@@ -1464,15 +1879,19 @@ button { font: inherit; }
 .detail-action--primary .icon { width: 14px; height: 14px; color: var(--accent-on); }
 
 /* settings mock */
-.set-header { font-family: var(--font-display); font-weight: 700; font-size: 17px; text-align: center; color: var(--phone-screen-text); padding: 2px 0; }
-.set-section { font-size: 8.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--phone-screen-meta); padding: 6px 6px 2px; }
-.set-card { display: flex; align-items: center; gap: 9px; margin: 0 6px; padding: 10px; border-radius: 12px; background: var(--phone-screen-chip-bg); }
+.set-header { font-family: var(--app-font-serif); font-weight: 600; font-size: var(--t-screen); text-align: center; color: var(--phone-screen-text); height: var(--navbar-h); display: flex; align-items: center; justify-content: center; flex: none; }
+/* Brand serif subheadline, medium, PRIMARY, left-aligned. Deliberately NOT
+   uppercase and not tracked — the app tried that and the headers stopped
+   working as scan anchors once there were eight of them. */
+.set-section { font-family: var(--app-font-serif); font-size: var(--t-sub); font-weight: 500;
+               color: var(--phone-screen-text); padding: var(--sp-md) var(--sp-lg) var(--sp-sm); }
+.set-card { display: flex; align-items: center; gap: var(--sp-md); margin: 0 var(--sp-lg); padding: var(--sp-md); border-radius: var(--r-sheet); background: var(--phone-screen-chip-bg); }
 .set-card__icon { width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); color: var(--accent-readable); display: inline-flex; align-items: center; justify-content: center; flex: none; }
 .set-card__icon .icon { width: 18px; height: 18px; }
 .set-card__text { display: flex; flex-direction: column; gap: 1px; }
-.set-card__title { font-size: 10.5px; font-weight: 600; color: var(--phone-screen-text); }
-.set-card__sub { font-size: 9px; color: var(--phone-screen-meta); }
-.set-row { display: flex; justify-content: space-between; align-items: center; margin: 0 6px; padding: 9px 10px; border-radius: 10px; background: var(--phone-screen-chip-bg); font-size: 10.5px; color: var(--phone-screen-text); }
+.set-card__title { font-size: var(--t-item); font-weight: 600; color: var(--phone-screen-text); }
+.set-card__sub { font-size: var(--t-meta); color: var(--phone-screen-meta); }
+.set-row { display: flex; justify-content: space-between; align-items: center; margin: 0 var(--sp-lg); padding: var(--sp-md); border-radius: var(--r-card); background: var(--phone-screen-chip-bg); font-size: var(--t-body); color: var(--phone-screen-text); }
 .set-row__val { color: var(--phone-screen-meta); }
 .set-row__lead { display: inline-flex; align-items: center; gap: 7px; }
 .set-row__lead .icon { width: 15px; height: 15px; color: var(--accent-readable); }

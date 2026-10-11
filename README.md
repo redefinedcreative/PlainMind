@@ -120,6 +120,28 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Press screenshots finally current (2026-10-11)
+
+The press kit had been shipping **2026-05-30 screenshots since launch** —
+flagged four times, never done, because the assumption was that it needed new
+device captures. It didn't: `App Launch/Screenshots/1.1-6.9inch/` already holds
+real 1.1 captures at 1320×2868.
+
+Both old shots were worse than merely stale:
+
+- `screenshot-library-full.png` showed **1.0-era chrome** — filter pills always
+  visible (1.1 hides them behind the filter button) and a centred month header.
+- `screenshot-sharesheet-full.png` wasn't an app screenshot at all. It was the
+  **marketing site** under an iOS share sheet, and the address bar read
+  **`plainmind.pages.dev`** — the old Cloudflare preview domain. We were handing
+  journalists a dead URL.
+
+Replaced with three real 1.1 device captures — Library, a saved article, and a
+Collection — with alt text that describes what is actually on screen instead of
+restating the filename. The share-sheet shot is gone rather than re-staged; a
+screenshot of our own website belongs in a press kit less than a screenshot of
+the app.
+
 ## Roadmap tabs, and one source for the release history (2026-10-11)
 
 The roadmap is now three tabs — **Upcoming**, **Released**, **Not planned** —

@@ -120,6 +120,50 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Roadmap and help move onto the site; Featurebase retired (2026-10-11)
+
+Featurebase was the public roadmap **and** the help centre. It had gone stale,
+so it is abandoned. Both now live on plainmind.app.
+
+**`/roadmap/`** was a doorway — a hero and a "View the live roadmap →" button,
+no content of its own. It is now grouped **by release**, because "what's in the
+next one" is the question people arrive with:
+
+- **Next release** — the 1.2 candidates, chipped `1.2 · in planning`
+- **Exploring** — real candidates, no release attached
+- **Not planned** — tags/folders, sending the library to an AI, a feed, and
+  another voting board
+
+That last group is the point of the page as much as the first. For a product
+whose pitch is partly what it refuses to do, the decisions *against* carry as
+much as the ones for — and they stop the same requests coming back. The copy
+is deliberately non-committal on dates, matching the page's own standing
+promise: *"No promises with dates we can't keep — just direction."*
+
+**`/help/`** had no content at all — it pointed at Featurebase, which (per the
+user) never really had help docs either. It is now a real help page: nine
+sections covering saving, the library, collections, search, sync, privacy and
+locking, backup and export, billing, and troubleshooting.
+
+**Every answer is drawn from the app's own copy**, not invented —
+`BrandCopy.Settings`, `BrandCopy.Sync`, `BrandCopy.Storage`,
+`BrandCopy.Collections` and `ContentType`. So the documented setting paths,
+the exact wording of "Sync paused", what Clear cache deletes, and the fact that
+**a purchase enables sync on the next launch** are all the product's own truth
+rather than a plausible guess.
+
+One page with deep-linkable sections rather than a page per topic: at this
+volume it loads once, Ctrl-F covers everything, and there is a single file to
+keep true to the app. Split it when a section outgrows the page.
+
+`/welcome/` carried five more Featurebase links across four cards that were all
+already marked "shipped" — those now point at `/releases/`, which is the public
+record of shipped work, and its CTA goes to `/roadmap/`.
+
+**Internal source of truth is `~/Developer/plainMind-ios/docs/ROADMAP.md`.**
+The site renders a public view of it; that file stays the superset and carries
+the parked and measured items that are not worth publishing.
+
 ## Link-preview cards are generated now (2026-10-11)
 
 The three cards in `public/assets/og/` were drawn by hand in May 2026 and then

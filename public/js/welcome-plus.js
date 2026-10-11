@@ -10,7 +10,8 @@
      pass + credit chip, and saves the name to the contact via /api/subscribe —
      mirroring the original welcome.js handoff. Direct visits skip the prompt.
    - Calm scroll choreography for the steps + credit wall.
-   - Roadmap items are links out to the live Featurebase board (real voting lives there).
+   - Roadmap cards link to /releases/ — they are all shipped work. (They used to
+  link out to a Featurebase board, abandoned 2026-10-11.)
    - Subtle scroll parallax on the ambient hero glow (no infinite loops).
    - Respects prefers-reduced-motion and resolves to a static end-state. */
 (function () {
@@ -174,7 +175,7 @@
     observeEls.forEach(function (el) { el.classList.add("in-view"); });
   }
 
-  /* Roadmap items link out to the live Featurebase board for real voting — no in-page
+  /* Roadmap cards link to /releases/, the public record of what shipped — no in-page
      vote state to manage here. */
 
   /* ---------- subtle hero parallax (scroll-driven, not looped) ---------- */

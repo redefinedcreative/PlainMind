@@ -2312,6 +2312,80 @@ html.intro-open { overflow: hidden; }
 .release__list li { line-height: 1.6; }
 .release__list li::marker { color: var(--accent); }
 
+/* ── Help page ────────────────────────────────────────────────────────────
+   One page with deep-linkable sections rather than a page per topic: at this
+   volume it loads once, Ctrl-F works across the whole thing, and there is a
+   single file to keep true to the app. Split it when a section outgrows the
+   page, not before. */
+.help { display: grid; grid-template-columns: 14rem 1fr; gap: 0 3rem; align-items: start; }
+
+.help-toc { position: sticky; top: 5.5rem; }
+.help-toc__title { margin: 0 0 0.6rem; font-size: 0.78rem; font-weight: 700;
+                   letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); }
+.help-toc ul { list-style: none; margin: 0; padding: 0;
+               display: flex; flex-direction: column; gap: 0.1rem; }
+.help-toc a { display: block; padding: 0.3rem 0; font-size: 0.92rem;
+              color: var(--text-secondary); text-decoration: none; }
+.help-toc a:hover { color: var(--accent-readable); }
+
+.help-body { max-width: 68ch; min-width: 0; }
+.help-sec { padding: 0 0 2.5rem; }
+.help-sec + .help-sec { border-top: 1px solid var(--divider); padding-top: 2.5rem; }
+/* Anchored sections need the sticky header's height, or a jump link lands
+   with the heading tucked underneath it. */
+.help-sec { scroll-margin-top: 5.5rem; }
+.help-sec h2 { font-size: 1.5rem; line-height: 1.15; margin: 0 0 1.5rem; }
+.help-sec h3 { font-size: 1.02rem; font-weight: 600; margin: 1.75rem 0 0.4rem; color: var(--text); }
+.help-sec h3:first-of-type { margin-top: 0; }
+.help-sec p { margin: 0 0 0.6rem; line-height: 1.65; color: var(--text-secondary); }
+.help-sec strong { color: var(--text); font-weight: 600; }
+
+@media (max-width: 860px) {
+  /* A sticky sidebar on a phone is just a wall before the content. */
+  .help { grid-template-columns: 1fr; gap: 0; }
+  .help-toc { position: static; margin-bottom: var(--space-xl);
+              padding-bottom: var(--space-lg); border-bottom: 1px solid var(--divider); }
+  .help-toc ul { flex-direction: row; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
+}
+
+/* ── Roadmap page ─────────────────────────────────────────────────────────
+   Grouped by release rather than by status, because "what's in the next one"
+   is the question people actually arrive with. The "Not planned" group is
+   deliberate: for a product whose pitch is what it refuses to do, the
+   decisions against are as informative as the ones for. */
+.rm-note { max-width: 62ch; color: var(--text-secondary); font-size: 0.98rem;
+           margin: 0 0 var(--space-xl); }
+
+.rm-group { max-width: 72ch; padding: 2.25rem 0; border-top: 1px solid var(--divider); }
+.rm-group:first-of-type { border-top: none; padding-top: 0; }
+.rm-group__head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+.rm-group__title { font-size: 1.5rem; line-height: 1.1; margin: 0; }
+.rm-group__lede { margin: 0.6rem 0 1.5rem; color: var(--text-secondary); max-width: 60ch; }
+
+.rm-chip { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em;
+           padding: 0.25rem 0.6rem; border-radius: var(--radius-pill);
+           color: var(--text-tertiary); border: 1px solid var(--divider); white-space: nowrap; }
+.rm-chip--next { color: var(--accent-readable); border-color: transparent;
+                 background: var(--accent-soft); }
+.rm-chip--no { color: var(--text-tertiary); }
+
+.rm-list { list-style: none; margin: 0; padding: 0;
+           display: flex; flex-direction: column; gap: 1.4rem; }
+.rm-list--tight { gap: 1.1rem; }
+.rm-item__title { margin: 0 0 0.35rem; font-size: 1.02rem; font-weight: 600; color: var(--text); }
+.rm-item__body { margin: 0; line-height: 1.6; color: var(--text-secondary); max-width: 62ch; }
+
+/* The refusals read as quieter commitments, not as features. */
+.rm-group--no .rm-item__title { color: var(--text-secondary); }
+.rm-group--no .rm-item__body { color: var(--text-tertiary); }
+
+.rm-foot { margin-top: 2.5rem; max-width: 62ch; font-size: 0.95rem; color: var(--text-tertiary); }
+
+@media (max-width: 640px) {
+  .rm-group { padding: 1.75rem 0; }
+  .rm-group__head { gap: 0.5rem; }
+}
+
 .releases__foot { margin-top: 2.5rem; font-size: 0.95rem; color: var(--text-tertiary); }
 
 @media (max-width: 640px) {

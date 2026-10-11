@@ -120,6 +120,36 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Roadmap tabs, and one source for the release history (2026-10-11)
+
+The roadmap is now three tabs — **Upcoming**, **Released**, **Not planned** —
+because those are three different questions and stacking them made the page a
+scroll.
+
+**Progressive enhancement, deliberately.** The markup ships with every panel
+visible, each carrying its own `<h2>`. Nothing hides until `tabs.js` adds
+`.rm-tabs--ready`, which is the only thing the CSS keys its hiding on. A
+roadmap that renders blank without JavaScript would be a worse failure than
+having no tabs. Full ARIA tabs pattern: roving `tabindex`, arrow keys,
+Home/End, and readable deep links (`/roadmap/#released`) set with
+`replaceState` so switching a tab doesn't jump the viewport.
+
+**`tools/sync-releases.mjs` — the release history now has one source.** It was
+about to exist twice: in full on `/releases/`, and as the Released tab. That is
+exactly how the Featurebase board died — a second copy nobody remembered to
+update. The data lives in the script; both surfaces are stamped between
+markers; `--check` fails when either drifts.
+
+The two renderings are deliberately different, which is the point of
+generating them: `/releases/` gets the full notes, the tab gets a scannable
+index — version, date, headline, and "12 changes in 1.1 →" into the full entry.
+A reader on the roadmap wants to know *what* shipped and *when*; the detail has
+a page of its own.
+
+Adding a release is now one edit at the top of `RELEASES`, then re-run. Keep it
+saying the same thing as `ReleaseNotes.all` in the iOS app — that is the copy a
+user reads in What's New.
+
 ## Roadmap and help move onto the site; Featurebase retired (2026-10-11)
 
 Featurebase was the public roadmap **and** the help centre. It had gone stale,

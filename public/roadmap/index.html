@@ -117,94 +117,130 @@
     <section class="page-section container">
       <p class="rm-note">
         Planned, not promised. Scope moves as we learn — the honest version of a roadmap is
-        one that admits that. Everything shipped is recorded on the <a href="/releases/">releases</a> page.
+        one that admits that.
       </p>
 
-      <div class="rm-group">
-        <div class="rm-group__head">
-          <h2 class="rm-group__title">Next release</h2>
-          <span class="rm-chip rm-chip--next">1.2 · in planning</span>
+      <!-- No-JS and pre-JS, every panel is simply visible with its own heading.
+           `rm-tabs--ready` is added by tabs.js, and only then does anything hide. -->
+      <div class="rm-tabs" data-tabs>
+        <div class="rm-tabs__bar" role="tablist" aria-label="Roadmap sections">
+          <button class="rm-tab" role="tab" id="tab-next" aria-controls="panel-next" aria-selected="true" tabindex="0">Upcoming</button>
+          <button class="rm-tab" role="tab" id="tab-past" aria-controls="panel-past" aria-selected="false" tabindex="-1">Released</button>
+          <button class="rm-tab" role="tab" id="tab-no" aria-controls="panel-no" aria-selected="false" tabindex="-1">Not planned</button>
         </div>
-        <p class="rm-group__lede">Finishing what 1.1 started, and making search faster before libraries get big enough for it to matter.</p>
-        <ul class="rm-list">
-          <li class="rm-item">
-            <h3 class="rm-item__title">Turn a search into a collection</h3>
-            <p class="rm-item__body">Collections can already make themselves from your notes. This adds the other half: find something with a search you keep repeating, and keep it as a collection that stays current on its own.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">Make collections easier to find</h3>
-            <p class="rm-item__body">Suggestions are off until you turn them on, which means most people never meet the feature. That's our fault, not yours — we're working on a gentler introduction.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">Faster search in large libraries</h3>
-            <p class="rm-item__body">Search stays quick into the low thousands of saves and then starts to show. Groundwork now, so it never becomes something you notice.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">Collection icons and ordering</h3>
-            <p class="rm-item__body">Give a collection its own symbol, and put your collections in the order you think of them.</p>
-          </li>
-        </ul>
-      </div>
 
-      <div class="rm-group">
-        <div class="rm-group__head">
-          <h2 class="rm-group__title">Exploring</h2>
-          <span class="rm-chip">no release attached</span>
-        </div>
-        <p class="rm-group__lede">Real candidates with real groundwork behind them. Which of these lands — and when — depends on what people actually ask for.</p>
-        <ul class="rm-list">
-          <li class="rm-item">
-            <h3 class="rm-item__title">PlainMind on iPad and Mac</h3>
-            <p class="rm-item__body">A proper two-column layout rather than a stretched phone screen.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">Search that narrows as you go</h3>
-            <p class="rm-item__body">Combine type, source and when, and see how many results each choice would leave before you commit to it.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">Filter your library by date</h3>
-            <p class="rm-item__body">Jump to a month or a year without scrolling through everything in between.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">Audio</h3>
-            <p class="rm-item__body">Save voice memos and audio files, play them in place, and optionally have them transcribed on your device.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">More of what a page tells us</h3>
-            <p class="rm-item__body">Author, publication and published date, kept alongside the article text we already save.</p>
-          </li>
-        </ul>
-      </div>
+        <section class="rm-panel" id="panel-next" role="tabpanel" aria-labelledby="tab-next" tabindex="0">
+          <h2 class="rm-panel__h">Upcoming</h2>
 
-      <div class="rm-group rm-group--no">
-        <div class="rm-group__head">
-          <h2 class="rm-group__title">Not planned</h2>
-          <span class="rm-chip rm-chip--no">by design</span>
-        </div>
-        <p class="rm-group__lede">A roadmap is also what you decide against. These aren't backlog items we never get to — they're deliberate.</p>
-        <ul class="rm-list rm-list--tight">
-          <li class="rm-item">
-            <h3 class="rm-item__title">Tags and folders</h3>
-            <p class="rm-item__body">Filing is work you do now for a payoff you might get later. Everything sorts itself by what it is, and collections form from notes you were writing anyway.</p>
+          <div class="rm-group">
+            <div class="rm-group__head">
+              <h3 class="rm-group__title">Next release</h3>
+              <span class="rm-chip rm-chip--next">1.2 · in planning</span>
+            </div>
+            <p class="rm-group__lede">Finishing what 1.1 started, and making search faster before libraries get big enough for it to matter.</p>
+            <ul class="rm-list">
+              <li class="rm-item">
+                <h4 class="rm-item__title">Turn a search into a collection</h4>
+                <p class="rm-item__body">Collections can already make themselves from your notes. This adds the other half: find something with a search you keep repeating, and keep it as a collection that stays current on its own.</p>
+              </li>
+              <li class="rm-item">
+                <h4 class="rm-item__title">Make collections easier to find</h4>
+                <p class="rm-item__body">Suggestions are off until you turn them on, which means most people never meet the feature. That's our fault, not yours — we're working on a gentler introduction.</p>
+              </li>
+              <li class="rm-item">
+                <h4 class="rm-item__title">Faster search in large libraries</h4>
+                <p class="rm-item__body">Search stays quick into the low thousands of saves and then starts to show. Groundwork now, so it never becomes something you notice.</p>
+              </li>
+              <li class="rm-item">
+                <h4 class="rm-item__title">Collection icons and ordering</h4>
+                <p class="rm-item__body">Give a collection its own symbol, and put your collections in the order you think of them.</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="rm-group">
+            <div class="rm-group__head">
+              <h3 class="rm-group__title">Exploring</h3>
+              <span class="rm-chip">no release attached</span>
+            </div>
+            <p class="rm-group__lede">Real candidates with real groundwork behind them. Which of these lands — and when — depends on what people actually ask for.</p>
+            <ul class="rm-list">
+              <li class="rm-item">
+                <h4 class="rm-item__title">PlainMind on iPad and Mac</h4>
+                <p class="rm-item__body">A proper two-column layout rather than a stretched phone screen.</p>
+              </li>
+              <li class="rm-item">
+                <h4 class="rm-item__title">Search that narrows as you go</h4>
+                <p class="rm-item__body">Combine type, source and when, and see how many results each choice would leave before you commit to it.</p>
+              </li>
+              <li class="rm-item">
+                <h4 class="rm-item__title">Filter your library by date</h4>
+                <p class="rm-item__body">Jump to a month or a year without scrolling through everything in between.</p>
+              </li>
+              <li class="rm-item">
+                <h4 class="rm-item__title">Audio</h4>
+                <p class="rm-item__body">Save voice memos and audio files, play them in place, and optionally have them transcribed on your device.</p>
+              </li>
+              <li class="rm-item">
+                <h4 class="rm-item__title">More of what a page tells us</h4>
+                <p class="rm-item__body">Author, publication and published date, kept alongside the article text we already save.</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="rm-panel" id="panel-past" role="tabpanel" aria-labelledby="tab-past" tabindex="0">
+          <h2 class="rm-panel__h">Released</h2>
+          <p class="rm-group__lede">What has actually shipped, newest first. Full notes for every version live on the <a href="/releases/">releases page</a>.</p>
+          <ul class="rm-list">
+            <!-- generated:releases-past:start -->
+          <li class="rm-item rm-past">
+            <div class="rm-past__head">
+              <h3 class="rm-item__title">1.1</h3>
+              <span class="rm-past__date"><time datetime="2026-10-09">9 October 2026</time></span>
+            </div>
+            <p class="rm-item__body">Collections that make themselves, and a calmer library.</p>
+            <p class="rm-past__more"><a href="/releases/#v1-1">12 changes in 1.1 &rarr;</a></p>
           </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">Sending your library to an AI</h3>
-            <p class="rm-item__body">Collections are found by literal phrase matching, on your device. Nothing you save is sent anywhere to be analysed — that's what makes the privacy promise true rather than aspirational.</p>
+          <li class="rm-item rm-past">
+            <div class="rm-past__head">
+              <h3 class="rm-item__title">1.0</h3>
+              <span class="rm-past__date"><time datetime="2026-09-24">24 September 2026</time></span>
+            </div>
+            <p class="rm-item__body">The first release.</p>
+            <p class="rm-past__more"><a href="/releases/#v1-0">5 changes in 1.0 &rarr;</a></p>
           </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">A feed, recommendations, or anything social</h3>
-            <p class="rm-item__body">PlainMind shows you what you saved. It will never show you what someone else saved, or decide what you should look at next.</p>
-          </li>
-          <li class="rm-item">
-            <h3 class="rm-item__title">A public voting board</h3>
-            <p class="rm-item__body">We tried one. It went stale, which is worse than not having it. Email is slower and more honest — and a person reads every one.</p>
-          </li>
-        </ul>
+<!-- generated:releases-past:end -->
+          </ul>
+        </section>
+
+        <section class="rm-panel" id="panel-no" role="tabpanel" aria-labelledby="tab-no" tabindex="0">
+          <h2 class="rm-panel__h">Not planned</h2>
+          <p class="rm-group__lede">A roadmap is also what you decide against. These aren't backlog items we never get to — they're deliberate.</p>
+          <ul class="rm-list rm-list--tight rm-list--no">
+            <li class="rm-item">
+              <h3 class="rm-item__title">Tags and folders</h3>
+              <p class="rm-item__body">Filing is work you do now for a payoff you might get later. Everything sorts itself by what it is, and collections form from notes you were writing anyway.</p>
+            </li>
+            <li class="rm-item">
+              <h3 class="rm-item__title">Sending your library to an AI</h3>
+              <p class="rm-item__body">Collections are found by literal phrase matching, on your device. Nothing you save is sent anywhere to be analysed — that's what makes the privacy promise true rather than aspirational.</p>
+            </li>
+            <li class="rm-item">
+              <h3 class="rm-item__title">A feed, recommendations, or anything social</h3>
+              <p class="rm-item__body">PlainMind shows you what you saved. It will never show you what someone else saved, or decide what you should look at next.</p>
+            </li>
+            <li class="rm-item">
+              <h3 class="rm-item__title">A public voting board</h3>
+              <p class="rm-item__body">We tried one. It went stale, which is worse than not having it. Email is slower and more honest — and a person reads every one.</p>
+            </li>
+          </ul>
+        </section>
       </div>
 
       <p class="rm-foot">
         Want something that isn't here? <a href="mailto:support@plainmind.app">Tell us what you're trying to do</a> —
-        the problem is more useful to us than the feature. See what's already shipped on the <a href="/releases/">releases page</a>.
+        the problem is more useful to us than the feature.
       </p>
     </section>
   </main>
@@ -255,5 +291,6 @@
   <!-- partial:footer:end -->
 
   <script src="../js/theme.js" defer></script>
+  <script src="../js/tabs.js" defer></script>
 </body>
 </html>

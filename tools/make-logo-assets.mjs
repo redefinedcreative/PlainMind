@@ -53,6 +53,7 @@ const TMP = join(ROOT, "tools", ".logo-tmp");
 const args = new Set(process.argv.slice(2));
 const WANT_IOS = args.has("--ios");
 const WANT_BRANDING = args.has("--branding");
+const WANT_EXPORT = args.has("--export");
 const CHECK_ONLY = args.has("--check");
 const PREVIEW_ONLY = args.has("--preview");
 
@@ -134,6 +135,47 @@ function checkAgainstSource() {
   }
   console.log(`✓ geometry matches ${ICON_SRC.replace(homedir(), "~")}`);
 }
+
+const EXPORT_README = `# PlainMind logo — export set
+
+Generated, not drawn. Re-run \`node tools/make-logo-assets.mjs --export\` in
+PlainMind-Website to refresh; everything here comes from the shipping app icon
+(\`PlainMind/AppIcon.icon\`), so it cannot drift from what is on the home screen.
+
+## Which file
+
+| Use | File |
+|---|---|
+| **Compositing onto the social banners** | \`plainmind-mark-transparent-2048.png\` — no background, drop it on your own artwork |
+| Scaling past 2048, or editing in a vector tool | \`plainmind-mark.svg\` (transparent) |
+| A square avatar / profile tile | \`plainmind-tile-{light,dark}-1024.png\` |
+| Somewhere that should read as "the app icon" | \`plainmind-squircle-{light,dark}-1024.png\` — iOS-style rounded corners, transparent outside them |
+
+The profile images in \`../Social Profile Image/\` are already regenerated — you
+do not need to rebuild those.
+
+## The seven banners
+
+\`../Social Header Image/\`: X, YouTube, Bluesky, Mastodon, Threads, LinkedIn,
+Facebook. All still carry the **previous** mark (fanned cards, no circle). They
+are designed artwork with the logo composed in, so no script can refresh them.
+
+## Palette
+
+| | |
+|---|---|
+| canvas (light) | \`#FBE7CE\` |
+| canvas (dark) | \`#100E11\` |
+| circle | \`#5C7B70\` |
+| sage card | \`#B6C7AF\` |
+| amber card | \`#E3B255\` |
+| cream card | \`#F3ECDD\` |
+| bookmark | \`#5C7E73\` |
+
+The mark reads as a **circle behind a stack of cards with a bookmark**. The
+older fanned-cards mark with no circle is retired — if you see it anywhere, it
+is stale.
+`;
 
 /* ── Squircle ────────────────────────────────────────────────────────────────
  * iOS clips app icons to a continuous-corner superellipse, not a rounded rect.
@@ -346,6 +388,32 @@ if (WANT_BRANDING) {
   console.log("  ! Social Header Image/*.png (7 banners) still carry the old mark — designed artwork, needs a human");
 } else {
   console.log("• Branding assets skipped — pass --branding to write them too");
+}
+
+if (WANT_EXPORT) {
+  // What a human needs to rebuild the seven social banners by hand. The
+  // transparent mark is the one that matters: the banners have their own
+  // backgrounds, so a baked canvas is unusable on them.
+  const dir = join(ROOT, "..", "Branding", "Logo Export");
+  mkdirSync(dir, { recursive: true });
+  const set = [
+    ["plainmind-mark-transparent-2048.png", { size: 2048, transparent: true }],
+    ["plainmind-mark-transparent-1024.png", { size: 1024, transparent: true }],
+    ["plainmind-tile-light-1024.png",       { size: 1024, dark: false }],
+    ["plainmind-tile-dark-1024.png",        { size: 1024, dark: true }],
+    ["plainmind-squircle-light-1024.png",   { size: 1024, dark: false, rounded: true }],
+    ["plainmind-squircle-dark-1024.png",    { size: 1024, dark: true,  rounded: true }],
+  ];
+  console.log("\nLogo Export (for the banners)");
+  for (const [name, opts] of set) {
+    const out = join(dir, name);
+    renderPNG(out, opts);
+    console.log(`  ✓ ${name.padEnd(38)} ${String(opts.size).padStart(4)}px  ${kb(out)}`);
+  }
+  writeFileSync(join(dir, "plainmind-mark.svg"), markSVG({ size: 2048, transparent: true }));
+  writeFileSync(join(dir, "README.md"), EXPORT_README);
+  console.log(`  ✓ ${"plainmind-mark.svg".padEnd(38)}  vector, transparent`);
+  console.log(`  ✓ ${"README.md".padEnd(38)}  palette + which file to use where`);
 }
 
 rmSync(TMP, { recursive: true, force: true });

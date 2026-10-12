@@ -13,9 +13,19 @@
   Content-Type: application/json
   Cache-Control: no-cache
 
-# Long-cache fingerprintable static assets.
+# "Long-cache fingerprintable static assets" — except nothing here is
+# fingerprinted. The filenames are plain (plainmind-light.png, favicon-32.png),
+# so `immutable` for a year told every returning visitor's browser never to
+# re-check them. The 2026-10-12 logo replacement deployed correctly and would
+# still have shown the OLD mark to anyone who had loaded the site before, for up
+# to a year, with no way to force it short of changing the URL.
+#
+# Same reasoning as /js/* and /styles.css below: revalidate on every load,
+# ETag-based, so a 304 costs ~200 bytes and a changed file lands immediately.
+# Restore the long cache the moment filenames carry a content hash — at which
+# point `immutable` is true instead of merely hoped for.
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: no-cache
 # JS/CSS are not fingerprinted yet, so revalidate on every load (ETag-based, fast)
 # to avoid serving stale code after a deploy. Bump to a long max-age + filename
 # hashing once the site is launched and changing less often.

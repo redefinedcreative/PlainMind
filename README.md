@@ -120,6 +120,45 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## The logo was four months stale everywhere but the home screen (2026-10-12)
+
+The shipping app icon has been the **circle-backed mark** since 2026-06-15
+(`PlainMind/AppIcon.icon`, Icon Composer, iOS 26). Nothing else moved with it.
+Keegan noticed the old mark on the iPad onboarding screen; the sweep found it in
+eleven places, and the site was most of them: the header and footer logo on
+every page, the favicon, the apple-touch icon, both press-kit icon downloads,
+and — because `make-og-cards.mjs` embeds `plainmind-light.png` — all three
+link-preview cards. Four months, and nothing caught it, because a PNG cannot be
+diffed by eye and no one surface owned the others.
+
+**So the rasters are generated now**, by `tools/make-logo-assets.mjs`, from the
+icon itself: the geometry is lifted out of `AppIcon.icon/Assets/*.svg` and the
+group transforms out of its `icon.json`. `--check` re-reads that source and
+fails if it has moved, so the next icon change cannot silently orphan the site
+again. `--ios` writes the app's asset catalog in the same run, which is the
+whole point — one command, every surface.
+
+- `plainmind-{light,dark}.{png,webp}` · `apple-touch-icon.png` · `favicon-32.png`
+  · `source/*` · `press/plainmind-icon-{light,dark}.png`, plus a new
+  `plainmind-mark.svg` (the canonical vector, in the repo, readable by a human).
+- **Much smaller:** the header logo went 101kB → 14.3kB PNG / 3.5kB WebP, and
+  the two press icons 1.4MB → 88kB each. The old ones were photographic renders
+  of what is, underneath, four flat shapes.
+- **No markup changed.** Every consumer already rounded the tile for itself
+  (`.header-icon { border-radius: 22% }`, iOS masking the touch icon), so the
+  files are still full-bleed squares at the same paths and dimensions.
+- Re-ran `make-og-cards.mjs` after; the cards do not watch their input.
+
+**What it deliberately does not do** is reproduce Liquid Glass. The home-screen
+icon's gloss and specular are applied by iOS at render time from `icon.json` and
+exist nowhere as pixels. What ships here is the same mark, flat, with a
+restrained shadow and top-light — which is the right treatment for a 32px
+favicon anyway, and is what the icon reduces to. Checked against the OS render
+side by side before replacing anything.
+
+**For the 1.2 rebuild:** the pricing/help pass must not hand-place a logo PNG.
+Point at `/assets/plainmind-mark.svg` or re-run the generator.
+
 ## Press screenshots finally current (2026-10-11)
 
 The press kit had been shipping **2026-05-30 screenshots since launch** —

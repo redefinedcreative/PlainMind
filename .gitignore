@@ -7,3 +7,8 @@ node_modules/
 *.log
 .vscode/
 .idea/
+
+# make-logo-assets.mjs scratch. NOTE: tools/.og-*.html and .detail-mockup.html
+# are already TRACKED (committed by mistake); ignoring them here would be inert.
+tools/.logo-preview/
+tools/.logo-tmp/

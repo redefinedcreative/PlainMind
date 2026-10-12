@@ -159,6 +159,26 @@ side by side before replacing anything.
 **For the 1.2 rebuild:** the pricing/help pass must not hand-place a logo PNG.
 Point at `/assets/plainmind-mark.svg` or re-run the generator.
 
+### The deploy was correct and still would not have shown
+
+Caught while verifying the push: `_headers` had `/assets/*` on
+`public, max-age=31536000, immutable`, under a comment reading *"long-cache
+fingerprintable static assets"* — but **nothing in `/assets/` is
+fingerprinted.** The names are plain (`plainmind-light.png`,
+`favicon-32.png`). `immutable` tells a browser not to revalidate at all, so
+every returning visitor would have kept the old mark for up to a year while the
+file on the origin was correct the whole time. Exactly the same shape of bug as
+the logo itself: an assumption written in a comment that the files never met.
+
+Now `no-cache`, which is the reasoning already applied to `/js/*` and
+`/styles.css` three lines below it — ETag revalidation, a 304 is ~200 bytes.
+
+**This does not reach a browser whose cache was already warm before
+2026-10-12.** Only a URL change does that. The real fix is content-hashed
+filenames (`plainmind-light.<hash>.png`), which would also let the long cache
+come back honestly — not done here, because it touches every page's `<head>`
+and both layout partials. Flagged, not assumed.
+
 ## Press screenshots finally current (2026-10-11)
 
 The press kit had been shipping **2026-05-30 screenshots since launch** —

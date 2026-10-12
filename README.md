@@ -170,14 +170,40 @@ every returning visitor would have kept the old mark for up to a year while the
 file on the origin was correct the whole time. Exactly the same shape of bug as
 the logo itself: an assumption written in a comment that the files never met.
 
-Now `no-cache`, which is the reasoning already applied to `/js/*` and
-`/styles.css` three lines below it — ETag revalidation, a 304 is ~200 bytes.
+Changed to `no-cache` in `50fb59e` — and then **measuring the live site proved
+the whole `_headers` cache story has never been true in production.**
 
-**This does not reach a browser whose cache was already warm before
-2026-10-12.** Only a URL change does that. The real fix is content-hashed
-filenames (`plainmind-light.<hash>.png`), which would also let the long cache
-come back honestly — not done here, because it touches every page's `<head>`
-and both layout partials. Flagged, not assumed.
+```
+/styles.css              cache-control: max-age=14400   (_headers says no-cache)
+/js/main.js              cache-control: max-age=14400   (_headers says no-cache)
+/assets/plainmind-mark.svg   max-age=14400              (new file, _headers says no-cache)
+/assets/plainmind-light.png  public, max-age=31536000, immutable   cf-cache-status: HIT
+```
+
+Two separate things:
+
+1. **A zone-level Browser Cache TTL of 4 hours is overriding `Cache-Control`
+   from `_headers`.** 14400s is exactly that Cloudflare setting. It is not
+   coming from this repo — every freshly-served file gets it regardless of what
+   `_headers` says, which means `/js/*` and `/styles.css` were never `no-cache`
+   either, and the comment claiming they were has been wrong since it was
+   written. The `_headers` rules only take effect once the dashboard setting is
+   **Respect Existing Headers**.
+2. **The edge still holds the pre-2026-10-12 entries** for the old asset paths
+   (`cf-cache-status: HIT`, replaying the stored `immutable`). Those need a
+   cache purge; the new `plainmind-mark.svg` has no stale entry and shows the
+   14400 override cleanly, which is what isolated cause 1 from cause 2.
+
+Both fixes are in the Cloudflare dashboard, not in this repo. Until the TTL
+setting changes, the real browser cache life is 4 hours — so the practical
+exposure from the `immutable` header is much smaller than it first looked, but
+the repo's cache configuration is decorative.
+
+**Neither reaches a browser whose cache was already warm.** Only a URL change
+does that. The durable fix is content-hashed filenames
+(`plainmind-light.<hash>.png`), which would also let a long cache come back
+honestly — not done here, because it touches every page's `<head>` and both
+layout partials. Flagged, not assumed.
 
 ## Press screenshots finally current (2026-10-11)
 

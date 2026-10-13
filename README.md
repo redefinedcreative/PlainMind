@@ -120,6 +120,59 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## ⚠️ HELD FOR 1.2's RELEASE DAY — seven commits, deliberately unpushed (2026-10-13)
+
+**Do not push this repo until App Store Connect shows 1.2 as released.** Pushing
+publishes (Cloudflare auto-deploys), and these commits describe 1.2 as current
+and 1.3 as next. 1.2 was submitted to App Review on 2026-10-13 (build 139) with
+release set to **manual**.
+
+| Commit | What |
+|---|---|
+| `2e72bcc` | Social banners generated; press kit rewritten for 1.2 |
+| `03ef78c` | Roadmap generated (`tools/sync-roadmap.mjs`) |
+| `0cc627b` | Roadmap + press kit: the merge asks which name to keep |
+| `d2da6e1` | App Store creative assets (`make-social-banners.mjs --appstore`) |
+| `5923191` | Roadmap: 1.3 is "iPad and the front door"; 1.4 reading items join Exploring |
+| `7031c7d` | Roadmap: 1.2 stage → submitted |
+| `086cab6` | Roadmap: "reader typography" removed — never wanted; 1.3 has a text-only reading mode |
+
+**On release day, in order** (`docs/RELEASE_PROCESS.md` Phase 9 in the iOS repo):
+
+1. Add 1.2 to the top of `RELEASES` in `tools/sync-releases.mjs` (keep it saying
+   what `ReleaseNotes.all` says in the app).
+2. In `tools/sync-roadmap.mjs`, promote 1.3 into `NEXT` (stage `locked` →
+   `building`), and give `AFTER` whatever follows.
+3. Set the press kit's version line — the spot is marked with an HTML comment in
+   `public/press/index.html`.
+4. Run the checks, then push:
+   `node tools/sync-releases.mjs && node tools/sync-roadmap.mjs && node tools/sync-roadmap.mjs --check && node tools/sync-releases.mjs --check`
+
+## Roadmap and copy follow 1.3's locked scope; App Store creative assets (2026-10-13)
+
+The five held commits that the two entries below don't cover:
+
+- **1.3's public roadmap group** lists what a user would notice — iPad done
+  properly, collection icons + ordering (Pro), bookmarks import, a text-only
+  reading mode, listen (Pro). Its lede used to say *"One release, one job"*, which
+  stopped being true when the parity audit showed iPad had no search; it now
+  says what the release actually is. Offline archive and highlights (agreed for
+  1.4) join *Exploring* with no version number.
+- **"Reader typography" is gone from the roadmap.** It promised "choose the
+  typeface, size and spacing" — a misread of the plan; the user never wanted
+  typography customization anywhere. 1.3 has a text-only reading mode instead.
+- **1.2's chip reads "with Apple for review"** — `NEXT.stage` set to
+  `submitted`, as Phase 8 of the release process requires.
+- **The merge copy** on the roadmap and press kit now says the user chooses
+  which of the two names the merged collection keeps.
+- **`make-social-banners.mjs --appstore`** renders the two App Store creative
+  assets (Header, Search Results) at 5244×2950 into
+  `App Launch/Screenshots/creative/`. Not the social set resized: Apple's asset
+  rules forbid website URLs in a creative asset (so the Link chip shows a
+  publication name, not a domain) and want the focal point centred (tighter safe
+  box; the search asset drops the chips because it is shown small). Both are
+  uploaded to the 1.2 version in App Store Connect.
+
 ## The roadmap is generated now, and it was wrong in both directions (2026-10-13)
 
 **New tool: `tools/sync-roadmap.mjs`.** It owns `/roadmap`'s **Upcoming** and

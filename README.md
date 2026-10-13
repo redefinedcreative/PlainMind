@@ -120,6 +120,33 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Pro stops being "iCloud sync and a backup" (2026-10-13)
+
+`/help`'s billing section said, in full: *"Pro adds iCloud sync across your
+devices and automatic backup."* That was true in 1.1 and is the weakest possible
+description of what 1.2 sells. Both of those are **infrastructure** — what Pro
+runs on, not what it is for — and a reader comparing them against a free tier
+that already does everything could only conclude Pro was Free plus a backup.
+
+Rewritten to lead with what Pro actually does in 1.2: pin a search as a
+collection, match more than one phrase, merge two collections that have drifted
+into holding the same saves, archive one you're done with, rename a source.
+iCloud backup is still there, last, where it belongs.
+
+Two deliberate additions:
+
+- **It names what stays free**, including collections that suggest themselves
+  and one-site-one-source. Hiding those to make Pro look better would be selling
+  against the product, and the free tier is the reason people trust it.
+- **A new "Do I lose anything if I don't pay?" answer**, because that is the
+  question the billing section was actually raising and never answered. No:
+  everything saved stays on the device, searchable and exportable.
+
+Prices were already correct site-wide ($2.99/mo, $24.99/yr) and did not change —
+confirmed on device 2026-10-13. Added the 7-day trial, which is annual-only and
+was unmentioned. The landing page is untouched: it does not sell Pro at all,
+which is a separate decision rather than a stale page.
+
 ## The logo was four months stale everywhere but the home screen (2026-10-12)
 
 The shipping app icon has been the **circle-backed mark** since 2026-06-15

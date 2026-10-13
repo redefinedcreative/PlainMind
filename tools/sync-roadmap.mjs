@@ -100,18 +100,39 @@ const NEXT = {
 };
 
 /* ── The release after next ──────────────────────────────────────────────────
- * The only thing with a version number attached that is not in NEXT. iPad was
- * built, briefly enabled to exercise the layout, and held back deliberately —
- * shipping it means an iPad visual sweep and iPad App Store screenshots, and
- * neither belongs in a release already carrying nine features. */
+ * 1.3's public face. Scope locked 2026-10-13 — see `docs/RELEASE_1_3_PLAN.md`
+ * in the iOS repo. Two items there are deliberately NOT listed here because
+ * they are not things a user waits for: the efficiency pass and the onboarding
+ * rework. Everything a user would notice is.
+ *
+ * Until 2026-10-13 this group was iPad alone, under the lede "One release, one
+ * job." The parity audit found iPad had no search at all and no collections in
+ * its sidebar, so the release widened on purpose — and the lede had to stop
+ * claiming otherwise. */
 const AFTER = {
   version: "1.3",
   label: "iPad",
-  lede: "One release, one job.",
+  lede: "PlainMind, whole on iPad — and a few things that make your library feel like yours.",
   items: [
     {
-      title: "PlainMind on iPad",
-      body: "A proper three-pane layout rather than a stretched phone screen. The layout is built; what it still needs is a pass on real hardware, which is why it is a release of its own rather than a flag we flip.",
+      title: "PlainMind on iPad, properly",
+      body: "Everything the iPhone has, laid out for a bigger screen: search, your collections in the sidebar, and the filters that narrow your library. Not a stretched phone screen.",
+    },
+    {
+      title: "Collection icons and ordering",
+      body: "Give a collection its own symbol, and put your collections in the order you think of them.",
+    },
+    {
+      title: "Bring your bookmarks with you",
+      body: "Import a bookmarks file from Safari, Chrome, Firefox, Pocket or Instapaper, and every link arrives as an ordinary save.",
+    },
+    {
+      title: "Reader typography",
+      body: "Choose the typeface, size and spacing your saved articles are set in. Pro.",
+    },
+    {
+      title: "Listen to what you saved",
+      body: "Have a saved article read aloud, on your device, with nothing sent anywhere. Pro.",
     },
   ],
 };
@@ -121,8 +142,12 @@ const EXPLORING = {
   lede: "Real candidates with real groundwork behind them. Which of these lands — and when — depends on what people actually ask for.",
   items: [
     {
-      title: "Collection icons and ordering",
-      body: "Give a collection its own symbol, and put your collections in the order you think of them.",
+      title: "A copy that outlives the link",
+      body: "Keep a complete, readable copy of a saved page — text and images — so when a site goes away, your save doesn't. Pro.",
+    },
+    {
+      title: "Highlights and notes in what you read",
+      body: "Mark the passages that matter in a saved article and find them again later.",
     },
     {
       title: "PlainMind on Mac",

@@ -74,7 +74,7 @@ const NEXT = {
     },
     {
       title: "Merge two collections that overlap",
-      body: "When two collections drift into holding the same saves, PlainMind notices and offers to merge them. Pro.",
+      body: "When two collections drift into holding the same saves, PlainMind notices and offers to merge them \u2014 and asks which of the two names the merged list keeps. Pro.",
     },
     {
       title: "Archive a collection you're done with",

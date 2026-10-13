@@ -57,7 +57,7 @@ const STAGES = {
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
   version: "1.2",
-  stage: "testing",
+  stage: "submitted",
   lede: "The organisation layer. Collections stop being something PlainMind offers you and start being something you can build and shape — and a few things that were quietly untidy get tidied.",
   items: [
     {

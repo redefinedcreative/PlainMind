@@ -120,19 +120,19 @@ const AFTER = {
     },
     {
       title: "Collection icons and ordering",
-      body: "Give a collection its own symbol, and put your collections in the order you think of them.",
+      body: "Give a collection its own symbol, and put your collections in the order you think of them. Pro.",
     },
     {
       title: "Bring your bookmarks with you",
       body: "Import a bookmarks file from Safari, Chrome, Firefox, Pocket or Instapaper, and every link arrives as an ordinary save.",
     },
     {
-      title: "Reader typography",
-      body: "Choose the typeface, size and spacing your saved articles are set in. Pro.",
+      title: "Just the words",
+      body: "Open a saved article as nothing but its title and text, full length — no images, no page clutter, nothing between you and what you saved.",
     },
     {
       title: "Listen to what you saved",
-      body: "Have a saved article read aloud, on your device, with nothing sent anywhere. Pro.",
+      body: "Have a saved article read aloud — the same words, start to finish — on your device, with nothing sent anywhere. Pro.",
     },
   ],
 };

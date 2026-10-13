@@ -142,6 +142,15 @@ Two deliberate additions:
   question the billing section was actually raising and never answered. No:
   everything saved stays on the device, searchable and exportable.
 
+**Corrected the same day:** the first version of this put *pin a search* under
+Pro, following the agreed 1.2 split. That was wrong in a way only visible from
+the free side — a collection comes into existence exactly two ways, the engine
+offering one or pinning a search, so gating the second left a free user able to
+*receive* collections and never make one. The engine also ships off by default
+and needs a phrase across three separate notes before it says anything. "Collections
+are free" described something a free user could not reach. Pinning is free now,
+and `/help` says so in its own paragraph; Pro keeps the shaping verbs.
+
 Prices were already correct site-wide ($2.99/mo, $24.99/yr) and did not change —
 confirmed on device 2026-10-13. Added the 7-day trial, which is annual-only and
 was unmentioned. The landing page is untouched: it does not sell Pro at all,

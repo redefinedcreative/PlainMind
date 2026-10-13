@@ -120,6 +120,39 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## The roadmap is generated now, and it was wrong in both directions (2026-10-13)
+
+**New tool: `tools/sync-roadmap.mjs`.** It owns `/roadmap`'s **Upcoming** and
+**Not planned** panels; `sync-releases.mjs` already owned the Released tab.
+Between them, nothing on that page is typed by hand any more.
+
+It was fixed because it was wrong, and wrong in two directions at the same
+time. "Next release" promised **"Collection icons and ordering"** — neither
+built nor in 1.2's agreed scope — and omitted **every Pro collection feature**
+plus the social-post cleanup. A public roadmap that overpromises and undersells
+the same release is the Featurebase failure again, in our own HTML.
+
+What the page says now: nine items under *Next release* matching
+`ReleaseNotes.all` one for one, a new **"The one after"** group carrying 1.3 ·
+iPad (the only other thing with a version number on it), and *Exploring*, which
+is where icons-and-ordering actually belongs.
+
+**The chip is derived, not typed.** `NEXT.stage` takes one of five values —
+`planning`, `locked`, `building`, `testing`, `submitted` — which are the phase
+names in `docs/RELEASE_PROCESS.md`, and the chip renders from it. So the public
+page cannot claim a release is "in planning" while the build is with Apple. It
+currently reads **1.2 · in test**.
+
+```bash
+node tools/sync-roadmap.mjs --check && node tools/sync-releases.mjs --check
+```
+
+Run that before any push that touches the roadmap.
+
+🚫 **Still not pushed** — this commit and the press-kit commit (`2e72bcc`) go up
+together on release day. The press kit describes a version the App Store has not
+released yet, and they share a branch.
+
 ## The seven social banners are generated now, and the press kit is 1.2 (2026-10-13)
 
 **New tool: `tools/make-social-banners.mjs`.** It renders all seven files in

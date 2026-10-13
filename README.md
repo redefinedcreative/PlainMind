@@ -120,6 +120,63 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## The seven social banners are generated now, and the press kit is 1.2 (2026-10-13)
+
+**New tool: `tools/make-social-banners.mjs`.** It renders all seven files in
+`Branding/Social Header Image/` — X, Bluesky, Mastodon, LinkedIn, Threads,
+Facebook, YouTube — at the dimensions they already had, so they drop straight
+back into each network.
+
+The banners were the **last hand-made logo surface**, exempted by
+`make-logo-assets.mjs` on the grounds that they were designed artwork and
+"need a human." That exemption is the whole reason they carried the previous
+mark for four and a half months after the icon changed. Anything that cannot be
+re-run is something that will be wrong again next time.
+
+What it derives rather than chooses:
+
+| | |
+|---|---|
+| the mark | `Branding/Logo Export/plainmind-mark.svg`, itself generated from `PlainMind/AppIcon.icon` |
+| every colour | the `--app-*` tokens in `public/styles.css`, which `sync-app-tokens.mjs` generates from the app's asset catalog — so the type chips are the app's real colours, `--app-type-location` included |
+| the wordmark face | New York, which is what the press kit says the wordmark is set in |
+
+Two things worth knowing about the implementation:
+
+- **The lockup is measured, not computed.** Node cannot measure New York's
+  rendered width, and two attempts at guessing ran "PlainMind" off the right
+  edge. A small script in the page measures the lockup after layout and scales
+  it to fit the platform's safe box, clamped to 1 so it only ever shrinks. The
+  chips take the same factor, which is what stops the 16:9 YouTube plate ending
+  up with decoration larger than the brand.
+- **Chips may never enter the safe box.** They are anchored to its edges and
+  allowed to run off the frame with a mask fade, so the clipping reads as "more
+  library beyond the frame" rather than as a broken export.
+
+⚠️ **The May 2026 originals were overwritten in place.** They exist only in
+Google Drive's version history now (right-click → *Version history*). They had a
+blurred 1.0-era Library screenshot behind the cards and real third-party cover
+art in the thumbnails — a film still, podcast artwork, an identifiable map pin.
+The rebuild uses the app's own type chips instead, which is one fewer licensing
+question to answer about a brand asset.
+
+**`public/press/index.html` rewritten for 1.2** — the Collections section now
+covers both ways a collection is born (suggested, or a pinned search; both
+free) and what Pro adds (several phrases, merge, archive), and a new "What else
+is new in 1.2" block covers source consolidation, renaming a source, the social
+post cleanup and the search speedup.
+
+🚫 **This press-kit change is committed and deliberately NOT pushed.** Pushing
+publishes, and the page would then describe a version the App Store has not
+released. On release day: push, and set the version line — it is marked with an
+HTML comment at `public/press/index.html` where the date goes.
+
+Still outstanding for the release-day website pass: a 1.2 entry in
+`tools/sync-releases.mjs` (which stamps `/releases/` and the roadmap's Past
+tab), and the roadmap's **"Next release"** group, which currently promises
+"Collection icons and ordering" — neither built nor in 1.2's agreed scope — and
+omits every Pro collection feature.
+
 ## Pro stops being "iCloud sync and a backup" (2026-10-13)
 
 `/help`'s billing section said, in full: *"Pro adds iCloud sync across your

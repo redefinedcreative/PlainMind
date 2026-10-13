@@ -12,3 +12,4 @@ node_modules/
 # are already TRACKED (committed by mistake); ignoring them here would be inert.
 tools/.logo-preview/
 tools/.logo-tmp/
+tools/.banner-tmp/

@@ -60,8 +60,9 @@ const PREVIEW_ONLY = args.has("--preview");
 // The social profile images live in Drive, not in any repo — the only pair of
 // logo rasters that does. They were the same stale mark as everything else, so
 // they are generated here too rather than left as the one hand-made exception.
-// The seven `Social Header Image/` banners are NOT generated: they are designed
-// artwork with the mark composed into them, and need a human.
+// The seven `Social Header Image/` banners were the last hand-made exception
+// and are generated too now, by `make-social-banners.mjs` — which reads the
+// export this script writes, and runs `--check` before it renders anything.
 const BRANDING = join(ROOT, "..", "Branding", "Social Profile Image");
 
 /* ── The mark ────────────────────────────────────────────────────────────────
@@ -244,17 +245,53 @@ function markSVG({ dark = false, rounded = false, transparent = false, size = GR
 </svg>`;
 }
 
+/* ── The template glyph ──────────────────────────────────────────────────────
+ * The Save Action extension's icon is an iOS **template** image: only its alpha
+ * is used, and the share sheet paints it a single colour. So it cannot be the
+ * mark — it has to be the mark's silhouette.
+ *
+ * The one that shipped was the *previous* generation's geometry: fanned cards,
+ * no circle. It survived the 2026-10-12 logo sweep because that sweep walked
+ * the website and the main app's asset catalog, and this file lives in the
+ * extension's own catalog.
+ *
+ * What is rendered: the disc, with the card stack knocked out of it and the
+ * bookmark put back as a positive. One shape, no strokes, and it still reads at
+ * the ~60pt the share sheet draws it at — which a card stack alone did not,
+ * because without the circle it is indistinguishable from every other "save"
+ * glyph in the row.
+ * ──────────────────────────────────────────────────────────────────────────── */
+function glyphSVG({ size = GRID } = {}) {
+  const { circle: ci, sage, amber, cream, bookmark, cardScale: cs } = MARK;
+  const r = ci.r * ci.scale;
+  const cards = `translate(${ci.cx} ${ci.cy}) scale(${cs}) translate(${-ci.cx} ${-ci.cy})`;
+  const stack = `
+    <g transform="${cards}" fill="black">
+      <rect x="${sage.x}" y="${sage.y}" width="${sage.w}" height="${sage.h}" rx="${sage.rx}" />
+      <rect x="${amber.x}" y="${amber.y}" width="${amber.w}" height="${amber.h}" rx="${amber.rx}" />
+      <path d="${cream.d}" />
+    </g>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${GRID} ${GRID}" width="${size}" height="${size}">
+  <mask id="knockout">
+    <rect width="${GRID}" height="${GRID}" fill="black" />
+    <circle cx="${ci.cx}" cy="${ci.cy}" r="${r}" fill="white" />${stack}
+  </mask>
+  <circle cx="${ci.cx}" cy="${ci.cy}" r="${r}" fill="#000000" mask="url(#knockout)" />
+  <g transform="${cards}"><path d="${bookmark.d}" fill="#000000" /></g>
+</svg>`;
+}
+
 /* ── Rasterise ───────────────────────────────────────────────────────────── */
 function renderPNG(out, opts) {
   mkdirSync(dirname(out), { recursive: true });
   mkdirSync(TMP, { recursive: true });
   const { size } = opts;
-  const html = join(TMP, `r-${size}-${opts.dark ? "d" : "l"}-${opts.rounded ? "sq" : "sq0"}-${opts.transparent ? "t" : "o"}.html`);
+  const html = join(TMP, `r-${size}-${opts.glyph ? "g" : opts.dark ? "d" : "l"}-${opts.rounded ? "sq" : "sq0"}-${opts.transparent ? "t" : "o"}.html`);
   // No margin, no background: a transparent page so `transparent`/`rounded`
   // keep their alpha. Chrome screenshots the full window at CSS pixel size.
   writeFileSync(html, `<!doctype html><meta charset="utf8">
 <style>html,body{margin:0;padding:0;background:transparent}svg{display:block}</style>
-${markSVG(opts)}`);
+${opts.glyph ? glyphSVG(opts) : markSVG(opts)}`);
   execFileSync(CHROME, [
     "--headless=new", "--disable-gpu", "--hide-scrollbars",
     "--default-background-color=00000000", "--allow-file-access-from-files",
@@ -295,6 +332,7 @@ const webTargets = [
 ];
 
 const XC = join(IOS_REPO, "PlainMind", "Assets.xcassets");
+const SAVE_ACTION = join(IOS_REPO, "PlainMind Save Action", "Assets.xcassets", "AppIcon.appiconset");
 const ONB = join(XC, "OnboardingAppIcon.imageset");
 const LOGO = join(XC, "PlainMindLogo.imageset");
 
@@ -314,6 +352,8 @@ const iosTargets = [
   { out: join(LOGO, "PlainMindLogo-Dark@2x.png"),  size: 240, dark: true,  rounded: true, transparent: false },
   { out: join(LOGO, "PlainMindLogo-Light@3x.png"), size: 360, dark: false, rounded: true, transparent: false },
   { out: join(LOGO, "PlainMindLogo-Dark@3x.png"),  size: 360, dark: true,  rounded: true, transparent: false },
+  // The share-sheet action glyph — alpha only, see glyphSVG.
+  { out: join(SAVE_ACTION, "SaveAction.png"), size: 1024, glyph: true },
 ];
 
 const ONB_CONTENTS = {

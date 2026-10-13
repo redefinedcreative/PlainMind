@@ -39,10 +39,29 @@
  * generic titles instead.
  *
  * ## Usage
- *   node tools/make-social-banners.mjs            # all seven, into Drive
+ *   node tools/make-social-banners.mjs            # the seven social banners
+ *   node tools/make-social-banners.mjs --appstore # the App Store creative assets
  *   node tools/make-social-banners.mjs --check    # geometry only, writes nothing
  *   node tools/make-social-banners.mjs --preview  # contact sheet to tools/.banner-tmp
  *   node tools/make-social-banners.mjs x linkedin # just these
+ *
+ * ## The App Store set is NOT the social set at a different size
+ *
+ * App Store creative assets (iOS 27+, shown on the product page, in search
+ * results and when an app is featured) are governed by Apple's asset best
+ * practices, and two rules there bite:
+ *
+ *   - **No website URLs.** The social banners' Link chip reads
+ *     "betterwebtype.com". That is fine on X and disallowed here, so the store
+ *     chips carry a publication name instead of a domain.
+ *   - **Keep the focal point centred**, because the asset is cropped
+ *     differently across devices and placements. The store set therefore runs
+ *     a tighter `safe` than any social banner, and the search-results asset
+ *     drops the chips entirely — it is shown small, where six faded cards are
+ *     noise rather than texture.
+ *
+ * Both slots are OPTIONAL. Leaving them empty does not block a submission; the
+ * search-results slot explicitly falls back to the app's screenshots.
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -54,6 +73,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const EXPORT_DIR = join(ROOT, "..", "Branding", "Logo Export");
 const OUT_DIR = join(ROOT, "..", "Branding", "Social Header Image");
+const STORE_DIR = join(ROOT, "..", "App Launch", "Screenshots", "creative");
 const TMP = join(ROOT, "tools", ".banner-tmp");
 
 const argv = process.argv.slice(2);
@@ -61,6 +81,7 @@ const flags = new Set(argv.filter((a) => a.startsWith("--")));
 const only = argv.filter((a) => !a.startsWith("--")).map((s) => s.toLowerCase());
 const CHECK_ONLY = flags.has("--check");
 const PREVIEW = flags.has("--preview");
+const APPSTORE = flags.has("--appstore");
 
 /* ── Source of truth ─────────────────────────────────────────────────────── */
 
@@ -125,6 +146,18 @@ const BANNERS = [
   { key: "youtube",   file: "PlainMind_YouTube_Banner_Image.png",   w: 1672, h: 941,  safe: 0.56 },
 ];
 
+/* ── The App Store creative assets ───────────────────────────────────────────
+ * 5244×2950 satisfies both slots, so one size covers the header and the search
+ * result and they stay a matched pair. The header carries the chips; the
+ * search result does not, because it is rendered small.
+ * ────────────────────────────────────────────────────────────────────────── */
+const STORE = [
+  { key: "header", file: "PlainMind_AppStore_Header.png",
+    w: 5244, h: 2950, safe: 0.66, store: true, chips: true },
+  { key: "search", file: "PlainMind_AppStore_SearchResult.png",
+    w: 5244, h: 2950, safe: 0.58, store: true, chips: false },
+];
+
 /* ── Composition ─────────────────────────────────────────────────────────── */
 
 // One row of the library, as a floating chip. Type name and colour are the
@@ -138,6 +171,16 @@ const CHIPS = [
   { type: "Image",   tone: "typeImage",   title: "Reference shot",                meta: "May 19, 2026" },
   { type: "Music",   tone: "typeMusic",   title: "Coffee Shop Vibes",             meta: "Lo-Fi Essentials" },
 ];
+
+/// Apple's asset guidance disallows website URLs in a creative asset, so the
+/// store set swaps the Link chip's domain for the publication's name. Same
+/// chip, same colour, one fewer policy question.
+function chipsFor(target) {
+  if (!target.store) return CHIPS;
+  return CHIPS.map((c) => (c.meta.includes(".") && !c.meta.includes(" ")
+    ? { ...c, meta: "Better Web Type" }
+    : c));
+}
 
 function chipHTML(c, t, i) {
   return `<div class="chip chip--${i}">
@@ -252,7 +295,7 @@ function bannerHTML(b, mark, t) {
     <p class="tag">Save anything. Find it later.</p>
   </div>
 </div>
-${CHIPS.map((c, i) => chipHTML(c, t, i)).join("\n")}
+${(b.chips === false ? [] : chipsFor(b)).map((c, i) => chipHTML(c, t, i)).join("\n")}
 <script>
   /* Fit the lockup to the safe box, measured.
    *
@@ -281,6 +324,7 @@ ${CHIPS.map((c, i) => chipHTML(c, t, i)).join("\n")}
  * safe box, so widening `safe` moves the chips out rather than over the
  * wordmark. */
 function chipCSS(b) {
+  if (b.chips === false) return "";
   const g = geometry(b);
   const rows = [0.16, 0.5, 0.84];                  // vertical centres
   const stagger = [0, 0.34, 0.12];                 // how far each runs off-frame
@@ -310,7 +354,9 @@ function render(b, mark, t) {
   mkdirSync(TMP, { recursive: true });
   mkdirSync(OUT_DIR, { recursive: true });
   const html = join(TMP, `${b.key}.html`);
-  const out = join(OUT_DIR, b.file);
+  const dir = b.store ? STORE_DIR : OUT_DIR;
+  mkdirSync(dir, { recursive: true });
+  const out = join(dir, b.file);
   writeFileSync(html, bannerHTML({ ...b, chipCSS: chipCSS(b) }, mark, t));
   execFileSync(CHROME, [
     "--headless=new", "--disable-gpu", "--hide-scrollbars",
@@ -328,7 +374,8 @@ if (CHECK_ONLY) process.exit(0);
 
 const mark = loadMark();
 const tokens = loadTokens();
-const todo = only.length ? BANNERS.filter((b) => only.includes(b.key)) : BANNERS;
+const pool = APPSTORE ? STORE : BANNERS;
+const todo = only.length ? pool.filter((b) => only.includes(b.key)) : pool;
 if (!todo.length) { console.error(`✗ no banner matches ${only.join(", ")}`); process.exit(1); }
 
 const kb = (p) => `${(readFileSync(p).length / 1024).toFixed(0)}kB`;
@@ -353,4 +400,4 @@ ${made.map((p, i) => `<figure><img src="file://${p}"><figcaption>${todo[i].key} 
   console.log(`\n→ ${join(TMP, "contact-sheet.png")}`);
 }
 
-console.log(`\n✓ ${made.length} banner${made.length === 1 ? "" : "s"} → ${OUT_DIR.replace(homedir(), "~")}`);
+console.log(`\n✓ ${made.length} asset${made.length === 1 ? "" : "s"} → ${(APPSTORE ? STORE_DIR : OUT_DIR).replace(homedir(), "~")}`);

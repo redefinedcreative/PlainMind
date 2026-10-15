@@ -120,9 +120,29 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
-## ⚠️ HELD FOR 1.2's RELEASE DAY — commits deliberately unpushed (since 2026-10-13)
+## 1.2 release day (2026-10-15)
 
-**Do not push this repo until App Store Connect shows 1.2 as released.** Pushing
+1.2 was approved and released to the public on 2026-10-15. Phase 9 of
+`docs/RELEASE_PROCESS.md` (iOS repo), all on the day:
+
+- `/releases` and the Released tab: 1.2 added at the top, its notes taken word
+  for word from `ReleaseNotes.all` in the app.
+- `/roadmap`: **Next is 1.3, stage "in test"** (all eight items built
+  2026-10-13, in device testing). **After that is 1.4 "Mac & reading"** — Mac,
+  a copy that outlives the link (Pro), highlights, Ask Siri for a save, Tidy
+  your sources. Those five left Exploring when they got a number, so nothing is
+  listed twice; Exploring keeps the 1.5 candidates without numbers.
+- Press kit: current version 1.2 — October 15, 2026 (the release-day marker
+  comment is gone).
+- Pushed, publishing every held commit with it.
+
+## ✅ RELEASED — 1.2 went live 2026-10-15; the held commits below were pushed that day
+
+*Kept as the record of what was held and why. Nothing is held now.*
+
+### What was held
+
+~~**Do not push this repo until App Store Connect shows 1.2 as released.**~~ Released 2026-10-15. Pushing
 publishes (Cloudflare auto-deploys), and these commits describe 1.2 as current
 and 1.3 as next. 1.2 was submitted to App Review on 2026-10-13 (build 139) with
 release set to **manual**.

@@ -56,62 +56,8 @@ const STAGES = {
  * what is actually coming, and the dev list is the thing it has to agree with.
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
-  version: "1.2",
-  stage: "submitted",
-  lede: "The organisation layer. Collections stop being something PlainMind offers you and start being something you can build and shape — and a few things that were quietly untidy get tidied.",
-  items: [
-    {
-      title: "Turn a search into a collection",
-      body: "Collections can already make themselves from your notes. This is the other half: build a search worth keeping, pin it, and it becomes a collection that stays current on its own. Free — making a collection should not cost anything.",
-    },
-    {
-      title: "Collections introduce themselves",
-      body: "Suggestions are off until you turn them on, which meant most people never met the feature. PlainMind now offers once, in your library, and only when it has actually found a phrase you wrote.",
-    },
-    {
-      title: "A collection that matches more than one phrase",
-      body: "The thing you are collecting rarely has a single name. Add the others and they all count. Pro.",
-    },
-    {
-      title: "Merge two collections that overlap",
-      body: "When two collections drift into holding the same saves, PlainMind notices and offers to merge them \u2014 and asks which of the two names the merged list keeps. Pro.",
-    },
-    {
-      title: "Archive a collection you're done with",
-      body: "It keeps matching and keeps syncing — it is just off the list, with everything waiting when you put it back. Pro.",
-    },
-    {
-      title: "One site, one source",
-      body: "Mobile and AMP versions of a page — and short links like youtu.be — group with everything else from that site instead of sitting apart. Saves you already had are tidied up too.",
-    },
-    {
-      title: "Rename a source",
-      body: "Call a site whatever you actually call it, and the name follows you to your other devices. Pro.",
-    },
-    {
-      title: "Posts from social apps read properly",
-      body: "The account handle and the date it went up, then the post itself. Like and comment counts are dropped — they were only ever true for the moment you saved.",
-    },
-    {
-      title: "Faster search in large libraries",
-      body: "Search stays quick into the low thousands of saves and then starts to show. Groundwork now, so it never becomes something you notice.",
-    },
-  ],
-};
-
-/* ── The release after next ──────────────────────────────────────────────────
- * 1.3's public face. Scope locked 2026-10-13 — see `docs/RELEASE_1_3_PLAN.md`
- * in the iOS repo. Two items there are deliberately NOT listed here because
- * they are not things a user waits for: the efficiency pass and the onboarding
- * rework. Everything a user would notice is.
- *
- * Until 2026-10-13 this group was iPad alone, under the lede "One release, one
- * job." The parity audit found iPad had no search at all and no collections in
- * its sidebar, so the release widened on purpose — and the lede had to stop
- * claiming otherwise. */
-const AFTER = {
   version: "1.3",
-  label: "iPad",
+  stage: "testing",
   lede: "PlainMind, whole on iPad — and a few things that make your library feel like yours.",
   items: [
     {
@@ -137,10 +83,19 @@ const AFTER = {
   ],
 };
 
-/* ── Exploring ───────────────────────────────────────────────────────────── */
-const EXPLORING = {
-  lede: "Real candidates with real groundwork behind them. Which of these lands — and when — depends on what people actually ask for.",
+/* ── The release after next ──────────────────────────────────────────────────
+ * 1.4 — assigned in the iOS repo's docs/ROADMAP.md (2026-10-13, widened
+ * 2026-10-15). Its items left Exploring when they got a number, so nothing is
+ * listed twice. */
+const AFTER = {
+  version: "1.4",
+  label: "Mac & reading",
+  lede: "PlainMind on the Mac, and the reading tools that make a saved article worth coming back to.",
   items: [
+    {
+      title: "PlainMind on Mac",
+      body: "The same library, on a bigger screen, without a phone in the middle.",
+    },
     {
       title: "A copy that outlives the link",
       body: "Keep a complete, readable copy of a saved page — text and images — so when a site goes away, your save doesn't. Pro.",
@@ -150,13 +105,20 @@ const EXPLORING = {
       body: "Mark the passages that matter in a saved article and find them again later.",
     },
     {
-      title: "PlainMind on Mac",
-      body: "The same library, on a bigger screen, without a phone in the middle.",
-    },
-    {
       title: "Ask Siri for a save",
       body: "Find what you saved from Siri or a Home Screen search — by what it was about, not just its title. Worked out on your device.",
     },
+    {
+      title: "Tidy your sources",
+      body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are — only how they're listed changes.",
+    },
+  ],
+};
+
+/* ── Exploring ───────────────────────────────────────────────────────────── */
+const EXPLORING = {
+  lede: "Real candidates with real groundwork behind them. Which of these lands — and when — depends on what people actually ask for.",
+  items: [
     {
       title: "PlainMind on iPhone Duo",
       body: "The phone layout on the outside screen; unfold it and your library opens out into list and detail side by side, right where you were.",
@@ -168,10 +130,6 @@ const EXPLORING = {
     {
       title: "Photos you can search",
       body: "Find a saved photo by what is in it, even when it has no words.",
-    },
-    {
-      title: "Tidy your sources",
-      body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are — only how they're listed changes.",
     },
     {
       title: "Search that narrows as you go",

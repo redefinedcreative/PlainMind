@@ -24,6 +24,24 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    "id": "v1-2",
+    "version": "1.2",
+    "iso": "2026-10-15",
+    "date": "15 October 2026",
+    "headline": "A library that keeps itself in order.",
+    "items": [
+      "Search is faster, especially in larger libraries.",
+      "Rename a source. Call it whatever you call it — the name follows you to your other devices. Pro.",
+      "One site, one source. Mobile and AMP versions of a page — and links like youtu.be — now group with everything else from that site instead of sitting apart. Your existing saves are tidied up too.",
+      "Collections now introduce themselves. When a phrase keeps turning up in your notes, PlainMind offers to group those saves — once, in your library, and only when it has actually found something.",
+      "Pin a search. Build a search you want to keep, pin it, and it becomes a collection that stays current on its own — free, like the collections PlainMind suggests.",
+      "A collection can match more than one phrase. The thing you're collecting rarely has one name — add the others and they all count. Pro.",
+      "When two collections drift into holding the same saves, PlainMind notices and offers to merge them — and asks which of the two names the merged list should keep. Pro.",
+      "Archive a collection you're done with. It keeps matching and keeps syncing — it's just off the list, with everything waiting when you put it back. Pro.",
+      "Saves from Instagram and other social apps read properly now: the handle and the date the post went up, then the post itself. Like and comment counts are gone — they were only ever true for a moment. Your existing saves are tidied up too."
+    ]
+  },
+  {
     "id": "v1-1",
     "version": "1.1",
     "iso": "2026-10-09",

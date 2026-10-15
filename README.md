@@ -137,6 +137,7 @@ release set to **manual**.
 | `7031c7d` | Roadmap: 1.2 stage → submitted |
 | `086cab6` | Roadmap: "reader typography" removed — never wanted; 1.3 has a text-only reading mode |
 | `2b4a4ec` | Roadmap: "Tidy your sources" (source merge + hide) joins Exploring — 1.4 in the dev list (2026-10-15) |
+| `9f6f812` | Roadmap: Siri search, iPhone Duo, plain-English search, searchable photos join Exploring (2026-10-15) |
 
 **On release day, in order** (`docs/RELEASE_PROCESS.md` Phase 9 in the iOS repo):
 

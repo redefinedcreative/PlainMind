@@ -154,6 +154,22 @@ const EXPLORING = {
       body: "The same library, on a bigger screen, without a phone in the middle.",
     },
     {
+      title: "Ask Siri for a save",
+      body: "Find what you saved from Siri or a Home Screen search — by what it was about, not just its title. Worked out on your device.",
+    },
+    {
+      title: "PlainMind on iPhone Duo",
+      body: "The phone layout on the outside screen; unfold it and your library opens out into list and detail side by side, right where you were.",
+    },
+    {
+      title: "Search in your own words",
+      body: "Type \u201cthat recipe I saved in the spring\u201d and PlainMind turns it into the right filters — on your device, nothing sent anywhere.",
+    },
+    {
+      title: "Photos you can search",
+      body: "Find a saved photo by what is in it, even when it has no words.",
+    },
+    {
       title: "Tidy your sources",
       body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are — only how they're listed changes.",
     },

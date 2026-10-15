@@ -154,6 +154,10 @@ const EXPLORING = {
       body: "The same library, on a bigger screen, without a phone in the middle.",
     },
     {
+      title: "Tidy your sources",
+      body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are — only how they're listed changes.",
+    },
+    {
       title: "Search that narrows as you go",
       body: "Combine type, source and when, and see how many results each choice would leave before you commit to it.",
     },

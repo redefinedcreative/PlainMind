@@ -120,7 +120,7 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
-## ⚠️ HELD FOR 1.2's RELEASE DAY — seven commits, deliberately unpushed (2026-10-13)
+## ⚠️ HELD FOR 1.2's RELEASE DAY — commits deliberately unpushed (since 2026-10-13)
 
 **Do not push this repo until App Store Connect shows 1.2 as released.** Pushing
 publishes (Cloudflare auto-deploys), and these commits describe 1.2 as current
@@ -136,13 +136,15 @@ release set to **manual**.
 | `5923191` | Roadmap: 1.3 is "iPad and the front door"; 1.4 reading items join Exploring |
 | `7031c7d` | Roadmap: 1.2 stage → submitted |
 | `086cab6` | Roadmap: "reader typography" removed — never wanted; 1.3 has a text-only reading mode |
+| `2b4a4ec` | Roadmap: "Tidy your sources" (source merge + hide) joins Exploring — 1.4 in the dev list (2026-10-15) |
 
 **On release day, in order** (`docs/RELEASE_PROCESS.md` Phase 9 in the iOS repo):
 
 1. Add 1.2 to the top of `RELEASES` in `tools/sync-releases.mjs` (keep it saying
    what `ReleaseNotes.all` says in the app).
-2. In `tools/sync-roadmap.mjs`, promote 1.3 into `NEXT` (stage `locked` →
-   `building`), and give `AFTER` whatever follows.
+2. In `tools/sync-roadmap.mjs`, promote 1.3 into `NEXT` — stage **`testing`**
+   (all eight 1.3 items were built 2026-10-13 and are in device testing; set
+   whatever is true on the day) — and give `AFTER` whatever follows.
 3. Set the press kit's version line — the spot is marked with an HTML comment in
    `public/press/index.html`.
 4. Run the checks, then push:

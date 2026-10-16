@@ -120,9 +120,9 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
-## ⏸ HELD — 1.3 "submitted" roadmap commit (2026-10-16): push only when 1.3 is submitted
+## ✅ PUSHED — 1.3 submitted to App Review 2026-10-16; the held roadmap commits went live that day
 
-**Do not push this repo until 1.3 is submitted for review in App Store Connect.**
+~~**Do not push this repo until 1.3 is submitted for review in App Store Connect.**~~ Submitted 2026-10-16 (build 159); pushed.
 Pushing publishes it (Cloudflare Pages). Two commits are held:
 
 - `/roadmap`: 1.3's chip moves from "in test" to **"with Apple for review"**

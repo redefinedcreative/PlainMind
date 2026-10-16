@@ -57,7 +57,7 @@ const STAGES = {
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
   version: "1.3",
-  stage: "testing",
+  stage: "submitted",
   lede: "PlainMind, whole on iPad — and a few things that make your library feel like yours.",
   items: [
     {
@@ -79,6 +79,10 @@ const NEXT = {
     {
       title: "Listen to what you saved",
       body: "Have a saved article read aloud — the same words, start to finish — on your device, with nothing sent anywhere. Pro.",
+    },
+    {
+      title: "A first run that sets you up",
+      body: "PlainMind shows you how saving, sorting and finding work, puts itself in your share sheet one step at a time, and walks you through your first save.",
     },
   ],
 };

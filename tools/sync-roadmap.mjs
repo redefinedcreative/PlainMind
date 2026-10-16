@@ -87,6 +87,16 @@ const NEXT = {
   ],
 };
 
+/* ── Homepage hero pill ──────────────────────────────────────────────────────
+ * One short line per version — what the hero pill says while the version is
+ * with Apple ("Coming soon in 1.3: …") and for two weeks after it ships ("New
+ * in 1.3: …"). The rule is functions/_lib/release-pill.js; this only supplies
+ * the words and the stage. Add the next version's line when its scope locks;
+ * leave past lines in place. */
+const HERO_HEADLINES = {
+  "1.3": "PlainMind on iPad",
+};
+
 /* ── The release after next ──────────────────────────────────────────────────
  * 1.4 — assigned in the iOS repo's docs/ROADMAP.md (2026-10-13, widened
  * 2026-10-15). Its items left Exploring when they got a number, so nothing is
@@ -268,6 +278,25 @@ for (const t of TARGETS) {
     console.log(`· ${t.file} — ${t.marker} already in sync`);
   }
 }
+/* ── Release status for the hero pill (public/data/release-status.json) ─────── */
+{
+  const path = join(ROOT, "public/data/release-status.json");
+  const body = JSON.stringify({
+    next: { version: NEXT.version, stage: NEXT.stage },
+    headlines: HERO_HEADLINES,
+  }, null, 2) + "\n";
+  let cur = "";
+  try { cur = readFileSync(path, "utf8"); } catch (e) { /* first run */ }
+  if (CHECK) {
+    if (cur !== body) { console.error("✗ public/data/release-status.json is stale — run: node tools/sync-roadmap.mjs"); stale = true; }
+  } else if (cur !== body) {
+    writeFileSync(path, body);
+    console.log("✓ public/data/release-status.json");
+  } else {
+    console.log("· public/data/release-status.json already in sync");
+  }
+}
+
 if (CHECK) {
   if (stale) process.exit(1);
   console.log(`✓ roadmap in sync — ${NEXT.version} is "${STAGES[NEXT.stage]}"`);

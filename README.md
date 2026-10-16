@@ -120,6 +120,31 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Homepage hero pill — release status (2026-10-16)
+
+The hero pill above the headline says where the app is, in a visitor's words
+(user request: show when an update is in review):
+
+| State | Pill | Links to |
+|---|---|---|
+| A version is with Apple | **Coming soon in 1.3:** PlainMind on iPad | `/roadmap/` |
+| First 14 days after release | **New in 1.3:** PlainMind on iPad | `/releases/` |
+| Otherwise | **Now on the App Store** · v1.2 | App Store |
+
+- **Rule:** `functions/_lib/release-pill.js` (one pure function).
+- **Live version:** Apple's public iTunes Lookup, fetched by the Pages Function
+  `functions/api/app-status.js` (edge-cached 15 min) — not by the visitor's
+  browser: the CSP allows same-origin only, and loading the homepage should not
+  ping Apple.
+- **Stage + words:** `tools/sync-roadmap.mjs` writes
+  `public/data/release-status.json` from `NEXT.stage` and `HERO_HEADLINES`.
+  Add a version's line to `HERO_HEADLINES` when its scope locks.
+- **Cannot drift:** "Coming soon" needs stage `submitted` AND Apple still
+  serving an older version, so a release nobody marks flips to "New in" on its
+  own. No answer from Apple → the static "Now on the App Store" stays.
+- Also: the Collections feature block's eyebrow said "New in 1.1" — now
+  "Collections".
+
 ## ✅ PUSHED — 1.3 submitted to App Review 2026-10-16; the held roadmap commits went live that day
 
 ~~**Do not push this repo until 1.3 is submitted for review in App Store Connect.**~~ Submitted 2026-10-16 (build 159); pushed.

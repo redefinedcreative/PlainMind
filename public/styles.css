@@ -551,6 +551,12 @@ button { font: inherit; }
   border-radius: var(--radius-pill);
   font-size: 13px; font-weight: 600;
 }
+/* The hero pill is a link (release status, js/release-pill.js). The lead
+   ("Coming soon in 1.3:") carries the weight; the headline after it is
+   regular, so the pill reads as one short sentence. */
+.pill--link { text-decoration: none; gap: 0.3em; font-weight: 500; transition: background-color 0.2s ease; }
+.pill--link strong { font-weight: 700; }
+.pill--link:hover, .pill--link:focus-visible { background: color-mix(in srgb, var(--accent-soft) 70%, var(--accent-readable) 12%); }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center;

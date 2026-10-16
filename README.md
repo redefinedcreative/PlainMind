@@ -123,12 +123,14 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 ## ⏸ HELD — 1.3 "submitted" roadmap commit (2026-10-16): push only when 1.3 is submitted
 
 **Do not push this repo until 1.3 is submitted for review in App Store Connect.**
-Pushing publishes it (Cloudflare Pages). One commit is held:
+Pushing publishes it (Cloudflare Pages). Two commits are held:
 
 - `/roadmap`: 1.3's chip moves from "in test" to **"with Apple for review"**
   (`stage: "submitted"` in `tools/sync-roadmap.mjs`, page re-stamped), and the
   1.3 list gains **"A first run that sets you up"** so it matches
   `ReleaseNotes.all` in the app. All three `--check`s pass.
+- `/roadmap`: 1.4 gains **"Contents for long articles"** (reading-mode table
+  of contents, assigned to 1.4 by the user 2026-10-16) — second held commit.
 
 On submit: `git push`. On release: Phase 9 as for 1.2 below.
 

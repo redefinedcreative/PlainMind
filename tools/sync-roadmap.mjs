@@ -109,6 +109,10 @@ const AFTER = {
       body: "Mark the passages that matter in a saved article and find them again later.",
     },
     {
+      title: "Contents for long articles",
+      body: "Jump to any section of a saved article in reading mode — and, while it's being read aloud, the voice follows you there.",
+    },
+    {
       title: "Ask Siri for a save",
       body: "Find what you saved from Siri or a Home Screen search — by what it was about, not just its title. Worked out on your device.",
     },

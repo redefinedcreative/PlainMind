@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <title>PlainMind — Save anything. Find it later.</title>
-  <meta name="description" content="PlainMind is a calm, private place to save the links, music, places, PDFs, and ideas you want to remember. Save from any iOS app in one tap, then find it later." />
+  <title>PlainMind — Save anything. It sorts itself.</title>
+  <meta name="description" content="PlainMind is a calm, private place to save links, music, places, PDFs and ideas — and it sorts itself. When the same phrase keeps turning up in your notes, PlainMind offers to gather those saves into a collection, on your device." />
 
   <link rel="canonical" href="https://plainmind.app/" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="PlainMind — Save anything. Find it later." />
-  <meta property="og:description" content="A calm, private place to save what matters. Save from any iOS app in one tap, then find it later. Free on the App Store." />
+  <meta property="og:title" content="PlainMind — Save anything. It sorts itself." />
+  <meta property="og:description" content="Save from any app in one tap. PlainMind sorts it by what it is, and offers collections when your notes keep coming back to the same thing — privately, on your device. Free on the App Store." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://plainmind.app/" />
   <meta property="og:image" content="https://plainmind.app/assets/og/og-home.png?v=2" />
@@ -22,8 +22,8 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PlainMind — Save anything. Find it later." />
-  <meta name="twitter:description" content="A calm, private place to save what matters. Save from any iOS app in one tap, then find it later." />
+  <meta name="twitter:title" content="PlainMind — Save anything. It sorts itself." />
+  <meta name="twitter:description" content="Save from any app in one tap. PlainMind sorts it, and offers collections when your notes keep coming back to the same thing — on your device." />
   <meta name="twitter:image" content="https://plainmind.app/assets/og/og-home.png?v=2" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
@@ -65,7 +65,7 @@
     "name": "PlainMind",
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "iOS",
-    "description": "A calm, private place to save the links, music, places, PDFs, and ideas you want to remember. Save from any iOS app in one tap, then find it later.",
+    "description": "A calm, private place to save links, music, places, PDFs and ideas. PlainMind sorts what you save by what it is, and offers collections when your notes keep coming back to the same thing — on your device.",
     "url": "https://plainmind.app/",
     "downloadUrl": "https://apps.apple.com/app/id6780289082",
     "installUrl": "https://apps.apple.com/app/id6780289082",
@@ -178,13 +178,13 @@
         <a class="pill pill--link" data-release-pill href="https://apps.apple.com/app/id6780289082"><strong>Now on the App Store</strong></a>
         <h1 class="display hero-title" id="hero-title">
           <span class="hero-line">
-            <span class="word">Save</span> <span class="word">what</span> <span class="word">matters.</span>
+            <span class="word">Save</span> <span class="word">anything.</span>
           </span>
           <span class="hero-line hero-line--accent">
-            <em class="accent"><span class="word">Find</span> <span class="word">it</span> <span class="word">later.</span></em>
+            <em class="accent"><span class="word">It</span> <span class="word">sorts</span> <span class="word">itself.</span></em>
           </span>
         </h1>
-        <p class="lede">A calm, private place for the links, music, places, and ideas you want to remember. Save from any app in one tap — then find it again when you need it.</p>
+        <p class="lede">Add a few words when you save. When the same phrase keeps turning up, PlainMind offers to gather those saves into a collection — from your words alone, on your device. Turn on suggestions and it starts noticing.</p>
 
         <div class="store-cta">
           <a href="https://apps.apple.com/app/id6780289082" class="btn btn-primary store-cta__btn">Get PlainMind</a>
@@ -208,7 +208,247 @@
       </div>
 
       <div class="hero-visual">
-        <div class="hero-demo" data-demo-stage aria-hidden="true">
+        <div class="phone-mock phone-mock--collections anim-host">
+            <div class="phone-mock__notch"></div>
+            <div class="phone-mock__screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <span class="status-bar__icons">
+                  <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                  <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <div class="lib-header">
+                <span class="lib-header__select">Select</span>
+                <span class="lib-header__title">Library</span>
+                <span class="lib-header__tools"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M6 12h12M9 17h6"/></svg><svg class="icon"><use href="#icon-more" /></svg></span>
+              </div>
+
+              <div class="coll-suggest">
+                <span class="coll-suggest__eyebrow"><svg class="icon"><use href="#icon-folder" /></svg>Suggested collection</span>
+                <p class="coll-suggest__body">Three of your notes mention <strong>attention</strong>.</p>
+                <span class="coll-suggest__btns">
+                  <span class="coll-btn">Not now</span>
+                  <span class="coll-btn coll-btn--primary">Create</span>
+                </span>
+              </div>
+
+              <div class="coll-chip"><svg class="icon"><use href="#icon-folder" /></svg>Collection: Attention<span class="coll-chip__x">✕</span></div>
+
+              <ul class="lib-list coll-list">
+                <li class="lib-item coll-row" style="--fc: var(--filter-link);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">The quiet case for doing less</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>fieldnotes.blog · Yesterday</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-place);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Shoreline Trail, north entrance</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-place" /></svg>Opens at sunrise · Fri</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row" style="--fc: var(--filter-text);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Reading list for the winter</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-text" /></svg>Note · Fri</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-image);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Kitchen shelf, morning light</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-image" /></svg>Image · Thu</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row" style="--fc: var(--filter-link);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Notes on keeping a commonplace book</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>marginalia.press · Wed</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row" style="--fc: var(--filter-text);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Attention is the whole asset</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-text" /></svg>Note · Wed</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-pdf);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Tenancy agreement — signed</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-pdf" /></svg>PDF · Wed</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row" style="--fc: var(--filter-link);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Deep work, in practice</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>fieldnotes.blog · Tue</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-music);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Nocturnes — Chopin</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-music" /></svg>Maria João Pires · Tue</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+              </ul>
+              <div class="mock-tabbar">
+                <span class="mock-tabs">
+                  <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
+                  <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
+                  <span class="mock-tab"><svg class="icon"><use href="#icon-search" /></svg>Search</span>
+                </span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         How it works
+         ==================================================== -->
+    <section id="how-it-works" class="how container" aria-labelledby="how-title">
+      <h2 class="sr-only" id="how-title">How it works</h2>
+      <ol class="how-grid reveal">
+        <li class="how-step">
+          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-upload" /></svg></span>
+          <h3 class="how-step__title">Save from anywhere</h3>
+          <p class="how-step__body">From any app, in one tap through the iOS share sheet. PlainMind captures it instantly.</p>
+        </li>
+        <li class="how-step">
+          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-folder" /></svg></span>
+          <h3 class="how-step__title">Collections that make themselves</h3>
+          <p class="how-step__body">Sorted by what it is the moment it lands — then grouped by what your notes keep coming back to. It reads only the notes you write, only on your device.</p>
+        </li>
+        <li class="how-step">
+          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-search" /></svg></span>
+          <h3 class="how-step__title">Find anything, fast</h3>
+          <p class="how-step__body">On-device search reaches inside titles, text, and PDFs to surface what you remember.</p>
+        </li>
+        <li class="how-step">
+          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-shield" /></svg></span>
+          <h3 class="how-step__title">Private, local-first</h3>
+          <p class="how-step__body">Everything stays on your device by default. Your library is yours alone.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ====================================================
+         Feature blocks
+         ==================================================== -->
+    <section id="features" class="features container" aria-labelledby="features-title">
+      <h2 class="sr-only" id="features-title">Features</h2>
+
+      <article class="feature-block feature-block--image-left">
+        <div class="feature-block__visual">
+          <div class="phone-mock phone-mock--library anim-host">
+            <div class="phone-mock__notch"></div>
+            <div class="phone-mock__screen">
+              <div class="status-bar">
+                <span>9:41</span>
+                <span class="status-bar__icons">
+                  <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
+                  <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
+                </span>
+              </div>
+              <div class="lib-header">
+                <span class="lib-header__select">Select</span>
+                <span class="lib-header__title">Library</span>
+                <span class="lib-header__tools"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M6 12h12M9 17h6"/></svg><svg class="icon"><use href="#icon-more" /></svg></span>
+              </div>
+              <div class="lib-section">October 2026</div>
+              <ul class="lib-list">
+                <li class="lib-item lib-anim" style="--fc: var(--filter-link);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">The quiet case for doing less</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>fieldnotes.blog · Yesterday</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-place);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Shoreline Trail, north entrance</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-place" /></svg>Opens at sunrise · Fri</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-image);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Kitchen shelf, morning light</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-image" /></svg>Image · Fri</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-pdf);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Tenancy agreement — signed</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-pdf" /></svg>PDF · Thu</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-text);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Reading list for the winter</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-text" /></svg>Note · Thu</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-link);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Notes on keeping a commonplace book</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>marginalia.press · Wed</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-music);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Nocturnes — Chopin</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-music" /></svg>Maria João Pires · Wed</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-image);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Hallway paint swatches</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-image" /></svg>Image · Tue</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+                <li class="lib-item lib-anim" style="--fc: var(--filter-link);">
+                  <span class="lib-item__main">
+                    <span class="lib-item__title">Web design + local SEO for home service businesses</span>
+                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>Redefined Creative · Tue</span>
+                  </span>
+                  <span class="lib-thumb"></span>
+                </li>
+              </ul>
+              <div class="mock-tabbar">
+                <span class="mock-tabs">
+                  <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
+                  <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
+                  <span class="mock-tab"><svg class="icon"><use href="#icon-search" /></svg>Search</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-block__text reveal">
+          <p class="eyebrow">Auto-organized</p>
+          <h3 class="display-sm feature-title"><span>A library that</span> <em class="accent">stays calm.</em></h3>
+          <p class="body-md">Everything you save is sorted by what it is — links, places, images, PDFs, text. No tagging, no folders, no decisions in the moment. Come back to a library that's already in order.</p>        </div>
+      </article>
+
+      <article class="feature-block feature-block--image-right">
+        <div class="feature-block__visual">
+          <div class="hero-demo" data-demo-stage aria-hidden="true">
           <div class="hero-phone__glow"></div>
           <div class="demo-phone">
             <div class="demo-phone__frame">
@@ -355,251 +595,11 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ====================================================
-         How it works
-         ==================================================== -->
-    <section id="how-it-works" class="how container" aria-labelledby="how-title">
-      <h2 class="sr-only" id="how-title">How it works</h2>
-      <ol class="how-grid reveal">
-        <li class="how-step">
-          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-upload" /></svg></span>
-          <h3 class="how-step__title">Save from anywhere</h3>
-          <p class="how-step__body">From any app, in one tap through the iOS share sheet. PlainMind captures it instantly.</p>
-        </li>
-        <li class="how-step">
-          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-folder" /></svg></span>
-          <h3 class="how-step__title">Auto-organized by type</h3>
-          <p class="how-step__body">Links, music, places, PDFs, images, text — sorted by what it is. No tagging, no folders.</p>
-        </li>
-        <li class="how-step">
-          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-search" /></svg></span>
-          <h3 class="how-step__title">Find anything, fast</h3>
-          <p class="how-step__body">On-device search reaches inside titles, text, and PDFs to surface what you remember.</p>
-        </li>
-        <li class="how-step">
-          <span class="how-step__icon" aria-hidden="true"><svg class="icon"><use href="#icon-shield" /></svg></span>
-          <h3 class="how-step__title">Private, local-first</h3>
-          <p class="how-step__body">Everything stays on your device by default. Your library is yours alone.</p>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ====================================================
-         Feature blocks
-         ==================================================== -->
-    <section id="features" class="features container" aria-labelledby="features-title">
-      <h2 class="sr-only" id="features-title">Features</h2>
-
-      <article class="feature-block feature-block--image-left">
-        <div class="feature-block__visual">
-          <div class="phone-mock phone-mock--library anim-host">
-            <div class="phone-mock__notch"></div>
-            <div class="phone-mock__screen">
-              <div class="status-bar">
-                <span>9:41</span>
-                <span class="status-bar__icons">
-                  <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
-                  <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
-                </span>
-              </div>
-              <div class="lib-header">
-                <span class="lib-header__select">Select</span>
-                <span class="lib-header__title">Library</span>
-                <span class="lib-header__tools"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M6 12h12M9 17h6"/></svg><svg class="icon"><use href="#icon-more" /></svg></span>
-              </div>
-              <div class="lib-section">October 2026</div>
-              <ul class="lib-list">
-                <li class="lib-item lib-anim" style="--fc: var(--filter-link);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">The quiet case for doing less</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>fieldnotes.blog · Yesterday</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-place);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Shoreline Trail, north entrance</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-place" /></svg>Opens at sunrise · Fri</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-image);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Kitchen shelf, morning light</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-image" /></svg>Image · Fri</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-pdf);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Tenancy agreement — signed</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-pdf" /></svg>PDF · Thu</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-text);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Reading list for the winter</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-text" /></svg>Note · Thu</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-link);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Notes on keeping a commonplace book</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>marginalia.press · Wed</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-music);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Nocturnes — Chopin</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-music" /></svg>Maria João Pires · Wed</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-image);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Hallway paint swatches</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-image" /></svg>Image · Tue</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item lib-anim" style="--fc: var(--filter-link);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Web design + local SEO for home service businesses</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>Redefined Creative · Tue</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-              </ul>
-              <div class="mock-tabbar">
-                <span class="mock-tabs">
-                  <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
-                  <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
-                  <span class="mock-tab"><svg class="icon"><use href="#icon-search" /></svg>Search</span>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="feature-block__text reveal">
-          <p class="eyebrow">Auto-organized</p>
-          <h3 class="display-sm feature-title"><span>A library that</span> <em class="accent">stays calm.</em></h3>
-          <p class="body-md">Everything you save is sorted by what it is — links, places, images, PDFs, text. No tagging, no folders, no decisions in the moment. Come back to a library that's already in order.</p>        </div>
-      </article>
-
-      <article class="feature-block feature-block--image-right">
-        <div class="feature-block__visual">
-          <div class="phone-mock phone-mock--collections anim-host">
-            <div class="phone-mock__notch"></div>
-            <div class="phone-mock__screen">
-              <div class="status-bar">
-                <span>9:41</span>
-                <span class="status-bar__icons">
-                  <svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true"><path fill="currentColor" d="M2 6h2v6H2zM6 4h2v8H6zM10 2h2v10h-2zM14 0h2v12h-2z"/></svg>
-                  <svg viewBox="0 0 24 12" width="22" height="11" aria-hidden="true"><rect x="1" y="2" width="20" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="14" height="4" fill="currentColor"/></svg>
-                </span>
-              </div>
-              <div class="lib-header">
-                <span class="lib-header__select">Select</span>
-                <span class="lib-header__title">Library</span>
-                <span class="lib-header__tools"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M6 12h12M9 17h6"/></svg><svg class="icon"><use href="#icon-more" /></svg></span>
-              </div>
-
-              <div class="coll-suggest">
-                <span class="coll-suggest__eyebrow"><svg class="icon"><use href="#icon-folder" /></svg>Suggested collection</span>
-                <p class="coll-suggest__body">Three of your notes mention <strong>attention</strong>.</p>
-                <span class="coll-suggest__btns">
-                  <span class="coll-btn">Not now</span>
-                  <span class="coll-btn coll-btn--primary">Create</span>
-                </span>
-              </div>
-
-              <div class="coll-chip"><svg class="icon"><use href="#icon-folder" /></svg>Collection: Attention<span class="coll-chip__x">✕</span></div>
-
-              <ul class="lib-list coll-list">
-                <li class="lib-item coll-row" style="--fc: var(--filter-link);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">The quiet case for doing less</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>fieldnotes.blog · Yesterday</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-place);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Shoreline Trail, north entrance</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-place" /></svg>Opens at sunrise · Fri</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row" style="--fc: var(--filter-text);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Reading list for the winter</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-text" /></svg>Note · Fri</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-image);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Kitchen shelf, morning light</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-image" /></svg>Image · Thu</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row" style="--fc: var(--filter-link);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Notes on keeping a commonplace book</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>marginalia.press · Wed</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row" style="--fc: var(--filter-text);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Attention is the whole asset</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-text" /></svg>Note · Wed</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-pdf);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Tenancy agreement — signed</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-pdf" /></svg>PDF · Wed</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row" style="--fc: var(--filter-link);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Deep work, in practice</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-link" /></svg>fieldnotes.blog · Tue</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-                <li class="lib-item coll-row coll-row--out" style="--fc: var(--filter-music);">
-                  <span class="lib-item__main">
-                    <span class="lib-item__title">Nocturnes — Chopin</span>
-                    <span class="lib-item__meta"><svg class="icon lib-item__glyph"><use href="#icon-music" /></svg>Maria João Pires · Tue</span>
-                  </span>
-                  <span class="lib-thumb"></span>
-                </li>
-              </ul>
-              <div class="mock-tabbar">
-                <span class="mock-tabs">
-                  <span class="mock-tab mock-tab--active"><svg class="icon"><use href="#icon-library" /></svg>Library</span>
-                  <span class="mock-tab"><svg class="icon"><use href="#icon-settings" /></svg>Settings</span>
-                  <span class="mock-tab"><svg class="icon"><use href="#icon-search" /></svg>Search</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="feature-block__text reveal">
-          <p class="eyebrow">Collections</p>
-          <h3 class="display-sm feature-title"><span>Collections that</span> <em class="accent">make themselves.</em></h3>
-          <p class="body-md">Write a note in your own words, and when the same phrase turns up across a few saves, PlainMind offers to group them. You never file anything — items join and leave on their own as your notes change. It reads only the notes you write, only on your device, and it stays off until you turn it on.</p>
+          <p class="eyebrow">Capture</p>
+          <h3 class="display-sm feature-title"><span>Save from</span> <em class="accent">any app.</em></h3>
+          <p class="body-md">Tap Share, then PlainMind — from Safari, Photos, Maps, Music or anywhere else. Add a few words if you like; they're what your collections are made from. You never file anything: items join and leave collections on their own as your notes change, and suggestions stay off until you turn them on.</p>
         </div>
       </article>
 
@@ -871,7 +871,7 @@
 
         <div class="store-cta store-cta--final reveal">
           <a href="https://apps.apple.com/app/id6780289082" class="btn btn-primary store-cta__btn">Get PlainMind</a>
-          <p class="store-cta__note">Free on the App Store. Save anything. Find it later.</p>
+          <p class="store-cta__note">Free on the App Store. Save anything. It sorts itself.</p>
         </div>
 
         <ul class="trust-signals trust-signals--centered">
@@ -937,6 +937,7 @@
   <script src="js/hero.js" defer></script>
   <script src="js/reveal.js" defer></script>
   <script src="js/share-demo.js" defer></script>
+  <script src="js/collections-demo.js" defer></script>
   <script src="js/parallax.js" defer></script>
   <script src="js/release-pill.js" defer></script>
 </body>

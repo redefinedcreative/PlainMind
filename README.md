@@ -120,6 +120,37 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Collections lead the homepage (2026-10-18)
+
+User feedback came back twice, unprompted, naming auto-grouped collections as
+THE standout feature. User decisions the same day: collections become the
+primary positioning; the site changes **now, honest about 1.3** (suggestions
+are still off by default until 1.4); the hero headline is replaced.
+
+- **Hero:** "Save anything. / *It sorts itself.*" (was "Save what matters. Find
+  it later."). The lede says how it actually works — your own words, on your
+  device — and that suggestions are something you turn on. `<title>`, meta,
+  Open Graph, Twitter and JSON-LD descriptions follow.
+- **Hero visual:** the collections mock (suggestion offered → accepted → the
+  library narrows), swapped in from the Collections feature block. It replays
+  on a calm loop in the hero only (`js/collections-demo.js`; the feature mocks
+  still play once). The beat is held by `.coll-offer`, a class of its own —
+  `.in-view` also drives the phone's entrance fade, and reusing it hid the whole
+  phone. The suggestion is held 3 s so it outlasts that fade.
+- **The share-sheet demo** moved down into that block, now "Save from *any
+  app.*", whose copy carries the collections detail (notes are what
+  collections are made from; suggestions stay off until you turn them on).
+- **How it works,** step 2: "Collections that make themselves".
+- **Not wording it as AI** or "automatically groups your saves": it groups by
+  the words the user writes. Overclaiming loses exactly the people who loved it.
+- **When 1.4 ships** (suggestions on by default for new installs): drop "Turn on
+  suggestions and it starts noticing" and "suggestions stay off until you turn
+  them on"; update the press kit's "Off until you ask".
+- Checked: desktop + 375-wide (no horizontal scroll), the hero loop frames, the
+  share demo in its new block, no console errors. The local preview pane does
+  not finish the headline's entrance animation; real iOS Safari (simulator)
+  shows it fully.
+
 ## 1.3 release day (2026-10-18)
 
 1.3 was approved by Apple on 2026-10-17 and released by the user on

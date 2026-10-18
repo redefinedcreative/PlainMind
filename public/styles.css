@@ -1681,7 +1681,10 @@ button { font: inherit; }
 .coll-chip .icon { width: 9px; height: 9px; }
 .coll-chip__x { opacity: 0.65; margin-left: 1px; }
 
-/* Beat one is the library as it already is, with the suggestion offered above
+/* The hero's copy replays (js/collections-demo.js): `.coll-offer` holds beat
+   one — the suggestion offered — and lifting it plays beat two. It is a class of
+   its own because `.in-view` also carries the phone's entrance fade.
+   Beat one is the library as it already is, with the suggestion offered above
    it — which is where the app puts it. Beat two accepts: the card collapses,
    the chip appears, and the rows that do not match fold away. The library
    never appears from nothing, because it was never empty. */
@@ -1698,12 +1701,12 @@ button { font: inherit; }
               margin 0.45s var(--ease-out), padding 0.45s var(--ease-out),
               border-width 0.45s var(--ease-out);
 }
-.phone-mock--collections.in-view .coll-suggest {
+.phone-mock--collections.in-view:not(.coll-offer) .coll-suggest {
   opacity: 0; max-height: 0; margin-top: 0; margin-bottom: 0;
   padding-top: 0; padding-bottom: 0; border-width: 0; transition-delay: 1.8s;
 }
-.phone-mock--collections.in-view .coll-chip { opacity: 1; transform: none; transition-delay: 2.1s; }
-.phone-mock--collections.in-view .coll-row--out {
+.phone-mock--collections.in-view:not(.coll-offer) .coll-chip { opacity: 1; transform: none; transition-delay: 2.1s; }
+.phone-mock--collections.in-view:not(.coll-offer) .coll-row--out {
   opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; transition-delay: 2.0s;
 }
 

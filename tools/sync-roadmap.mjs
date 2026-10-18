@@ -97,6 +97,11 @@ const NEXT = {
  * in 1.3: …"). The rule is functions/_lib/release-pill.js; this only supplies
  * the words and the stage. Add the next version's line when its scope locks;
  * leave past lines in place. */
+/* The version on the App Store and the day it was released (App Store
+ * Connect → History), set on release day in Phase 9. Only the hero pill's
+ * fallback when Apple's lookup refuses the site's server. */
+const LIVE = { version: "1.3", releaseDate: "2026-10-18T19:22:00Z" };
+
 const HERO_HEADLINES = {
   "1.3": "PlainMind on iPad",
   "1.4": "PlainMind on the Mac",
@@ -258,6 +263,7 @@ for (const t of TARGETS) {
   const path = join(ROOT, "public/data/release-status.json");
   const body = JSON.stringify({
     next: { version: NEXT.version, stage: NEXT.stage },
+    live: LIVE,
     headlines: HERO_HEADLINES,
   }, null, 2) + "\n";
   let cur = "";

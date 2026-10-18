@@ -140,6 +140,14 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - Press kit: current version 1.3 — October 18, 2026; "What else is new in 1.2"
   replaced by "What's new in 1.3".
 - Pushed.
+- **The pill had stopped working, silently.** `/api/app-status` answered
+  `ok:false`; the new `why` field showed Apple's lookup returns **HTTP 403 to
+  Cloudflare's servers** (200 from anywhere else, with or without a
+  User-Agent). The Function now sends a User-Agent and, when Apple still
+  refuses, falls back to `live` in `release-status.json` — the version and
+  App Store Connect release time written on release day (`LIVE` in
+  `sync-roadmap.mjs`, a Phase 9 step from now on). Apple's answer wins when it
+  gets through.
 
 ## Homepage hero pill — release status (2026-10-16)
 

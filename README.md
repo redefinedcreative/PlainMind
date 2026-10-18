@@ -120,6 +120,27 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## 1.3 release day (2026-10-18)
+
+1.3 was approved by Apple on 2026-10-17 and released by the user on
+2026-10-18 at 2:22 PM (App Store Connect history). Phase 9 of
+`docs/RELEASE_PROCESS.md` (iOS repo), all on the day:
+
+- `/releases` and the Released tab: 1.3 added at the top, its notes taken word
+  for word from `ReleaseNotes.all` in the app.
+- `/roadmap`: **Next is 1.4, stage "in development"** — Mac, a copy that
+  outlives the link (Pro), highlights, contents for long articles, Ask Siri for
+  a save, tidy your sources, and (new) feedback with diagnostics. **"The one
+  after" is off the page** (`AFTER = null`): 1.5 is only candidates, and a
+  numbered release made of candidates would promise what nobody decided.
+- Hero pill: `HERO_HEADLINES["1.4"] = "PlainMind on the Mac"`, ready for when
+  1.4 is submitted. Apple's lookup still answered 1.2 at release time (its cache
+  lags), so the pill reads "Now on the App Store · v1.2" until Apple reports
+  1.3, then "New in 1.3: PlainMind on iPad" for 14 days — by itself.
+- Press kit: current version 1.3 — October 18, 2026; "What else is new in 1.2"
+  replaced by "What's new in 1.3".
+- Pushed.
+
 ## Homepage hero pill — release status (2026-10-16)
 
 The hero pill above the headline says where the app is, in a visitor's words

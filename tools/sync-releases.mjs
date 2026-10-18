@@ -24,6 +24,26 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    "id": "v1-3",
+    "version": "1.3",
+    "iso": "2026-10-18",
+    "date": "18 October 2026",
+    "headline": "PlainMind, whole on iPad.",
+    "items": [
+      "iPad gets everything iPhone has: Search with every filter, your collections in the sidebar, the collection suggestions, and a source filter. Recently Saved and Unopened now show exactly that.",
+      "Reading mode. Open a saved article and get just its title and its words — no images, no panels, nothing else.",
+      "Listen. PlainMind reads a saved article aloud with your device's own voices, and keeps reading with your phone locked. Nothing leaves your device. Pro.",
+      "Bring your bookmarks. Import the bookmarks file from Safari (Reading List included), Chrome, Firefox, Pocket or Instapaper. Each link keeps the date you saved it, and anything already in PlainMind is skipped.",
+      "Give a collection an icon, and put your collections in the order you want. Pro.",
+      "A new first run. It shows you how saving, sorting and finding work, sets up PlainMind in your share sheet one step at a time, then walks you through your first save — and opens it for you. Your library starts empty: no sample items.",
+      "New saves show up in Spotlight straight away, and Delete All Data now clears PlainMind from Spotlight too.",
+      "On iPad, keyboard shortcuts (⌘1, ⌘2, ⌘F), Spotlight results and links now open where they should.",
+      "Pro on a new device: if iCloud sync is waiting for PlainMind to restart, it now says so — once when it happens, and in Settings — instead of quietly keeping a separate library.",
+      "Fixed: a collection could be made twice when the names differed only in capitals, like “Orlando” and “orlando”.",
+      "PlainMind is smaller to download."
+    ]
+  },
+  {
     "id": "v1-2",
     "version": "1.2",
     "iso": "2026-10-15",

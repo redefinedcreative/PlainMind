@@ -56,59 +56,13 @@ const STAGES = {
  * what is actually coming, and the dev list is the thing it has to agree with.
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
-  version: "1.3",
-  stage: "submitted",
-  lede: "PlainMind, whole on iPad — and a few things that make your library feel like yours.",
-  items: [
-    {
-      title: "PlainMind on iPad, properly",
-      body: "Everything the iPhone has, laid out for a bigger screen: search, your collections in the sidebar, and the filters that narrow your library. Not a stretched phone screen.",
-    },
-    {
-      title: "Collection icons and ordering",
-      body: "Give a collection its own symbol, and put your collections in the order you think of them. Pro.",
-    },
-    {
-      title: "Bring your bookmarks with you",
-      body: "Import a bookmarks file from Safari, Chrome, Firefox, Pocket or Instapaper, and every link arrives as an ordinary save.",
-    },
-    {
-      title: "Just the words",
-      body: "Open a saved article as nothing but its title and text, full length — no images, no page clutter, nothing between you and what you saved.",
-    },
-    {
-      title: "Listen to what you saved",
-      body: "Have a saved article read aloud — the same words, start to finish — on your device, with nothing sent anywhere. Pro.",
-    },
-    {
-      title: "A first run that sets you up",
-      body: "PlainMind shows you how saving, sorting and finding work, puts itself in your share sheet one step at a time, and walks you through your first save.",
-    },
-  ],
-};
-
-/* ── Homepage hero pill ──────────────────────────────────────────────────────
- * One short line per version — what the hero pill says while the version is
- * with Apple ("Coming soon in 1.3: …") and for two weeks after it ships ("New
- * in 1.3: …"). The rule is functions/_lib/release-pill.js; this only supplies
- * the words and the stage. Add the next version's line when its scope locks;
- * leave past lines in place. */
-const HERO_HEADLINES = {
-  "1.3": "PlainMind on iPad",
-};
-
-/* ── The release after next ──────────────────────────────────────────────────
- * 1.4 — assigned in the iOS repo's docs/ROADMAP.md (2026-10-13, widened
- * 2026-10-15). Its items left Exploring when they got a number, so nothing is
- * listed twice. */
-const AFTER = {
   version: "1.4",
-  label: "Mac & reading",
+  stage: "building",
   lede: "PlainMind on the Mac, and the reading tools that make a saved article worth coming back to.",
   items: [
     {
       title: "PlainMind on Mac",
-      body: "The same library, on a bigger screen, without a phone in the middle.",
+      body: "The same library, on a bigger screen, without a phone in the middle — and Share to PlainMind right in Safari's Share menu.",
     },
     {
       title: "A copy that outlives the link",
@@ -130,8 +84,29 @@ const AFTER = {
       title: "Tidy your sources",
       body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are — only how they're listed changes.",
     },
+    {
+      title: "Feedback that arrives with what we need",
+      body: "Send feedback attaches a small diagnostics file — app health only, never your titles, links or notes. It's right there in the email, and you can remove it before you send.",
+    },
   ],
 };
+
+/* ── Homepage hero pill ──────────────────────────────────────────────────────
+ * One short line per version — what the hero pill says while the version is
+ * with Apple ("Coming soon in 1.3: …") and for two weeks after it ships ("New
+ * in 1.3: …"). The rule is functions/_lib/release-pill.js; this only supplies
+ * the words and the stage. Add the next version's line when its scope locks;
+ * leave past lines in place. */
+const HERO_HEADLINES = {
+  "1.3": "PlainMind on iPad",
+  "1.4": "PlainMind on the Mac",
+};
+
+/* ── The release after next ──────────────────────────────────────────────────
+ * Null until a release after 1.4 is actually scoped: 1.5 is only candidates in
+ * the iOS repo's docs/ROADMAP.md, and listing candidates as a numbered release
+ * would promise what nobody has decided. The group is left off the page. */
+const AFTER = null;
 
 /* ── Exploring ───────────────────────────────────────────────────────────── */
 const EXPLORING = {
@@ -229,7 +204,7 @@ function upcoming() {
       lede: NEXT.lede,
       list: NEXT.items,
     }),
-    group({
+    AFTER && group({
       title: "The one after",
       chip: `${AFTER.version} · ${AFTER.label}`,
       lede: AFTER.lede,
@@ -241,7 +216,7 @@ function upcoming() {
       lede: EXPLORING.lede,
       list: EXPLORING.items,
     }),
-  ].join("\n\n");
+  ].filter(Boolean).join("\n\n");
 }
 
 function notPlanned() {

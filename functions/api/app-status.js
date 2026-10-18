@@ -22,13 +22,19 @@ function json(data, cacheSeconds) {
 
 export async function onRequestGet({ request, env }) {
   let live = null;
+  // Why there is no pill, when there is none — no secrets, just the upstream
+  // status, so a silent fallback can be diagnosed from the outside.
+  let why = null;
   try {
     const res = await fetch(LOOKUP, { cf: { cacheTtl: UPSTREAM_TTL, cacheEverything: true } });
     if (res.ok) {
       const r = (await res.json()).results?.[0];
       if (r?.version) live = { version: r.version, releaseDate: r.currentVersionReleaseDate || null };
+      else why = "lookup: no result";
+    } else {
+      why = `lookup: HTTP ${res.status}`;
     }
-  } catch (e) { /* live stays null → no pill change */ }
+  } catch (e) { why = `lookup: ${e && e.name ? e.name : "error"}`; }
 
   let status = null;
   try {
@@ -37,5 +43,6 @@ export async function onRequestGet({ request, env }) {
   } catch (e) { /* status stays null → the plain pill */ }
 
   const pill = pillFor(live, status);
-  return json({ ok: !!pill, pill }, pill ? CACHE_TTL : 0);
+  return json(pill ? { ok: true, pill } : { ok: false, pill, why: why || (status ? "no live version" : "no status") },
+              pill ? CACHE_TTL : 0);
 }

@@ -457,4 +457,5 @@ if (WANT_EXPORT) {
 }
 
 rmSync(TMP, { recursive: true, force: true });
-console.log("\nNext: node tools/make-og-cards.mjs   (the cards embed plainmind-light.png)\n");
+console.log("\nNext: node tools/make-og-cards.mjs   (the cards embed plainmind-light.png)\n" +
+            "Then: node tools/logo-guard.mjs --stamp   (re-pins the images and gives them new URLs, so no browser keeps the old ones)\n");

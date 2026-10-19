@@ -120,6 +120,31 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## The old logo can't come back (2026-10-19)
+
+The user saw the retired fanned-cards mark in their own browser. Every logo
+file on the site was already the current circle-backed mark (each is
+byte-identical to a fresh `make-logo-assets.mjs` render). The browser had kept
+the old files: until 2026-10-12, `/assets/*` was served `immutable` for a
+year, so it never asked again, and the later `no-cache` header could not reach
+it. Every returning visitor from before that date was in the same position.
+
+- **`tools/logo-guard.mjs` (new).** Every reference to a logo image (favicon,
+  touch icon, header and footer icon, press-kit icons, Open Graph cards) now
+  carries the image's content hash, for example `favicon-32.png?v=6a28cbfd`.
+  A new image is a new URL, so a cached copy can't outlive it.
+- **The check** (`node tools/logo-guard.mjs`) fails when:
+  - a logo image differs from its pin in `tools/logo-manifest.json` (anything
+    not made by the generator), or
+  - any page references a logo without the current stamp.
+- **After regenerating** the logos, run `--stamp`. `make-logo-assets.mjs` now
+  says so.
+- **Outside this repo:**
+  - the old-mark files in Drive moved to `_Retired/`
+  - `Branding/PlainMind_Brand.md` names the current mark and its one source
+  - the app's Xcode Cloud build now fails if the old icon set returns
+    (`ci_scripts/check_app_icon.sh`)
+
 ## Accessibility pass (WCAG AA), a real serif everywhere, and the critique's fixes (2026-10-19)
 
 User decisions, 2026-10-19:

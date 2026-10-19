@@ -62,11 +62,11 @@ const NEXT = {
   items: [
     {
       title: "PlainMind on Mac",
-      body: "The same library, on a bigger screen, without a phone in the middle — and Share to PlainMind right in Safari's Share menu.",
+      body: "The same library, on a bigger screen, without a phone in the middle, and Share to PlainMind right in Safari's Share menu.",
     },
     {
       title: "A copy that outlives the link",
-      body: "Keep a complete, readable copy of a saved page — text and images — so when a site goes away, your save doesn't. Pro.",
+      body: "Keep a complete, readable copy of a saved page (text and images) so when a site goes away, your save doesn't. Pro.",
     },
     {
       title: "Highlights and notes in what you read",
@@ -74,19 +74,19 @@ const NEXT = {
     },
     {
       title: "Contents for long articles",
-      body: "Jump to any section of a saved article in reading mode — and, while it's being read aloud, the voice follows you there.",
+      body: "Jump to any section of a saved article in reading mode. While it's being read aloud, the voice follows you there.",
     },
     {
       title: "Ask Siri for a save",
-      body: "Find what you saved from Siri or a Home Screen search — by what it was about, not just its title. Worked out on your device.",
+      body: "Find what you saved from Siri or a Home Screen search, by what it was about, not just its title. Worked out on your device.",
     },
     {
       title: "Tidy your sources",
-      body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are — only how they're listed changes.",
+      body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are. Only how they're listed changes.",
     },
     {
       title: "Feedback that arrives with what we need",
-      body: "Send feedback attaches a small diagnostics file — app health only, never your titles, links or notes. It's right there in the email, and you can remove it before you send.",
+      body: "Send feedback attaches a small diagnostics file: app health only, never your titles, links or notes. It's right there in the email, and you can remove it before you send.",
     },
   ],
 };
@@ -115,7 +115,7 @@ const AFTER = null;
 
 /* ── Exploring ───────────────────────────────────────────────────────────── */
 const EXPLORING = {
-  lede: "Real candidates with real groundwork behind them. Which of these lands — and when — depends on what people actually ask for.",
+  lede: "Real candidates with real groundwork behind them. Which of these lands, and when, depends on what people actually ask for.",
   items: [
     {
       title: "PlainMind on iPhone Duo",
@@ -123,7 +123,7 @@ const EXPLORING = {
     },
     {
       title: "Search in your own words",
-      body: "Type \u201cthat recipe I saved in the spring\u201d and PlainMind turns it into the right filters — on your device, nothing sent anywhere.",
+      body: "Type \u201cthat recipe I saved in the spring\u201d and PlainMind turns it into the right filters, on your device, with nothing sent anywhere.",
     },
     {
       title: "Photos you can search",
@@ -159,7 +159,7 @@ const NOT_PLANNED = [
   },
   {
     title: "Sending your library to an AI",
-    body: "Collections are found by literal phrase matching, on your device. Nothing you save is sent anywhere to be analysed — that's what makes the privacy promise true rather than aspirational.",
+    body: "Collections are found by literal phrase matching, on your device. Nothing you save is sent anywhere to be analysed. That's what makes the privacy promise true rather than aspirational.",
   },
   {
     title: "A feed, recommendations, or anything social",
@@ -167,7 +167,7 @@ const NOT_PLANNED = [
   },
   {
     title: "A public voting board",
-    body: "We tried one. It went stale, which is worse than not having it. Email is slower and more honest — and a person reads every one.",
+    body: "We tried one. It went stale, which is worse than not having it. Email is slower and more honest, and a person reads every one.",
   },
 ];
 

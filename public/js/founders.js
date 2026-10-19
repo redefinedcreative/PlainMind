@@ -17,7 +17,7 @@
       welcome: "Only <strong>{n}</strong> of 200 founding spots left.",
     },
     full: {
-      signup: "Founding spots are full — join the waitlist for launch.",
+      signup: "Founding spots are full. Join the waitlist for launch.",
       welcome: "All 200 founding spots are claimed.",
     },
   };

@@ -31,14 +31,14 @@ const RELEASES = [
     "headline": "PlainMind, whole on iPad.",
     "items": [
       "iPad gets everything iPhone has: Search with every filter, your collections in the sidebar, the collection suggestions, and a source filter. Recently Saved and Unopened now show exactly that.",
-      "Reading mode. Open a saved article and get just its title and its words — no images, no panels, nothing else.",
+      "Reading mode. Open a saved article and get just its title and its words. No images, no panels, nothing else.",
       "Listen. PlainMind reads a saved article aloud with your device's own voices, and keeps reading with your phone locked. Nothing leaves your device. Pro.",
       "Bring your bookmarks. Import the bookmarks file from Safari (Reading List included), Chrome, Firefox, Pocket or Instapaper. Each link keeps the date you saved it, and anything already in PlainMind is skipped.",
       "Give a collection an icon, and put your collections in the order you want. Pro.",
-      "A new first run. It shows you how saving, sorting and finding work, sets up PlainMind in your share sheet one step at a time, then walks you through your first save — and opens it for you. Your library starts empty: no sample items.",
+      "A new first run. It shows you how saving, sorting and finding work, sets up PlainMind in your share sheet one step at a time, then walks you through your first save, and opens it for you. Your library starts empty: no sample items.",
       "New saves show up in Spotlight straight away, and Delete All Data now clears PlainMind from Spotlight too.",
       "On iPad, keyboard shortcuts (⌘1, ⌘2, ⌘F), Spotlight results and links now open where they should.",
-      "Pro on a new device: if iCloud sync is waiting for PlainMind to restart, it now says so — once when it happens, and in Settings — instead of quietly keeping a separate library.",
+      "Pro on a new device: if iCloud sync is waiting for PlainMind to restart, it now says so (once when it happens, and in Settings) instead of quietly keeping a separate library.",
       "Fixed: a collection could be made twice when the names differed only in capitals, like “Orlando” and “orlando”.",
       "PlainMind is smaller to download."
     ]
@@ -51,14 +51,14 @@ const RELEASES = [
     "headline": "A library that keeps itself in order.",
     "items": [
       "Search is faster, especially in larger libraries.",
-      "Rename a source. Call it whatever you call it — the name follows you to your other devices. Pro.",
-      "One site, one source. Mobile and AMP versions of a page — and links like youtu.be — now group with everything else from that site instead of sitting apart. Your existing saves are tidied up too.",
-      "Collections now introduce themselves. When a phrase keeps turning up in your notes, PlainMind offers to group those saves — once, in your library, and only when it has actually found something.",
-      "Pin a search. Build a search you want to keep, pin it, and it becomes a collection that stays current on its own — free, like the collections PlainMind suggests.",
-      "A collection can match more than one phrase. The thing you're collecting rarely has one name — add the others and they all count. Pro.",
-      "When two collections drift into holding the same saves, PlainMind notices and offers to merge them — and asks which of the two names the merged list should keep. Pro.",
-      "Archive a collection you're done with. It keeps matching and keeps syncing — it's just off the list, with everything waiting when you put it back. Pro.",
-      "Saves from Instagram and other social apps read properly now: the handle and the date the post went up, then the post itself. Like and comment counts are gone — they were only ever true for a moment. Your existing saves are tidied up too."
+      "Rename a source. Call it whatever you call it, and the name follows you to your other devices. Pro.",
+      "One site, one source. Mobile and AMP versions of a page, and links like youtu.be, now group with everything else from that site instead of sitting apart. Your existing saves are tidied up too.",
+      "Collections now introduce themselves. When a phrase keeps turning up in your notes, PlainMind offers to group those saves: once, in your library, and only when it has actually found something.",
+      "Pin a search. Build a search you want to keep, pin it, and it becomes a collection that stays current on its own. Free, like the collections PlainMind suggests.",
+      "A collection can match more than one phrase. The thing you're collecting rarely has one name. Add the others and they all count. Pro.",
+      "When two collections drift into holding the same saves, PlainMind notices and offers to merge them, and asks which of the two names the merged list should keep. Pro.",
+      "Archive a collection you're done with. It keeps matching and keeps syncing. It's just off the list, with everything waiting when you put it back. Pro.",
+      "Saves from Instagram and other social apps read properly now: the handle and the date the post went up, then the post itself. Like and comment counts are gone. They were only ever true for a moment. Your existing saves are tidied up too."
     ]
   },
   {
@@ -68,14 +68,14 @@ const RELEASES = [
     "date": "9 October 2026",
     "headline": "Collections that make themselves, and a calmer library.",
     "items": [
-      "Collections — when the same phrase turns up across a few of your notes, PlainMind offers to group those saves. Nothing to file: items join and leave on their own as your notes change.",
+      "Collections: when the same phrase turns up across a few of your notes, PlainMind offers to group those saves. Nothing to file: items join and leave on their own as your notes change.",
       "Filter by where something came from. Images, PDFs and text remember their source now, not just links. Collections and sources both live in the ⋯ menu at the top of your library.",
-      "Item pages are one scrolling page, with full-width artwork at the top — closer to the Music app than a stack of cards.",
+      "Item pages are one scrolling page, with full-width artwork at the top, closer to the Music app than a stack of cards.",
       "Saved articles read like a reader view, with the full text in place.",
       "Search and Power search are one screen. Same name, all the filters.",
       "Links bring back more: article text, author, music genre and duration, and the page a PDF or image came from.",
       "“Stored data” on any item shows exactly what PlainMind has kept, field by field, with sizes.",
-      "Library rows are shorter — about nine fit on screen instead of five — with three sort orders and an A–Z index.",
+      "Library rows are shorter (about nine fit on screen instead of five), with three sort orders and an A–Z index.",
       "Face ID can lock the app, with an auto-lock delay you choose.",
       "Fixed: some saves never reached iCloud. Everything syncs now.",
       "Fixed: sharing an image or PDF shares the actual file instead of a text document.",
@@ -90,7 +90,7 @@ const RELEASES = [
     "headline": "The first release.",
     "items": [
       "Save links, images, PDFs, text, music, podcasts, places and video from any app, in one tap through the share sheet.",
-      "Everything sorts itself by what it is — no tagging, no folders, no decisions in the moment.",
+      "Everything sorts itself by what it is: no tagging, no folders, no decisions in the moment.",
       "Search across titles, your own notes, and the text inside what you saved.",
       "Local-first: your library lives on your device. iCloud sync across your devices with Pro.",
       "No feed, no algorithm, no recommendations. Your library is yours."

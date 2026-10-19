@@ -83,7 +83,7 @@
             throw new Error((res.d && res.d.error) || "Something went wrong. Please try again.");
           }
           try { sessionStorage.setItem("pm-signup-email", email); } catch (e) {}
-          setStatus("success", "You're in — taking you to the next step…");
+          setStatus("success", "You're in. Taking you to the next step…");
           setTimeout(function () { window.location.href = "/welcome/"; }, 750);
         })
         .catch(function (err) {
@@ -107,7 +107,7 @@
       // No token yet: show a verifying state and continue automatically once it lands.
       waiting = true;
       setLoading(true);
-      setStatus("pending", "Just a moment — verifying you're human…");
+      setStatus("pending", "Just a moment, verifying you're human…");
 
       var waited = 0;
       clearInterval(pollTimer);
@@ -118,7 +118,7 @@
           if (waiting) { waiting = false; send(email); }
         } else if (waited >= 12000) {
           clearInterval(pollTimer);
-          fail("Couldn't verify you're human — please check your connection and try again.");
+          fail("Couldn't verify you're human. Please check your connection and try again.");
         }
       }, 250);
     }

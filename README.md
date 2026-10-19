@@ -120,6 +120,86 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## No em dashes; phone mocks rebuilt to the app's measurements (2026-10-19)
+
+User request: remove every em dash from the site (it reads as AI copy) and make
+the phone mocks match the app's type, size and spacing as closely as a web page
+can.
+
+- **Em dashes: 0 visible on every page.** Each one was rewritten by hand (comma,
+  colon, period, parentheses or " | " in `<title>`), not swapped for a hyphen.
+  This also covers the generators (`tools/sync-releases.mjs`,
+  `tools/sync-roadmap.mjs`, which both pass `--check`), the strings in
+  `js/founders.js`, `js/signup.js` and `js/welcome-plus.js`, and
+  `functions/api/subscribe.js`. Code comments still contain em dashes; they
+  never render.
+- **How the mocks were matched.** `tools/capture-mocks.mjs` (new) screenshots
+  each `.phone-mock__screen` at one pixel per app point. Those shots were
+  compared side by side with iOS 27 6.3" simulator captures of the app
+  (`SiteCompareCaptureTests` in the iOS repo), and every value was taken from
+  the app's code or measured off those captures. The tool loads lazy artwork,
+  and `MOCK_CSS` can hold a mock in a chosen state.
+- **Fixes that apply to every mock:**
+  - The screen is now the device's true 402:874. It had been 22pt too tall,
+    which put everything anchored to the bottom in the wrong place.
+  - Status bar: 17pt semibold, with real signal, Wi-Fi and battery glyphs in the
+    positions iOS uses.
+  - Glass toolbar buttons are 44pt.
+  - The tab bar is the iOS 27 size: 62pt tall, 25pt glyphs, 10pt labels in the
+    primary colour.
+  - Text tracking is corrected. CoreText spaces text by its rendered size, so a
+    phone drawn at 65% picked up loose small-text spacing and ran about 6% wide
+    (SF) and 4.5% wide (New York). `--track-sans` and `--track-serif` correct
+    this, and Safari now truncates rows exactly where the app does.
+- **Library and Collections:**
+  - The meta line is the caption size (12pt), 4pt apart, with a tertiary dot.
+  - Rows are 64pt, with the month header spaced as in the app.
+  - Thumbnails replace the flat squares: artwork, tinted glyph tiles for notes,
+    PDFs and places, and favicon tiles.
+  - The suggestion card is the shipped `CollectionSuggestionCard`, using its
+    real copy.
+- **Search** is rebuilt as the app's focused state:
+  - The field and close button.
+  - The glass facets card in serif.
+  - A 2×2 grid of Quick searches cards.
+  - The Suggested searches header, subtitle and a suggested row.
+  - The iOS 27 keyboard, measured.
+- **Settings** is rebuilt from the 1.0 layout to today's:
+  - The plan card.
+  - Your Library: the Collections card and the Stats, Duplicates, Trash and
+    Most Revisited grid.
+  - The Privacy & Security switches, which now settle on once as the phone
+    arrives (replacing the iCloud sync ring).
+- **Detail:**
+  - The summary and the Read · 1 min pill replace "Full text".
+  - The Saved and Opened rows are added.
+  - Nav buttons are 44pt glass.
+  - Open Link is the deep-teal accent surface.
+- **Dead CSS removed.** About 160 lines of the pre-D7 `.detail-*`, recents and
+  keyboard rules went. One of them,
+  `.phone-mock--detail .phone-mock__screen { padding: 30px 4px 14px }`, still
+  applied and was offsetting the detail mock.
+- **Footer fix:** at 375px wide the footer links ran 34px past the screen on
+  every page. This was live before this change. `.site-footer__links` now
+  wraps.
+- **Known limit: fonts outside Safari.** The serif shows as New York only in
+  Safari (macOS and iOS). Chrome can't reach New York at all, by name or with
+  `local()` (tested), so Chrome, Firefox and Windows show Iowan Old Style or
+  Georgia. That applies to the whole site's serif, headlines included. The fix
+  is a self-hosted lookalike web font, which is not done yet (see the
+  conversation of 2026-10-19).
+- **Left for 1.4 release day:**
+  - The hero's "Collection: Attention" chip is the 1.3 filter. 1.4 opens the
+    collection instead.
+  - The Settings footer copy in the app still has an em dash.
+- Checked:
+  - Every mock side by side with the app in Chrome, in light and dark.
+  - The library mock in iOS 27 Safari (real New York and SF).
+  - No horizontal scroll at 375px wide on `/`, `/press/`, `/releases/`,
+    `/roadmap/`, `/welcome/` and `/help/`.
+  - No console errors other than `/api/app-status`, which is a Cloudflare
+    function and doesn't exist on a static server.
+
 ## Collections lead the homepage (2026-10-18)
 
 User feedback came back twice, unprompted, naming auto-grouped collections as

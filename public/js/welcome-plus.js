@@ -203,7 +203,7 @@
     var text = "You're one of the first 200 founders.";
     var eyebrow = "You're one of the first 200 founders";
     if (stage === "counting" && typeof claimed === "number") {
-      text = "Founder — " + claimed + " of " + cap + " claimed so far.";
+      text = "Founder: " + claimed + " of " + cap + " claimed so far.";
       eyebrow = claimed + " of " + cap + " founders so far";
     } else if (stage === "full") {
       text = "All " + cap + " founding spots are claimed.";

@@ -83,7 +83,7 @@ export async function onRequestPost({ request, env }) {
       request.headers.get("CF-Connecting-IP")
     );
     if (!human) {
-      return json({ ok: false, error: "Verification failed — please try again." }, 403);
+      return json({ ok: false, error: "Verification failed. Please try again." }, 403);
     }
   }
 
@@ -104,7 +104,7 @@ export async function onRequestPost({ request, env }) {
       body: JSON.stringify(payload),
     });
     if (!res.ok) {
-      return json({ ok: false, error: "Couldn't save your details — please try again." }, 502);
+      return json({ ok: false, error: "Couldn't save your details. Please try again." }, 502);
     }
     contact = await res.json().catch(() => ({}));
   } catch (e) {

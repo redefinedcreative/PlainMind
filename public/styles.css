@@ -706,6 +706,14 @@ button { font: inherit; }
    =========================================================== */
 .store-cta { width: 100%; max-width: 460px; }
 .store-cta__btn { min-height: 52px; font-size: 16px; padding-inline: 28px; }
+/* Apple's own "Download on the App Store" badge, unmodified (black on light,
+   white on dark, from toolbox.marketingtools.apple.com). Apple asks for at
+   least 40px of height on screen and clear space of a quarter of the height
+   around it; 54px tall leaves 13px, which the margins below keep. */
+.store-badge { display: inline-flex; padding: 0; margin: 14px 0; border-radius: 9px; line-height: 0; }
+.store-badge img { height: 54px; width: auto; }
+.store-badge:focus-visible { outline: 2px solid var(--accent-readable); outline-offset: 4px; }
+.store-cta--final .store-badge { margin-inline: auto; }
 .store-cta__note {
   margin: 12px 0 0;
   font-size: 14px;

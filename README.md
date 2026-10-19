@@ -191,6 +191,17 @@ keyboard letters included.
 - Mocks are 340px wide from 1024px up. They were 272px, which rendered the
   app's 12pt caption at 7.8px.
 
+**App Store badge.** The hero and the finale use Apple's own "Download on
+the App Store" badge in place of a "Get PlainMind" button:
+- `public/assets/badges/`: black on light and white on dark, via the
+  `.light-only` and `.dark-only` swap.
+- The files are unmodified, from `toolbox.marketingtools.apple.com`; the
+  black one is identical to the one on developer.apple.com.
+- It is 54px tall, inside Apple's 40px minimum, with a quarter-height of
+  clear space around it.
+- The link is labelled "Download PlainMind on the App Store".
+- The header keeps its compact "Get PlainMind" button.
+
 **`/try/` (new).** The practice page the 1.5 app's onboarding opens for the
 first save, so a new user isn't sent to a homepage that tells them to "Get
 PlainMind". It is noindex and not in the sitemap. It must be live before 1.5

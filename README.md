@@ -120,6 +120,88 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Accessibility pass (WCAG AA), a real serif everywhere, and the critique's fixes (2026-10-19)
+
+User decisions, 2026-10-19:
+- Accessibility must be a pass.
+- The critique's critical and consistency items get built. Collections in the
+  main nav is the one recommendation held back.
+- Site fixes ship as soon as they're built. Anything describing 1.4 or 1.5
+  waits for its release day.
+
+**The pass check.** `tools/a11y-scan.mjs` (new) scans every page in light and
+dark, at desktop and phone widths, for:
+- text contrast against the composited background
+- images without alt text
+- links and buttons without names
+- a missing `lang`
+- targets under 24px (WCAG 2.5.8)
+
+The baseline had 1,126 failures; it now reports **0 failures**. Text over a
+gradient can't be judged by a script, so it is listed for checking by eye.
+Only `/welcome/` has any (the founding pass and the founding section); those
+were checked from screenshots in both themes.
+
+**Contrast.**
+- Light secondary text goes from 0.64 to 0.74, and tertiary from 0.44 to 0.70.
+  Dark tertiary goes from 0.42 to 0.55.
+- The new `--accent-ink` (#436A6B) is for text on the Mist Teal tint.
+  `--accent-readable` measured 4.25:1 there.
+- The new `--sage-ink` is for success text.
+
+**Targets.** Header and footer links get padding, and the footer social
+circles are 44px.
+
+**Phone mocks for screen readers.** Each mock is now `role="img"` with a
+one-line description. Before this, VoiceOver read every string inside them,
+keyboard letters included.
+
+**Serif outside Safari.**
+- Source Serif 4 (OFL; `public/fonts/`, 122 KB upright plus 130 KB italic) is
+  self-hosted as "PM Serif".
+- `size-adjust: 104.5%` matches New York's x-height and cap height.
+- The stack is `ui-serif, "New York", "PM Serif", Georgia`, so Safari keeps
+  New York and never downloads the web font. Chrome, Firefox and Windows were
+  falling back to Iowan Old Style or Georgia.
+- `/fonts/*` is cached for 30 days.
+
+**Homepage (critique: critical and consistency).**
+- The hero phone stayed half empty after the suggestion beat, because four
+  rows fold away. Four more matching rows now keep it full.
+- The detail mock showed a Redefined Creative agency page. It is now the
+  app's own sample, "The quiet case for doing less" (fieldnotes.blog), with
+  the layered-hills artwork drawn in CSS. `rc-preview.jpg` and
+  `rc-favicon.png` are no longer referenced.
+- The hero intro now says what PlainMind is (save from any app on iPhone or
+  iPad, in one tap) before the collections hook. It still says suggestions
+  are a setting, which is true for 1.3.
+- The "A library that stays calm" section is gone, because the hero already
+  shows the library. Four feature sections remain, alternating sides, and
+  their label pills are removed.
+- The teal italic accent is kept for the hero and the finale only.
+- Trust row: "Stays on your device / No item limit / Export anytime".
+- Privacy stats are static and concrete ("100% on your device by default /
+  0 trackers in the app / No account needed").
+- Taglines are down to two:
+  - the hero line, "Save anything. It sorts itself."
+  - the App Store subtitle, "Save anything. Find it later.", which the finale
+    now uses
+  - The footer's "A calmer way to capture what matters." is removed from
+    every page.
+- Mocks are 340px wide from 1024px up. They were 272px, which rendered the
+  app's 12pt caption at 7.8px.
+
+**`/try/` (new).** The practice page the 1.5 app's onboarding opens for the
+first save, so a new user isn't sent to a homepage that tells them to "Get
+PlainMind". It is noindex and not in the sitemap. It must be live before 1.5
+ships.
+
+**Left for release day:**
+- When 1.4 ships, the hero's "Collection: Attention" chip (the 1.3 filter)
+  and "with suggestions on" in the intro both change.
+- The 1.5 app's darker secondary text reaches the mocks via
+  `node tools/sync-app-tokens.mjs` once 1.5 ships.
+
 ## No em dashes; phone mocks rebuilt to the app's measurements (2026-10-19)
 
 User request: remove every em dash from the site (it reads as AI copy) and make

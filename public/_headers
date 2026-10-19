@@ -26,6 +26,10 @@
 # point `immutable` is true instead of merely hoped for.
 /assets/*
   Cache-Control: no-cache
+# Fonts change only when the file name does (the version is in no URL yet,
+# but a new font would get a new file name), so a month of cache is safe.
+/fonts/*
+  Cache-Control: public, max-age=2592000
 # JS/CSS are not fingerprinted yet, so revalidate on every load (ETag-based, fast)
 # to avoid serving stale code after a deploy. Bump to a long max-age + filename
 # hashing once the site is launched and changing less often.

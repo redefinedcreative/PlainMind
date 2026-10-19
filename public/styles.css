@@ -238,6 +238,24 @@
 
 /* app-tokens:end */
 
+/* Source Serif 4 (SIL Open Font License; public/fonts/LICENSE.md), Latin,
+   self-hosted because the CSP allows fonts from this origin only. Like New
+   York it has optical sizes. size-adjust 104.5% matches New York's x-height
+   and cap height (measured: 45.2 vs 47.1, 67.0 vs 70.5 at 100px), which also
+   brings a 17pt semibold row title to within 2% of New York's width. */
+@font-face {
+  font-family: "PM Serif"; font-style: normal; font-weight: 200 900; font-display: swap;
+  src: url("/fonts/source-serif-4-latin.woff2") format("woff2");
+  size-adjust: 104.5%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "PM Serif"; font-style: italic; font-weight: 200 900; font-display: swap;
+  src: url("/fonts/source-serif-4-latin-italic.woff2") format("woff2");
+  size-adjust: 104.5%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ===========================================================
    PlainMind — landing + site styles
    Light + dark via [data-theme]. Calm, editorial, anti-feed.
@@ -265,8 +283,12 @@
   --bg-card-soft: #FBF8F2;
   --bg-input: #FFFFFF;
   --text: var(--graphite);
-  --text-secondary: rgba(44, 49, 54, 0.64);
-  --text-tertiary: rgba(44, 49, 54, 0.44);
+  /* WCAG AA on every light surface (cream, soft cream, card, #EFEAE1):
+     secondary 5.19:1 at worst, tertiary 4.64:1. They were 0.64 and 0.44,
+     which measured 3.94 and 2.44 (2026-10-19). Tertiary is for fine print;
+     it stays readable and lets size carry the hierarchy. */
+  --text-secondary: rgba(44, 49, 54, 0.74);
+  --text-tertiary: rgba(44, 49, 54, 0.70);
   --divider: rgba(217, 210, 199, 0.5);        /* Stone — matches the app's 0.5pt hairline weight at 1px */
   --divider-strong: rgba(217, 210, 199, 0.7); /* card outlines (web tier) */
   --accent: var(--mist-teal);                 /* BrandAccent — decorative fills/strokes */
@@ -274,6 +296,10 @@
   --accent-on: #FFFFFF;                       /* BrandAccentSurfaceText — text/icon on --accent-readable */
   --accent-pressed: var(--mist-teal-deep);    /* BrandMistTealDeep — pressed/hover */
   --accent-soft: rgba(123, 175, 176, 0.14);   /* Mist Teal tint */
+  /* Text that sits ON the Mist Teal tint. --accent-readable is 4.25:1 there,
+     short of AA; this is 4.89:1 on the tint over cream and 6.0:1 on cream. */
+  --accent-ink: #436A6B;
+  --sage-ink: #4A7A51;                        /* success text: 4.53:1 on cream */
   --destructive: #B84A4A;                     /* BrandDestructive */
   --highlight: var(--soft-amber);
   --input-border: rgba(44, 49, 54, 0.16);
@@ -339,8 +365,8 @@
   --bg-card-soft: #2A3036;
   --bg-input: rgba(255, 255, 255, 0.05);
   --text: rgba(255, 255, 255, 0.92);
-  --text-secondary: rgba(255, 255, 255, 0.62);
-  --text-tertiary: rgba(255, 255, 255, 0.42);
+  --text-secondary: rgba(255, 255, 255, 0.62);   /* 6.15:1 at worst */
+  --text-tertiary: rgba(255, 255, 255, 0.55);    /* 5.19:1; was 0.42 (3.69) */
   --divider: rgba(217, 210, 199, 0.20);       /* BrandDivider dark — Stone @20% */
   --divider-strong: rgba(217, 210, 199, 0.35);
   --accent: #8FC5C6;                          /* BrandAccent dark */
@@ -348,6 +374,8 @@
   --accent-on: #2C3136;                       /* surface text on lifted teal (dark) */
   --accent-pressed: #7AB0B1;                  /* BrandMistTealDeep dark */
   --accent-soft: rgba(143, 197, 198, 0.15);
+  --accent-ink: #8FC5C6;
+  --sage-ink: #88BD8E;
   --destructive: #D46C6C;                     /* BrandDestructive dark */
   --highlight: var(--soft-amber);
   --sage-success: #88BD8E;
@@ -397,7 +425,10 @@
 
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);     /* PlainMind ease-out */
   --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1); /* gentle overshoot — pill only */
-  --font-display: "New York", ui-serif, "Iowan Old Style", Georgia, serif;
+  /* ui-serif IS New York, but only Safari understands it, and no other
+     browser can reach New York at all (tested by name and by local()). The
+     lookalike below fills in there; Safari never downloads it. */
+  --font-display: ui-serif, "New York", "PM Serif", Georgia, serif;
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
 }
 
@@ -534,7 +565,7 @@ button { font: inherit; }
 .eyebrow {
   display: inline-flex; align-items: center; align-self: flex-start;
   padding: 6px 14px; border-radius: var(--radius-pill);
-  background: var(--accent-soft); color: var(--accent-readable);
+  background: var(--accent-soft); color: var(--accent-ink);
   font-size: 13px; font-weight: 600;
   margin: 0 0 var(--space-lg);
 }
@@ -547,7 +578,7 @@ button { font: inherit; }
   display: inline-flex; align-items: center;
   padding: 6px 14px;
   background: var(--accent-soft);
-  color: var(--accent-readable);
+  color: var(--accent-ink);
   border-radius: var(--radius-pill);
   font-size: 13px; font-weight: 600;
 }
@@ -724,6 +755,7 @@ button { font: inherit; }
 }
 .site-nav { display: flex; align-items: center; gap: var(--space-2xl); margin-left: auto; }
 .site-nav a {
+  display: inline-block; padding: 6px 0;      /* a 24pt+ target (WCAG 2.5.8) */
   text-decoration: none; color: var(--text-secondary);
   font-size: 15px; font-weight: 500; transition: color 0.18s ease;
 }
@@ -1190,6 +1222,9 @@ button { font: inherit; }
 .feature-block .display-sm { margin-bottom: var(--space-md); }
 /* force the headline onto two lines: lead phrase, then accent phrase */
 .feature-title span, .feature-title .accent { display: block; }
+/* The teal italic is the hero's and the finale's. Used on every feature
+   headline too it stopped reading as emphasis (critique, 2026-10-19). */
+.feature-title .accent { font-style: normal; color: inherit; }
 
 @media (min-width: 760px) {
   .feature-block { flex-direction: row; align-items: center; }
@@ -1197,6 +1232,13 @@ button { font: inherit; }
   .feature-block--image-left  .feature-block__text   { order: 1; }
   .feature-block--image-right .feature-block__visual { order: 1; }
   .feature-block--image-right .feature-block__text   { order: 0; }
+}
+
+/* Wide screens get a larger phone: at 272px the app's 12pt caption renders
+   at 7.8px, unreadable at desktop distance. The scale is (frame - 2 bezels)
+   / 402, so the two move together and every length below follows. */
+@media (min-width: 1024px) {
+  :root { --mock-frame-width: 340px; --mock-scale: 0.8159; }
 }
 
 /* ═══ phone mocks ════════════════════════════════════════════════════════════
@@ -1513,6 +1555,13 @@ button { font: inherit; }
   overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
 }
 .d7-hero__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* The seeded article's artwork, as the app draws it: the same layered hills
+   the row thumbnails use, at hero size. */
+.d7-hero__art--hills {
+  background:
+    radial-gradient(ellipse 60% 45% at 12% 8%, rgb(255 255 255 / 0.5), transparent 70%),
+    linear-gradient(to bottom, var(--sky) 0 38%, var(--b1) 38% 52%, var(--b2) 52% 72%, var(--b3) 72% 100%);
+}
 /* The blur is a gradient-MASKED material, not a blurred copy of the artwork —
    one rectangle, and it cannot fall out of register with the image beneath. */
 .d7-band {
@@ -1572,6 +1621,11 @@ button { font: inherit; }
 .d7-favicon {
   width: calc(14 * var(--mock-scale) * 1px); height: calc(14 * var(--mock-scale) * 1px);
   border-radius: 2px; flex: none; object-fit: contain;
+}
+.d7-favicon--mono {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--mono); color: #fff; font-weight: 700;
+  font-size: calc(9 * var(--mock-scale) * 1px); line-height: 1;
 }
 
 /* D7GlassCard — the one SOLID surface. "Content is solid. Chrome is glass." */
@@ -2117,7 +2171,7 @@ button { font: inherit; }
 .site-footer__line { font-size: 14px; color: var(--text-secondary); margin: 0; font-style: italic; font-family: var(--font-display); }
 .site-footer__social { display: flex; gap: var(--space-sm); margin-left: auto; }
 .site-footer__social a {
-  width: 38px; height: 38px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
   color: var(--text-secondary); border: 1px solid var(--divider-strong);
   transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
@@ -2127,7 +2181,7 @@ button { font: inherit; }
 .site-footer__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-lg); }
 .site-footer__copy { font-size: 13px; color: var(--text-tertiary); margin: 0; }
 .site-footer__links { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-xl); }
-.site-footer__links a { text-decoration: none; color: var(--text-secondary); font-size: 13px; transition: color 0.18s ease; }
+.site-footer__links a { display: inline-block; padding: 4px 0; text-decoration: none; color: var(--text-secondary); font-size: 13px; transition: color 0.18s ease; }
 .site-footer__links a:hover { color: var(--text); }
 @media (max-width: 600px) {
   .site-footer__top { flex-direction: column; align-items: flex-start; }
@@ -2201,7 +2255,7 @@ button { font: inherit; }
 .press-contact { background: var(--bg-card); border: 1px solid var(--divider); border-radius: var(--radius-lg); padding: var(--space-xl); box-shadow: var(--card-shadow); position: sticky; top: 96px; }
 .press-contact h2 { font-family: var(--font-display); font-size: 20px; margin: 0 0 var(--space-sm); }
 .press-contact p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 var(--space-md); }
-.press-contact a { color: var(--accent-readable); font-weight: 600; }
+.press-contact a { display: inline-block; padding: 4px 0; color: var(--accent-readable); font-weight: 600; }
 .press-block { margin-bottom: var(--space-2xl); }
 .press-block h2 { font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; margin: 0 0 var(--space-md); }
 .press-downloads { display: flex; flex-wrap: wrap; gap: var(--space-md); }
@@ -2269,7 +2323,7 @@ button { font: inherit; }
 .step__num {
   flex: 0 0 auto; width: 36px; height: 36px; border-radius: 50%;
   display: grid; place-items: center;
-  background: var(--accent-soft); color: var(--accent-readable);
+  background: var(--accent-soft); color: var(--accent-ink);
   font-family: var(--font-display); font-weight: 600; font-size: 15px;
 }
 .step:not(:last-child) .step__rail::after { content: ""; flex: 1 1 auto; width: 1px; min-height: 18px; margin: 8px 0; background: var(--divider); }
@@ -2550,7 +2604,7 @@ html.intro-open { overflow: hidden; }
 .rm-chip { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em;
            padding: 0.25rem 0.6rem; border-radius: var(--radius-pill);
            color: var(--text-tertiary); border: 1px solid var(--divider); white-space: nowrap; }
-.rm-chip--next { color: var(--accent-readable); border-color: transparent;
+.rm-chip--next { color: var(--accent-ink); border-color: transparent;
                  background: var(--accent-soft); }
 .rm-chip--no { color: var(--text-tertiary); }
 

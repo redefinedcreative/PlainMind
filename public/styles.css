@@ -1856,7 +1856,7 @@ button { font: inherit; }
    its own because `.in-view` also carries the phone's entrance fade.
    Beat one is the library as it already is, with the suggestion offered above
    it — which is where the app puts it. Beat two accepts: the card collapses,
-   the chip appears, and the rows that do not match fold away. The library
+   the collection's page opens, and the rows that do not match fold away. The library
    never appears from nothing, because it was never empty. */
 .coll-row { max-height: var(--row-h); overflow: hidden; }
 .phone-mock--collections .coll-row {
@@ -1875,6 +1875,9 @@ button { font: inherit; }
 }
 .phone-mock--collections.in-view:not(.coll-offer) .coll-row--out {
   opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; transition-delay: 2.0s;
+  /* A folded row still sits between two list gaps; pulling it up by one keeps
+     the rows that stay exactly one gap apart (measured 69 → 60.4px). */
+  margin-top: calc(-1 * var(--row-gap));
 }
 
 /* Static state for anyone who would rather not watch anything move: the

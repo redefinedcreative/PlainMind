@@ -57,7 +57,7 @@ const STAGES = {
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
   version: "1.4",
-  stage: "building",
+  stage: "submitted",
   lede: "PlainMind on the Mac, and the reading tools that make a saved article worth coming back to.",
   items: [
     {

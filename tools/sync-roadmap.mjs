@@ -89,7 +89,13 @@ const NEXT = {
  * Connect → History), set on release day in Phase 9. Only the hero pill's
  * fallback when Apple's lookup refuses the site's server. */
 // RELEASE DAY: the ISO time from App Store Connect → History.
-const LIVE = { version: "1.4", releaseDate: "SET-ON-RELEASE-DAY" };
+const LIVE = { version: "1.5", releaseDate: "SET-ON-RELEASE-DAY" };
+if (NEXT.version === LIVE.version) {
+  // RELEASE DAY 1.5: replace NEXT with whatever is scoped next (1.6), or the
+  // roadmap would say the version that just shipped is "coming".
+  console.error(`sync-roadmap: NEXT is still ${NEXT.version}, the version now live. Set the next release.`);
+  process.exit(1);
+}
 if (!/^\d{4}-\d{2}-\d{2}T/.test(LIVE.releaseDate)) {
   console.error(`sync-roadmap: LIVE ${LIVE.version} has no release time yet. Set it on release day.`);
   process.exit(1);

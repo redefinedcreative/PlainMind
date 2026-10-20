@@ -22,6 +22,7 @@
 
   /* semantic colours — light (asset catalog) */
   --app-accent: #7BAFB0;
+  --app-accent-ink: #436A6B;
   --app-accent-readable: #4A7475;
   --app-accent-surface: #4A7475;
   --app-accent-surface-text: #FFFFFF;
@@ -32,21 +33,21 @@
   --app-highlight: #E5B24E;
   --app-mist-teal-deep: #6CA0A1;
   --app-primary: #2C3136;
-  --app-secondary: rgb(44 49 54 / 0.6);
+  --app-secondary: rgb(44 49 54 / 0.72);
   --app-stone: #D9D2C7;
-  --app-success: #6FA776;
-  --app-tertiary: rgb(44 49 54 / 0.4);
+  --app-success: #4A7A51;
+  --app-tertiary: rgb(44 49 54 / 0.7);
   --app-warm-cream-soft: #FBF8F2;
 
   /* content types — ContentType.iconColor, mode-independent */
-  --app-type-link: #5F8FA0;
-  --app-type-image: #9985A8;
+  --app-type-link: #5D8C9D;
+  --app-type-image: #927CA2;
   --app-type-pdf: #B86060;
-  --app-type-text: #BC9050;
-  --app-type-music: #BC7D90;
+  --app-type-text: #A87E40;
+  --app-type-music: #B67186;
   --app-type-podcast: #6E7DA8;
-  --app-type-location: #6EA86E;
-  --app-type-video: #C67158;
+  --app-type-location: #589358;
+  --app-type-video: #C56E54;
 
   /* spacing — Spacing (pt) */
   --app-space-xxs: 2;
@@ -219,6 +220,7 @@
 :root[data-theme="dark"] {
   /* semantic colours — dark (asset catalog) */
   --app-accent: #8FC5C6;
+  --app-accent-ink: #8FC5C6;
   --app-accent-readable: #8FC5C6;
   --app-accent-surface: #8FC5C6;
   --app-accent-surface-text: #2C3136;
@@ -232,7 +234,7 @@
   --app-secondary: rgb(255 255 255 / 0.6);
   --app-stone: rgb(217 210 199 / 0.2);
   --app-success: #88BD8E;
-  --app-tertiary: rgb(255 255 255 / 0.4);
+  --app-tertiary: rgb(255 255 255 / 0.55);
   --app-warm-cream-soft: #202428;
 }
 
@@ -1833,6 +1835,35 @@ button { font: inherit; }
   color: var(--accent-readable); font-weight: 500;
 }
 
+
+/* 1.5: the collection page opens with its header card (CollectionHeaderCard):
+   icon tile, count as an item title, what gathers it, where to add more. */
+.coll-head-card {
+  display: flex; gap: var(--sp-md); align-items: flex-start; flex: none;
+  background: var(--app-card-background); border-radius: var(--r-sheet);
+  padding: calc(14 * var(--mock-scale) * 1px) var(--sp-lg);
+  box-shadow: 0 calc(2 * var(--mock-scale) * 1px) calc(4 * var(--mock-scale) * 1px) rgba(0, 0, 0, 0.06);
+  max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; overflow: hidden;
+  transition: max-height 0.45s var(--ease-out), opacity 0.45s var(--ease-out), padding 0.45s var(--ease-out);
+}
+.phone-mock--collections.in-view:not(.coll-offer) .coll-head-card {
+  max-height: calc(140 * var(--mock-scale) * 1px); opacity: 1;
+  padding-top: calc(14 * var(--mock-scale) * 1px); padding-bottom: calc(14 * var(--mock-scale) * 1px);
+  transition-delay: 2s;
+}
+.coll-head-card__tile {
+  width: calc(30 * var(--mock-scale) * 1px); height: calc(30 * var(--mock-scale) * 1px); flex: none;
+  border-radius: var(--r-small); display: inline-flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--accent-readable) 12%, transparent); color: var(--accent-readable);
+}
+.coll-head-card__tile .icon { width: calc(15 * var(--mock-scale) * 1px); height: calc(15 * var(--mock-scale) * 1px); }
+.coll-head-card__text { display: flex; flex-direction: column; gap: var(--sp-xs); line-height: 1.25; }
+.coll-head-card__count {
+  font-family: var(--app-font-serif); letter-spacing: var(--track-serif); font-weight: 600;
+  font-size: var(--t-item); color: var(--phone-screen-text);
+}
+.coll-head-card__how { font-size: var(--t-sub); color: var(--phone-screen-meta); }
+.coll-head-card__hint { font-size: var(--t-meta); color: var(--phone-screen-meta); }
 
 /* 1.4: accepting a suggestion opens the collection, so beat two is its page:
    back, the collection's serif title, ⋯. The two headers share one slot. */

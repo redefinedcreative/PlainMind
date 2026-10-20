@@ -120,6 +120,27 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Release day 1.5: `release-day/1.5` (prepared 2026-10-20, branched from release-day/1.4)
+
+Merge on 1.5's release day, after 1.4's branch is in `main`.
+
+**What the branch changes:**
+- Collections copy, "sorts itself" → "or pick by hand", in four places:
+  - the intro
+  - How it works: "Collections, found or made"
+  - the capture section
+  - Help: "Can I make my own?"
+- The hero mock's collection page opens with the 1.5 header card.
+- The mocks take the 1.5 app colours: the darker greys and the adjusted type
+  colours, through `sync-app-tokens.mjs`.
+- The press kit has "What's new in 1.5".
+- The release history gains 1.5.
+
+**On the day:**
+- Fill the 1.5 dates, as for 1.4.
+- **Set `NEXT` to the next scoped release.** `sync-roadmap.mjs` refuses while
+  `NEXT` is still the version now live.
+
 ## Release day 1.4: this branch (prepared 2026-10-20, merge only when 1.4 is live)
 
 `release-day/1.4` holds every website change 1.4's release makes. Merge it on

@@ -1,14 +1,15 @@
 {
   "next": {
-    "version": "1.4",
+    "version": "1.5",
     "stage": "building"
   },
   "live": {
-    "version": "1.3",
-    "releaseDate": "2026-10-18T19:22:00Z"
+    "version": "1.4",
+    "releaseDate": "2026-10-20T17:47:00Z"
   },
   "headlines": {
     "1.3": "PlainMind on iPad",
-    "1.4": "PlainMind on the Mac"
+    "1.4": "Highlights and notes",
+    "1.5": "Make your own collections"
   }
 }

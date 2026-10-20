@@ -103,7 +103,8 @@ if (!/^\d{4}-\d{2}-\d{2}T/.test(LIVE.releaseDate)) {
 
 const HERO_HEADLINES = {
   "1.3": "PlainMind on iPad",
-  "1.4": "PlainMind on the Mac",
+  // MAC RELEASE DAY: "PlainMind on the Mac" once macOS 1.4 is out.
+  "1.4": "Highlights and notes",
   "1.5": "Make your own collections",
 };
 

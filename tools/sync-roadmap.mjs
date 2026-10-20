@@ -57,7 +57,7 @@ const STAGES = {
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
   version: "1.5",
-  stage: "building",
+  stage: "submitted",
   lede: "Collections your way, and a PlainMind that's easier for everyone to read and use.",
   items: [
     {

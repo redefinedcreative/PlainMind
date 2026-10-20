@@ -120,6 +120,44 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Release day 1.4: this branch (prepared 2026-10-20, merge only when 1.4 is live)
+
+`release-day/1.4` holds every website change 1.4's release makes. Merge it on
+the day Apple releases 1.4 (Phase 9), not before.
+
+**On the day:**
+1. Fill the three placeholders:
+   - `tools/sync-releases.mjs`, the 1.4 entry's `iso` and `date`
+   - `tools/sync-roadmap.mjs`, `LIVE.releaseDate` (ISO time from App Store
+     Connect → History)
+   - `public/press/index.html`, the version line's "SET ON RELEASE DAY"
+
+   Both scripts refuse to run while any of them is unfilled.
+2. Run `node tools/sync-releases.mjs && node tools/sync-roadmap.mjs`, then
+   `node tools/a11y-scan.mjs` and `node tools/logo-guard.mjs`.
+3. Merge into `main`, push, and tag the iOS repo `v1.4`.
+
+**What the branch changes:**
+- The roadmap's next release becomes 1.5 (custom collections and the
+  accessibility pass). 1.4 moves into the release history, with the app's
+  1.4 notes and no em dashes.
+- The hero pill gains a 1.5 line, "Make your own collections".
+- The homepage intro adds the Mac and drops "with suggestions on". 1.4 turns
+  suggestions on for new installs.
+- The capture section drops "suggestions stay off until you turn them on".
+- The finale repeats the hero headline. "Find it later." retires with the old
+  App Store subtitle.
+- The hero mock's second beat is the collection's own page (back, "Attention",
+  ⋯), because 1.4 opens a collection. The 1.3 filter chip and its styles are
+  removed.
+- The press kit:
+  - "for iPhone, iPad and Mac"
+  - version 1.4
+  - "What's new in 1.4"
+  - "Yours to switch off" replaces "Off until you ask"
+- Help says suggestions are on for new installs and where the switch is
+  (Settings → Privacy & Security → Suggest collections).
+
 ## The old logo can't come back (2026-10-19)
 
 The user saw the retired fanned-cards mark in their own browser. Every logo

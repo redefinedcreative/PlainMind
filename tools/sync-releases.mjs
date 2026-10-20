@@ -24,6 +24,27 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    // RELEASE DAY: set "iso" and "date" to the day Apple released it (App
+    // Store Connect → History). The script refuses to run until both are real.
+    "id": "v1-4",
+    "version": "1.4",
+    "iso": "SET-ON-RELEASE-DAY",
+    "date": "SET ON RELEASE DAY",
+    "headline": "PlainMind, made for reading.",
+    "items": [
+      "Reading mode has a table of contents. Long articles list their sections at the bottom of the page. Tap one to jump there. While Listen is reading, it jumps the voice there too.",
+      "Download a better voice while Listen is playing and it switches over at the next paragraph.",
+      "PlainMind on the Mac. Save from Safari with Share to PlainMind, and read your library in a window with the sidebar. One purchase covers iPhone, iPad and Mac, and Pro syncs all three.",
+      "The first run shows the device you're holding: an iPad on iPad, a Mac on the Mac.",
+      "Highlights and notes. In reading mode, select a passage and choose Highlight, and add a note if you like. Your highlights are listed on the item, and tapping one takes you back to it. Everything you've highlighted is together in Highlights, by article or passage by passage.",
+      "A copy that outlives the link. PlainMind keeps each article and its images, so if the page disappears from the web, your copy doesn't. See how much space it uses, or turn it off, in Settings. Pro.",
+      "Tidy your sources. Merge two sources that are really one site, and hide the ones that are just noise; your saves stay exactly as they are. Merging is Pro; hiding is free.",
+      "Siri and Spotlight know your saves as PlainMind items, and Siri can tell which one is on screen.",
+      "Collection suggestions are on from the start for new installs, and the first run introduces them first.",
+      "Send feedback attaches a diagnostics file with app health only: no titles, links or notes. It's right there in the email, and you can remove it before you send."
+    ]
+  },
+  {
     "id": "v1-3",
     "version": "1.3",
     "iso": "2026-10-18",
@@ -97,6 +118,23 @@ const RELEASES = [
     ]
   }
 ];
+
+for (const r of RELEASES) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(r.iso) || /SET/.test(r.date)) {
+    console.error(`sync-releases: ${r.version} has no release date yet ("${r.iso}"). Set it on release day.`);
+    process.exit(1);
+  }
+}
+
+// Release-day placeholders anywhere on the site (the press kit's version line)
+// must be filled before anything is stamped.
+import { globSync as _g } from "node:fs";
+for (const f of _g("public/**/*.html", { cwd: ROOT })) {
+  if (readFileSync(join(ROOT, f), "utf8").includes("SET ON RELEASE DAY")) {
+    console.error(`sync-releases: ${f} still says "SET ON RELEASE DAY".`);
+    process.exit(1);
+  }
+}
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 

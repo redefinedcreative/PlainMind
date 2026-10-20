@@ -56,37 +56,25 @@ const STAGES = {
  * what is actually coming, and the dev list is the thing it has to agree with.
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
-  version: "1.4",
+  version: "1.5",
   stage: "building",
-  lede: "PlainMind on the Mac, and the reading tools that make a saved article worth coming back to.",
+  lede: "Collections your way, and a PlainMind that's easier for everyone to read and use.",
   items: [
     {
-      title: "PlainMind on Mac",
-      body: "The same library, on a bigger screen, without a phone in the middle, and Share to PlainMind right in Safari's Share menu.",
+      title: "Make your own collections",
+      body: "Start a collection yourself and put any save in it by hand. It can also gather on its own: saves whose note mentions its name join by themselves.",
     },
     {
-      title: "A copy that outlives the link",
-      body: "Keep a complete, readable copy of a saved page (text and images) so when a site goes away, your save doesn't. Pro.",
+      title: "Take a save out of any collection",
+      body: "Even one PlainMind suggested. It stays out, and everything else the collection gathers keeps arriving.",
     },
     {
-      title: "Highlights and notes in what you read",
-      body: "Mark the passages that matter in a saved article and find them again later.",
+      title: "Collections that explain themselves",
+      body: "Each collection opens with what it gathers and how to add more, so you can see why a save is there.",
     },
     {
-      title: "Contents for long articles",
-      body: "Jump to any section of a saved article in reading mode. While it's being read aloud, the voice follows you there.",
-    },
-    {
-      title: "Ask Siri for a save",
-      body: "Find what you saved from Siri or a Home Screen search, by what it was about, not just its title. Worked out on your device.",
-    },
-    {
-      title: "Tidy your sources",
-      body: "Merge two sources that are really one site, and hide the ones that are just noise. Your saves stay exactly as they are. Only how they're listed changes.",
-    },
-    {
-      title: "Feedback that arrives with what we need",
-      body: "Send feedback attaches a small diagnostics file: app health only, never your titles, links or notes. It's right there in the email, and you can remove it before you send.",
+      title: "Easier to read, at any size",
+      body: "Text and buttons that meet the WCAG AA contrast standard in light and dark, Dynamic Type at every size including the largest, and VoiceOver that reads each save in full.",
     },
   ],
 };
@@ -100,11 +88,17 @@ const NEXT = {
 /* The version on the App Store and the day it was released (App Store
  * Connect → History), set on release day in Phase 9. Only the hero pill's
  * fallback when Apple's lookup refuses the site's server. */
-const LIVE = { version: "1.3", releaseDate: "2026-10-18T19:22:00Z" };
+// RELEASE DAY: the ISO time from App Store Connect → History.
+const LIVE = { version: "1.4", releaseDate: "SET-ON-RELEASE-DAY" };
+if (!/^\d{4}-\d{2}-\d{2}T/.test(LIVE.releaseDate)) {
+  console.error(`sync-roadmap: LIVE ${LIVE.version} has no release time yet. Set it on release day.`);
+  process.exit(1);
+}
 
 const HERO_HEADLINES = {
   "1.3": "PlainMind on iPad",
   "1.4": "PlainMind on the Mac",
+  "1.5": "Make your own collections",
 };
 
 /* ── The release after next ──────────────────────────────────────────────────

@@ -74,7 +74,7 @@ const mocks = await evaluate(`(async () => {
   const st = document.createElement('style');
   st.textContent = '*,*::before,*::after{transition:none!important;animation-play-state:paused!important}' +
     'html{scroll-behavior:auto!important}' +
-    '.phone-mock,.lib-anim,.coll-chip,.coll-row{opacity:1!important}.phone-mock{transform:none!important}';
+    '.phone-mock,.lib-anim,.coll-row{opacity:1!important}.phone-mock{transform:none!important}';
   st.textContent += ${JSON.stringify(process.env.MOCK_CSS || "")};
   document.head.appendChild(st);
   document.querySelectorAll('.phone-mock,.anim-host').forEach((e) => e.classList.add('in-view'));

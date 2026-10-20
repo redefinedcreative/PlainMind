@@ -158,6 +158,25 @@ the day Apple releases 1.4 (Phase 9), not before.
 - Help says suggestions are on for new installs and where the switch is
   (Settings → Privacy & Security → Suggest collections).
 
+## 1.4 released on iOS (2026-10-20); the Mac follows
+
+iOS 1.4 was released 2026-10-20 at 10:47 PT. macOS 1.4 was still waiting for
+review, so this release day shipped everything except the Mac: the site never
+offers a download nobody can get yet.
+
+**Mac release day** (the day macOS 1.4 is out), put these back:
+- `tools/sync-releases.mjs`, the 1.4 entry: add "PlainMind on the Mac. Save
+  from Safari with Share to PlainMind, and read your library in a window with
+  the sidebar. One purchase covers iPhone, iPad and Mac, and Pro syncs all
+  three." as the third item, and end the first-run item "an iPad on iPad, a
+  Mac on the Mac."
+- `tools/sync-roadmap.mjs`, `HERO_HEADLINES["1.4"]`: "PlainMind on the Mac".
+- `public/index.html`, the hero lede: "your iPhone, iPad or Mac".
+- `public/press/index.html`: "App: PlainMind for iPhone, iPad and Mac", and
+  the "PlainMind on the Mac." paragraph first under What's new in 1.4.
+- Then `node tools/sync-releases.mjs && node tools/sync-roadmap.mjs`,
+  `node tools/a11y-scan.mjs`, commit, push.
+
 ## The old logo can't come back (2026-10-19)
 
 The user saw the retired fanned-cards mark in their own browser. Every logo

@@ -88,8 +88,8 @@ const NEXT = {
 /* The version on the App Store and the day it was released (App Store
  * Connect → History), set on release day in Phase 9. Only the hero pill's
  * fallback when Apple's lookup refuses the site's server. */
-// RELEASE DAY: the ISO time from App Store Connect → History.
-const LIVE = { version: "1.4", releaseDate: "SET-ON-RELEASE-DAY" };
+// iOS 1.4: Ready for Distribution 2026-10-20 10:47 PT (App Store Connect → History).
+const LIVE = { version: "1.4", releaseDate: "2026-10-20T17:47:00Z" };
 if (!/^\d{4}-\d{2}-\d{2}T/.test(LIVE.releaseDate)) {
   console.error(`sync-roadmap: LIVE ${LIVE.version} has no release time yet. Set it on release day.`);
   process.exit(1);
@@ -97,7 +97,8 @@ if (!/^\d{4}-\d{2}-\d{2}T/.test(LIVE.releaseDate)) {
 
 const HERO_HEADLINES = {
   "1.3": "PlainMind on iPad",
-  "1.4": "PlainMind on the Mac",
+  // MAC RELEASE DAY: "PlainMind on the Mac" once macOS 1.4 is out.
+  "1.4": "Highlights and notes",
   "1.5": "Make your own collections",
 };
 

@@ -41,8 +41,10 @@ const CARDS = [
   {
     file: "og-home.png",
     eyebrow: "iOS · On the App Store",
-    line1: "Save what matters.",
-    line2: "Find it later.",
+    // The homepage's own headline (2026-10-19 tagline consolidation: the
+    // hero line and the App Store subtitle, nothing else).
+    line1: "Save anything.",
+    line2: "It sorts itself.",
   },
   {
     file: "og-download.png",

@@ -56,25 +56,13 @@ const STAGES = {
  * what is actually coming, and the dev list is the thing it has to agree with.
  * ────────────────────────────────────────────────────────────────────────── */
 const NEXT = {
-  version: "1.5",
-  stage: "submitted",
-  lede: "Collections your way, and a PlainMind that's easier for everyone to read and use.",
+  version: "1.6",
+  stage: "planning",
+  lede: "PlainMind on iPhone Duo, made for the outside screen and the inside one.",
   items: [
     {
-      title: "Make your own collections",
-      body: "Start a collection yourself and put any save in it by hand. It can also gather on its own: saves whose note mentions its name join by themselves.",
-    },
-    {
-      title: "Take a save out of any collection",
-      body: "Even one PlainMind suggested. It stays out, and everything else the collection gathers keeps arriving.",
-    },
-    {
-      title: "Collections that explain themselves",
-      body: "Each collection opens with what it gathers and how to add more, so you can see why a save is there.",
-    },
-    {
-      title: "Easier to read, at any size",
-      body: "Text and buttons that meet the WCAG AA contrast standard in light and dark, Dynamic Type at every size including the largest, and VoiceOver that reads each save in full.",
+      title: "PlainMind on iPhone Duo",
+      body: "The outside screen keeps the phone layout you know. Unfold it, and your library makes use of the larger screen, picking up right where you were.",
     },
   ],
 };
@@ -88,8 +76,15 @@ const NEXT = {
 /* The version on the App Store and the day it was released (App Store
  * Connect → History), set on release day in Phase 9. Only the hero pill's
  * fallback when Apple's lookup refuses the site's server. */
-// iOS 1.4: Ready for Distribution 2026-10-20 10:47 PT (App Store Connect → History).
-const LIVE = { version: "1.4", releaseDate: "2026-10-20T17:47:00Z" };
+// iPhone and iPad 1.5: Ready for Distribution 2026-10-25 10:59 PT (App Store
+// Connect → History).
+const LIVE = { version: "1.5", releaseDate: "2026-10-25T17:59:00Z" };
+if (NEXT.version === LIVE.version) {
+  // On a release day, replace NEXT with whatever is scoped next, or the
+  // roadmap would say the version that just shipped is "coming".
+  console.error(`sync-roadmap: NEXT is still ${NEXT.version}, the version now live. Set the next release.`);
+  process.exit(1);
+}
 if (!/^\d{4}-\d{2}-\d{2}T/.test(LIVE.releaseDate)) {
   console.error(`sync-roadmap: LIVE ${LIVE.version} has no release time yet. Set it on release day.`);
   process.exit(1);
@@ -111,10 +106,6 @@ const AFTER = null;
 const EXPLORING = {
   lede: "Real candidates with real groundwork behind them. Which of these lands, and when, depends on what people actually ask for.",
   items: [
-    {
-      title: "PlainMind on iPhone Duo",
-      body: "The phone layout on the outside screen; unfold it and your library opens out into list and detail side by side, right where you were.",
-    },
     {
       title: "Search in your own words",
       body: "Type \u201cthat recipe I saved in the spring\u201d and PlainMind turns it into the right filters, on your device, with nothing sent anywhere.",

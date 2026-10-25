@@ -24,6 +24,25 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    // Released on iPhone and iPad 2026-10-25 10:59 PT (App Store Connect →
+    // History). The Mac was still on 1.4 that day.
+    "id": "v1-5",
+    "version": "1.5",
+    "iso": "2026-10-25",
+    "date": "25 October 2026",
+    "headline": "Collections, your way.",
+    "items": [
+      "Make a collection yourself. New Collection is in the Library's ⋯ menu under Collections, in Manage Collections, and in the sidebar on iPad and Mac. It can also gather on its own: saves whose note mentions its name join by themselves.",
+      "Put any save in a collection by hand: Add to Collection in its ⋯ menu, swipe a save in your library, or select several and choose Collection. On the Mac, right-click.",
+      "Take a save out of a collection with a long press on its page, even one PlainMind suggested. It stays out, and everything else the collection gathers keeps arriving.",
+      "Each collection opens with what it gathers and how to add more, so you can see why a save is there.",
+      "Easier to read. Secondary text, labels and buttons now meet the WCAG AA contrast standard, in light and dark.",
+      "Larger text works throughout. Titles, labels and cards follow your text size, and at the largest sizes long titles wrap instead of being cut off.",
+      "VoiceOver reads each save in full: its type, title, source and date.",
+      "Screen titles match across the app, and the first run is a page shorter."
+    ]
+  },
+  {
     // Released on iOS 2026-10-20 10:47 PT; on the Mac 2026-10-25 10:59 PT
     // (App Store Connect → History). The Mac lines went back on Mac release day.
     "id": "v1-4",

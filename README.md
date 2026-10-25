@@ -120,6 +120,58 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Release day 2026-10-25: iOS 1.5 and macOS 1.4 released
+
+Both went out 2026-10-25 at 10:59 PT (App Store Connect → History).
+
+**Mac release day:** the Mac lines held back on 1.4's iOS day came back:
+- the 1.4 release entry;
+- the hero headline "PlainMind on the Mac";
+- "iPhone, iPad or Mac" in the intro;
+- the press kit's platforms line and Mac paragraph.
+
+**1.5 release day:** `release-day/1.5` merged:
+- pick-by-hand copy;
+- the header card in the hero;
+- 1.5 app colours;
+- press kit "What's new in 1.5";
+- the 1.5 release entry, dated 25 October 2026.
+
+**Roadmap:** `NEXT` is **1.6 · in planning: iPhone Duo**, the one release item decided for 1.6. Duo left Exploring, and its copy no longer promises "list and detail side by side", which may not fit the 466pt outer screen.
+
+**Consistency fixes:**
+- The press kit's version line says "1.5 on iPhone and iPad; 1.4 on Mac". macOS 1.5 wasn't created yet: App Store Connect allowed no new macOS version while 1.4 was in review.
+- The founders page said reading view "Shipped in 1.1". It shipped in 1.3.
+- The founders page said founders can "vote" on the roadmap. There's no voting (decided against), so it now says "tell us what you want most".
+
+**Still inconsistent until macOS 1.5 ships:** the 1.5 release notes and press section mention the Mac ("the sidebar on iPad and Mac", "On the Mac, right-click"), but the Mac runs 1.4.
+
+## Release day 1.5: `release-day/1.5` (prepared 2026-10-20, branched from release-day/1.4)
+
+Merge on 1.5's release day, after 1.4's branch is in `main`.
+
+**Mac first.** This branch says "iPhone, iPad and Mac" (intro, press kit). If
+macOS 1.4 is still not out on 1.5's release day, hold those words back as on
+1.4's day (see "1.4 released on iOS; the Mac follows"). Re-merge `main` first
+so the Mac release-day restore is included.
+
+**What the branch changes:**
+- Collections copy, "sorts itself" → "or pick by hand", in four places:
+  - the intro
+  - How it works: "Collections, found or made"
+  - the capture section
+  - Help: "Can I make my own?"
+- The hero mock's collection page opens with the 1.5 header card.
+- The mocks take the 1.5 app colours: the darker greys and the adjusted type
+  colours, through `sync-app-tokens.mjs`.
+- The press kit has "What's new in 1.5".
+- The release history gains 1.5.
+
+**On the day:**
+- Fill the 1.5 dates, as for 1.4.
+- **Set `NEXT` to the next scoped release.** `sync-roadmap.mjs` refuses while
+  `NEXT` is still the version now live.
+
 ## Release day 1.4: this branch (prepared 2026-10-20, merge only when 1.4 is live)
 
 `release-day/1.4` holds every website change 1.4's release makes. Merge it on

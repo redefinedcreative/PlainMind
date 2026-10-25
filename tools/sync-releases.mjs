@@ -24,9 +24,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
-    // Released on iOS 2026-10-20 10:47 PT (App Store Connect → History).
-    // MAC RELEASE DAY: macOS 1.4 was still in review, so the Mac line and the
-    // Mac half of the first-run line are held back (README, "Mac release day").
+    // Released on iOS 2026-10-20 10:47 PT; on the Mac 2026-10-25 10:59 PT
+    // (App Store Connect → History). The Mac lines went back on Mac release day.
     "id": "v1-4",
     "version": "1.4",
     "iso": "2026-10-20",
@@ -35,7 +34,8 @@ const RELEASES = [
     "items": [
       "Reading mode has a table of contents. Long articles list their sections at the bottom of the page. Tap one to jump there. While Listen is reading, it jumps the voice there too.",
       "Download a better voice while Listen is playing and it switches over at the next paragraph.",
-      "The first run shows the device you're holding: an iPad on iPad.",
+      "PlainMind on the Mac. Save from Safari with Share to PlainMind, and read your library in a window with the sidebar. One purchase covers iPhone, iPad and Mac, and Pro syncs all three.",
+      "The first run shows the device you're holding: an iPad on iPad, a Mac on the Mac.",
       "Highlights and notes. In reading mode, select a passage and choose Highlight, and add a note if you like. Your highlights are listed on the item, and tapping one takes you back to it. Everything you've highlighted is together in Highlights, by article or passage by passage.",
       "A copy that outlives the link. PlainMind keeps each article and its images, so if the page disappears from the web, your copy doesn't. See how much space it uses, or turn it off, in Settings. Pro.",
       "Tidy your sources. Merge two sources that are really one site, and hide the ones that are just noise; your saves stay exactly as they are. Merging is Pro; hiding is free.",

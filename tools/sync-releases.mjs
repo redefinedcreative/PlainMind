@@ -24,6 +24,19 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    // Released on iPhone and iPad 2026-10-26 11:57 AM PT (App Store Connect →
+    // History). Same words as `ReleaseNotes.swift` 1.5.1.
+    "id": "v1-5-1",
+    "version": "1.5.1",
+    "iso": "2026-10-26",
+    "date": "26 October 2026",
+    "headline": "A couple of fixes.",
+    "items": [
+      "On iPhone Duo, an item's page now stays clear of the bar down the side of the screen, on the outer and inner displays.",
+      "The Save button in the share sheet is easier to read, in light and dark."
+    ]
+  },
+  {
     // Released on iPhone and iPad 2026-10-25 10:59 PT (App Store Connect →
     // History). The Mac was still on 1.4 that day.
     "id": "v1-5",

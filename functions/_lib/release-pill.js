@@ -41,10 +41,15 @@ export function pillFor(live, status, now = new Date()) {
     return { state: "coming", lead: `Coming soon in ${next.version}`, rest: headlines[next.version], href: "/roadmap/" };
   }
 
+  // A bug-fix release (1.5.1) has no line of its own: it keeps its version's
+  // (1.5), or shipping a fix would end "New in 1.5" early (2026-10-26). The
+  // two weeks run from Apple's date, so from the fix's release.
+  const minor = String(live.version).split(".").slice(0, 2).join(".");
+  const shown = headlines[live.version] ? live.version : headlines[minor] ? minor : null;
   const released = live.releaseDate ? new Date(live.releaseDate) : null;
   const ageDays = released ? (now - released) / 86400000 : Infinity;
-  if (headlines[live.version] && ageDays >= 0 && ageDays <= NEW_FOR_DAYS) {
-    return { state: "new", lead: `New in ${live.version}`, rest: headlines[live.version], href: "/releases/" };
+  if (shown && ageDays >= 0 && ageDays <= NEW_FOR_DAYS) {
+    return { state: "new", lead: `New in ${shown}`, rest: headlines[shown], href: "/releases/" };
   }
 
   return { state: "current", lead: "Now on the App Store", rest: `v${live.version}`, href: APP_STORE_URL };

@@ -76,9 +76,9 @@ const NEXT = {
 /* The version on the App Store and the day it was released (App Store
  * Connect → History), set on release day in Phase 9. Only the hero pill's
  * fallback when Apple's lookup refuses the site's server. */
-// iPhone and iPad 1.5: Ready for Distribution 2026-10-25 10:59 PT (App Store
-// Connect → History).
-const LIVE = { version: "1.5", releaseDate: "2026-10-25T17:59:00Z" };
+// iPhone and iPad 1.5.1: Ready for Distribution 2026-10-26 11:57 AM PT (App
+// Store Connect → History; Apple's lookup says 18:57:05Z). 1.5 was 2026-10-25.
+const LIVE = { version: "1.5.1", releaseDate: "2026-10-26T18:57:05Z" };
 if (NEXT.version === LIVE.version) {
   // On a release day, replace NEXT with whatever is scoped next, or the
   // roadmap would say the version that just shipped is "coming".

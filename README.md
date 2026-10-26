@@ -120,6 +120,26 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Release day 2026-10-26: iOS 1.5.1 released
+
+Released on iPhone and iPad 2026-10-26 11:57 AM PT (App Store Connect →
+History). It brings the new store name "PlainMind: Save & Organize" and the
+subtitle "Read Later, Links & Bookmarks" to iPhone. The Mac gets them with
+macOS 1.5, still in review.
+
+- **Release entry 1.5.1** ("A couple of fixes."), the same words as the app's
+  What's New. `LIVE` is 1.5.1, at Apple's release time.
+- **Press kit:** "1.5.1 on iPhone and iPad (October 26, 2026); 1.4 on Mac".
+- **Hero pill fix (`functions/_lib/release-pill.js`):** headlines are keyed by
+  version, and Apple now reports 1.5.1, which has none, so the pill would have
+  dropped "New in 1.5" 12 days early. A bug-fix release now shows its
+  version's line (1.5.1 → "New in 1.5: Make your own collections"), for 14
+  days from the fix's release date. Checked with node against: 1.5.1 live,
+  1.5 live, after 15 days, 1.6 submitted, an old x.y.z, and an unknown 2.0.
+
+**When macOS 1.5 is released:** the press line becomes "1.5.1 on iPhone and
+iPad; 1.5 on Mac", and the Mac lines in the 1.5 notes are true at last.
+
 ## Release day 2026-10-25: iOS 1.5 and macOS 1.4 released
 
 Both went out 2026-10-25 at 10:59 PT (App Store Connect → History).

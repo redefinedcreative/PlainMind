@@ -24,6 +24,18 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    // Released on iPhone and iPad 2026-10-27 11:26 AM PT (Apple's lookup:
+    // 18:26:17Z). Same words as `ReleaseNotes.swift` 1.5.2.
+    "id": "v1-5-2",
+    "version": "1.5.2",
+    "iso": "2026-10-27",
+    "date": "27 October 2026",
+    "headline": "A fix for long website names.",
+    "items": [
+      "Long website names no longer push an item's page past the edge of the screen. A long name now ends in \"…\"."
+    ]
+  },
+  {
     // Released on iPhone and iPad 2026-10-26 11:57 AM PT (App Store Connect →
     // History). Same words as `ReleaseNotes.swift` 1.5.1.
     "id": "v1-5-1",

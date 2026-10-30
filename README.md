@@ -120,6 +120,25 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Release day 2026-10-30 log: iOS 1.5.2 and macOS 1.5 released
+
+- **iOS 1.5.2** was released 2026-10-27 at 11:26 AM PT (Apple's lookup:
+  18:26:17Z). It contains one fix: a long website name in an item's type and
+  source pill used to push the page past the screen edges; now it ends in "…".
+- **macOS 1.5** was released by the user before 2026-10-30. Exact time not
+  recorded: App Store Connect had signed out, and Apple's lookup shows only the
+  iOS version for this universal app.
+- Changes:
+  - release entry 1.5.2 (same words as the app's What's New);
+  - `LIVE` 1.5.2;
+  - press line: "1.5.2 on iPhone and iPad (October 27, 2026); 1.5 on Mac".
+  - The pill shows "New in 1.5" until 14 days after 1.5.2 (the x.y.z rule).
+- **Consistency:** with the Mac on 1.5, the 1.5 notes' Mac lines are true now,
+  and the store name "PlainMind: Save & Organize" is on both platforms. No
+  other page described the Mac as 1.4.
+- **Still owed for the Mac:** the long-source pill fix. iOS has it in 1.5.2; the
+  Mac (same item page) needs macOS 1.5.2, or it comes with 1.6.
+
 ## Release day 2026-10-26: iOS 1.5.1 released
 
 Released on iPhone and iPad 2026-10-26 11:57 AM PT (App Store Connect →

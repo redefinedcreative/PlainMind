@@ -120,6 +120,16 @@ It rewrites all in-sync pages (idempotent — safe to run anytime). **Do not han
 - **Footer social icons fixed** — they referenced the inline sprite (`#icon-x`), which the new `welcome/` page doesn't embed, so they were blank there. Switched the shared footer partial to the external sprite (`/assets/icons.svg#icon-x`) so they render on every page; re-synced.
 - **Root-cause fix for the recurring CSS staleness.** `welcome-plus.css` sits at the web root and matched neither `_headers` `no-cache` rule (`/styles.css`, `/js/*`), so browsers cached it across deploys. Added `/welcome-plus.css → Cache-Control: no-cache`. Removed the now-orphaned `js/welcome.js` (replaced by `js/welcome-plus.js`).
 
+## Demo article for the App Store preview video (2026-11-01)
+
+`public/demo/lisbon/` is a sample article ("Three slow days in Lisbon") that the
+iPhone app preview video opens in Safari and saves to PlainMind, so the address
+bar reads plainmind.app instead of a local server. Approved by the user
+2026-11-01. It is unique on purpose: no shared header or footer, not linked
+from any page, not in the sitemap, and kept out of search by a `noindex` meta
+tag plus `X-Robots-Tag` for `/demo/*` in `_headers`. Its last line says what it
+is. Remove it if the preview video is ever retired.
+
 ## Release day 2026-10-30 log: iOS 1.5.2 and macOS 1.5 released
 
 - **iOS 1.5.2** was released 2026-10-27 at 11:26 AM PT (Apple's lookup:

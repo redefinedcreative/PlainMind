@@ -39,3 +39,7 @@
   Cache-Control: no-cache
 /welcome-plus.css
   Cache-Control: no-cache
+
+# The sample article filmed in the App Store preview video: reachable, never indexed.
+/demo/*
+  X-Robots-Tag: noindex, nofollow

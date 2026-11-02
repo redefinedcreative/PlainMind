@@ -130,6 +130,27 @@ from any page, not in the sitemap, and kept out of search by a `noindex` meta
 tag plus `X-Robots-Tag` for `/demo/*` in `_headers`. Its last line says what it
 is. Remove it if the preview video is ever retired.
 
+## Release day 2026-11-02: iOS 1.6 released
+
+- **iOS 1.6** (build 193) was released 2026-11-02 at 10:01 AM PST (App Store
+  Connect → History). At 08:02 PST Apple's lookup still served 1.5.2, so the
+  pill reads "New in 1.5" until Apple's lookup catches up, then "New in 1.6:
+  Made for iPhone Duo" for 14 days. `LIVE` uses the minute from App Store Connect.
+- **macOS 1.5.2** shows Ready for Distribution in App Store Connect the same
+  day, so the Mac has the long-source pill fix.
+- Changes:
+  - release entry 1.6 (same words as the app's What's New);
+  - `LIVE` 1.6; `HERO_HEADLINES["1.6"]` = "Made for iPhone Duo";
+  - press line: "1.6 on iPhone and iPad (November 2, 2026); 1.5.2 on Mac";
+  - press kit "What's new in 1.6".
+- **No next release on the roadmap.** Nothing after 1.6 is scoped, so `NEXT`
+  is now `null` and the Upcoming tab shows only Exploring. `sync-roadmap.mjs`
+  and `release-status.json` accept a null `NEXT`; the pill treats it as "no
+  release in review". Set `NEXT` again when the next scope locks (Phase 4).
+- **Mac:** the 1.6 lines (Duo, collection sorts and swipes) are iPhone and
+  iPad only until macOS 1.6. The press kit's 1.6 section names iPhone Duo
+  only; its sort and swipe line is unqualified, which the Mac lacks until then.
+
 ## Release day 2026-10-30 log: iOS 1.5.2 and macOS 1.5 released
 
 - **iOS 1.5.2** was released 2026-10-27 at 11:26 AM PT (Apple's lookup:

@@ -24,6 +24,22 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    // Released on iPhone and iPad 2026-11-02 10:01 AM PT (App Store Connect →
+    // History). Same words as `ReleaseNotes.swift` 1.6. The Mac is on 1.5.2.
+    "id": "v1-6",
+    "version": "1.6",
+    "iso": "2026-11-02",
+    "date": "2 November 2026",
+    "headline": "Made for iPhone Duo, with tidier collections.",
+    "items": [
+      "On iPhone Duo, unfold to see your library and the save you're reading side by side. Fold it again and you're still on that save.",
+      "A collection's page starts with one line: how many saves it holds, and how they got there.",
+      "Sort a collection the way you sort your library: newest, oldest or A to Z. Each collection remembers its own.",
+      "Swipe a save in a collection: right to share it or add it to another collection, left to remove it from this one.",
+      "Your library remembers its sort, too."
+    ]
+  },
+  {
     // Released on iPhone and iPad 2026-10-27 11:26 AM PT (Apple's lookup:
     // 18:26:17Z). Same words as `ReleaseNotes.swift` 1.5.2.
     "id": "v1-5-2",

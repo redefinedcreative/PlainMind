@@ -55,17 +55,10 @@ const STAGES = {
  * are deliberately not grouped into a tidier story: this page's job is to say
  * what is actually coming, and the dev list is the thing it has to agree with.
  * ────────────────────────────────────────────────────────────────────────── */
-const NEXT = {
-  version: "1.6",
-  stage: "planning",
-  lede: "PlainMind on iPhone Duo, made for the outside screen and the inside one.",
-  items: [
-    {
-      title: "PlainMind on iPhone Duo",
-      body: "The outside screen keeps the phone layout you know. Unfold it, and your library makes use of the larger screen, picking up right where you were.",
-    },
-  ],
-};
+// Null when nothing after the live version is scoped yet (1.6 release day,
+// 2026-11-02): the page drops the group rather than promise an undecided
+// release. Set it when the next scope locks (Phase 4).
+const NEXT = null;
 
 /* ── Homepage hero pill ──────────────────────────────────────────────────────
  * One short line per version — what the hero pill says while the version is
@@ -76,10 +69,10 @@ const NEXT = {
 /* The version on the App Store and the day it was released (App Store
  * Connect → History), set on release day in Phase 9. Only the hero pill's
  * fallback when Apple's lookup refuses the site's server. */
-// iPhone and iPad 1.5.2: released 2026-10-27 11:26 AM PT (Apple's lookup says
-// 18:26:17Z). 1.5.1 was 2026-10-26, 1.5 was 2026-10-25.
-const LIVE = { version: "1.5.2", releaseDate: "2026-10-27T18:26:17Z" };
-if (NEXT.version === LIVE.version) {
+// iPhone and iPad 1.6: released 2026-11-02 10:01 AM PST (App Store Connect →
+// History; Apple's lookup still served 1.5.2 at 08:02 PST). 1.5.2 was 2026-10-27.
+const LIVE = { version: "1.6", releaseDate: "2026-11-02T18:01:00Z" };
+if (NEXT && NEXT.version === LIVE.version) {
   // On a release day, replace NEXT with whatever is scoped next, or the
   // roadmap would say the version that just shipped is "coming".
   console.error(`sync-roadmap: NEXT is still ${NEXT.version}, the version now live. Set the next release.`);
@@ -94,6 +87,7 @@ const HERO_HEADLINES = {
   "1.3": "PlainMind on iPad",
   "1.4": "PlainMind on the Mac",
   "1.5": "Make your own collections",
+  "1.6": "Made for iPhone Duo",
 };
 
 /* ── The release after next ──────────────────────────────────────────────────
@@ -181,13 +175,13 @@ ${items(list)}
 }
 
 function upcoming() {
-  const stage = STAGES[NEXT.stage];
-  if (!stage) {
+  const stage = NEXT && STAGES[NEXT.stage];
+  if (NEXT && !stage) {
     console.error(`✗ unknown stage "${NEXT.stage}" — use one of: ${Object.keys(STAGES).join(", ")}`);
     process.exit(2);
   }
   return [
-    group({
+    NEXT && group({
       title: "Next release",
       chip: `${NEXT.version} · ${stage}`,
       chipMod: " rm-chip--next",
@@ -247,7 +241,7 @@ for (const t of TARGETS) {
 {
   const path = join(ROOT, "public/data/release-status.json");
   const body = JSON.stringify({
-    next: { version: NEXT.version, stage: NEXT.stage },
+    next: NEXT && { version: NEXT.version, stage: NEXT.stage },
     live: LIVE,
     headlines: HERO_HEADLINES,
   }, null, 2) + "\n";
@@ -265,5 +259,5 @@ for (const t of TARGETS) {
 
 if (CHECK) {
   if (stale) process.exit(1);
-  console.log(`✓ roadmap in sync — ${NEXT.version} is "${STAGES[NEXT.stage]}"`);
+  console.log(NEXT ? `✓ roadmap in sync — ${NEXT.version} is "${STAGES[NEXT.stage]}"` : "✓ roadmap in sync — no next release scoped");
 }

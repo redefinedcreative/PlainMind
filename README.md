@@ -132,8 +132,11 @@ is. Remove it if the preview video is ever retired.
 
 ## Release day 2026-11-02: iOS 1.6 released
 
-- **iOS 1.6** (build 193) was released 2026-11-02 at 10:01 AM PST (App Store
-  Connect → History). At 08:02 PST Apple's lookup still served 1.5.2, so the
+- **iOS 1.6** (build 193) was released 2026-11-02 at 10:01 AM CST, 16:01 UTC (App Store
+  Connect → History). App Store Connect shows this Mac's time zone, Central
+  since 2026-10-31, not Pacific: the first push said 18:01 UTC, two hours in
+  the future, and the pill fell back to "Now on the App Store" until fixed.
+  At 10:06 CST Apple's lookup still served 1.5.2, so the
   pill reads "New in 1.5" until Apple's lookup catches up, then "New in 1.6:
   Made for iPhone Duo" for 14 days. `LIVE` uses the minute from App Store Connect.
 - **macOS 1.5.2** shows Ready for Distribution in App Store Connect the same

@@ -69,9 +69,9 @@ const NEXT = null;
 /* The version on the App Store and the day it was released (App Store
  * Connect → History), set on release day in Phase 9. Only the hero pill's
  * fallback when Apple's lookup refuses the site's server. */
-// iPhone and iPad 1.6: released 2026-11-02 10:01 AM CST (App Store Connect →
-// History, in this Mac's Central time; Apple's lookup still served 1.5.2 at 10:06 CST). 1.5.2 was 2026-10-27.
-const LIVE = { version: "1.6", releaseDate: "2026-11-02T16:01:00Z" };
+// iPhone and iPad 1.6.1: released 2026-11-03 12:49 PM CST (App Store Connect →
+// History, in this Mac's Central time; Apple's lookup still served 1.6 at 12:51 CST). 1.6 was 2026-11-02.
+const LIVE = { version: "1.6.1", releaseDate: "2026-11-03T18:49:00Z" };
 if (NEXT && NEXT.version === LIVE.version) {
   // On a release day, replace NEXT with whatever is scoped next, or the
   // roadmap would say the version that just shipped is "coming".

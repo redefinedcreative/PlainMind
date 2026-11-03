@@ -130,6 +130,23 @@ from any page, not in the sitemap, and kept out of search by a `noindex` meta
 tag plus `X-Robots-Tag` for `/demo/*` in `_headers`. Its last line says what it
 is. Remove it if the preview video is ever retired.
 
+## Release day 2026-11-03: iOS 1.6.1 released
+
+- **iOS 1.6.1** (build 196) was released 2026-11-03 at 12:49 PM CST, 18:49 UTC
+  (App Store Connect → History). It contains one fix: when a save from the
+  share sheet completed a collection suggestion, the suggestion appeared only
+  on a later visit; now it shows up as soon as you open PlainMind. 1.6.1 also
+  brought the first App Store preview video (iPhone).
+- At 12:51 CST Apple's lookup still served 1.6. The pill reads "New in 1.6:
+  Made for iPhone Duo" either way (the x.y.z rule), and its 14 days run from
+  1.6.1's date once Apple's lookup catches up.
+- Changes:
+  - release entry 1.6.1 (same words as the app's What's New);
+  - `LIVE` 1.6.1;
+  - press line: "1.6.1 on iPhone and iPad (November 3, 2026); 1.5.2 on Mac".
+- **Mac:** macOS 1.6 is still Waiting for Review. When it is released, the
+  press line's Mac half and the 1.6 notes' Mac caveats change then.
+
 ## Release day 2026-11-02: iOS 1.6 released
 
 - **iOS 1.6** (build 193) was released 2026-11-02 at 10:01 AM CST, 16:01 UTC (App Store

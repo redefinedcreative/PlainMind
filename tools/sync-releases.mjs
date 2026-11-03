@@ -24,6 +24,18 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /* ── the release history, newest first ──────────────────────────────────── */
 const RELEASES = [
   {
+    // Released on iPhone and iPad 2026-11-03 12:49 PM CST, 18:49 UTC (App Store
+    // Connect → History). Same words as `ReleaseNotes.swift` 1.6.1. The Mac is on 1.5.2.
+    "id": "v1-6-1",
+    "version": "1.6.1",
+    "iso": "2026-11-03",
+    "date": "3 November 2026",
+    "headline": "Suggestions show up sooner.",
+    "items": [
+      "When a save from the share sheet completes a collection suggestion, the suggestion now shows up as soon as you open PlainMind, not on a later visit."
+    ]
+  },
+  {
     // Released on iPhone and iPad 2026-11-02 10:01 AM CST (App Store Connect →
     // History, shown in this Mac's Central time). Same words as `ReleaseNotes.swift` 1.6. The Mac is on 1.5.2.
     "id": "v1-6",
